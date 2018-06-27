@@ -3,13 +3,11 @@ import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import {Typography, TextField, Button} from '@material-ui/core/';
-import Login from "./Components/Login"
+import {connect} from 'react-redux'
+import Login from "./Components/Login";
+
 
 class App extends Component {
-  state= {
-    name: "",
-    password: "",
-  }
 
   handleChange = (event) => {
 
@@ -21,7 +19,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <Login />
@@ -30,4 +27,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    recording: state.recording,
+    effects: state.effects
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
