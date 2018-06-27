@@ -5,23 +5,28 @@ import Paper from '@material-ui/core/Paper';
 import {Typography, TextField, Button} from '@material-ui/core/';
 import {connect} from 'react-redux'
 import Login from "./Components/Login";
-
+import Recorder from './Components/Recorder'
+import Register from './Components/Register'
 
 class App extends Component {
 
-  handleChange = (event) => {
+state = {
+  loginScreen: true
+}
 
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-  }
-
-
-
+swapToRegister = () => {
+  this.setState({
+    loginScreen: !this.state.loginScreen
+  })
+}
   render() {
     return (
-      <div className="App">
-        <Login />
+      <div className="App">'
+        <Recorder />
+        {this.state.loginScreen ?
+          <Login swapToRegister={this.swapToRegister}/> :
+          <Register swapToRegister={this.swapToRegister}/>}
+
       </div>
     );
   }

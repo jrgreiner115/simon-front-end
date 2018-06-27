@@ -4,7 +4,7 @@ import {Paper, Typography, TextField, Button} from '@material-ui/core/';
 
 class Login extends Component {
   state= {
-    name: "",
+    username: "",
     password: "",
   }
 
@@ -17,6 +17,11 @@ class Login extends Component {
     console.log("I submitted!");
   }
 
+  handleClick = (event) => {
+    this.props.swapToRegister()
+  }
+
+
   render() {
     return (<div className='outer-div'>
       <Paper  className='Input-Paper'elevation={1}>
@@ -24,7 +29,7 @@ class Login extends Component {
           <TextField
           id="name"
           label="username"
-          name="name"
+          name="username"
           value={this.state.name}
           onChange={this.handleChange}
           margin="normal"
@@ -34,6 +39,7 @@ class Login extends Component {
           label="password"
           type="password"
           name="password"
+          value={this.state.password}
           onChange={this.handleChange}
           margin="normal"
           />
@@ -47,6 +53,7 @@ class Login extends Component {
 
       </form>
       <br />
+        <a onClick={this.handleClick}><Typography variant="caption">Don't Have an Account? Create one here</Typography></a>
       </Paper>
     </div>)
   }
