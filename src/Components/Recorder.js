@@ -27,12 +27,21 @@ handleRecording = () => {
    }
 
    onStop(recordedBlob) {
-  console.log('recordedBlob is: ', recordedBlob);
-  var voice = new Pizzicato.Sound({
-      source: recordedBlob,
-      options: {volume: 0.8}
-    }, () => voice.play())
+  console.log('recordedBlob is: ', recordedBlob.blobURL);
+  var file = {};
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', recordedBlob.blobURL, true);
+  xhr.responseType = 'blob';
+  xhr.onload = function(e) {
+    if (this.status == 200) {
+        file.file = this.response;
+        file.name = "whatever_filename.mp3";
+        file.type = "audio/mp3";
+      }
+      console.log(file);
+    }
 }
+
 
 render() {
   return(

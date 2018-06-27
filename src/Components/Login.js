@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {Paper, Typography, TextField, Button} from '@material-ui/core/';
+import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
 
 class Login extends Component {
   state= {
     username: "",
     password: "",
+    input: true,
   }
 
   handleChange = (event) => {
@@ -15,6 +16,9 @@ class Login extends Component {
   }
   handleSubmit = (event) => {
     console.log("I submitted!");
+    this.setState({
+      input: false
+    })
   }
 
   handleClick = (event) => {
@@ -24,8 +28,9 @@ class Login extends Component {
 
   render() {
     return (<div className='outer-div'>
+      <Fade in={this.state.input}>
       <Paper  className='Input-Paper'elevation={1}>
-        <form>
+        <form >
           <TextField
           id="name"
           label="username"
@@ -55,6 +60,7 @@ class Login extends Component {
       <br />
         <a onClick={this.handleClick}><Typography variant="caption">Don't Have an Account? Create one here</Typography></a>
       </Paper>
+      </Fade>
     </div>)
   }
 }

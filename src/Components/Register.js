@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {Paper, Typography, TextField, Button} from '@material-ui/core/';
+import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
 
 class Register extends Component {
   state= {
@@ -39,6 +39,7 @@ class Register extends Component {
 
   render() {
     return (<div className='outer-div'>
+      <Fade in>
       <Paper  className='Input-Paper'elevation={2}>
         <form>
           <TextField
@@ -89,6 +90,7 @@ class Register extends Component {
       <br />
       <a onClick={this.handleClick}><Typography variant="caption">Already have an Account? Click to Log in</Typography></a>
       </Paper>
+      </Fade>
     </div>)
   }
 }

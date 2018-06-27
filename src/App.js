@@ -19,9 +19,11 @@ swapToRegister = () => {
     loginScreen: !this.state.loginScreen
   })
 }
+
   render() {
     return (
       <div className="App">'
+        <p> {this.props.getRecording.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
         <Recorder />
         {this.state.loginScreen ?
           <Login swapToRegister={this.swapToRegister}/> :
@@ -41,7 +43,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    getRecording: (recording) => {
+      dispatch({
+        type: "GET_RECORDINGS",
+        payload: recording
+      })
+    }
   }
 }
 
