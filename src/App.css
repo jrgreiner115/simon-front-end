@@ -14,7 +14,7 @@ height: 100vh;
 
 .outer-div {
     position: relative;
-    top: 50%;
+    top: 40%;
     transform: perspective(1px) translateY(-50%);
 }
 
@@ -22,4 +22,8 @@ height: 100vh;
   text-align: center;
    margin: 0 auto;
    width: 1000px;
+}
+
+.Recording {
+  color: red;
 }

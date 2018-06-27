@@ -9,7 +9,7 @@ const initialState = {
      inFocus: false,
      activated: false,
      parameters: [
-
+       
      ]
     }
   ]
