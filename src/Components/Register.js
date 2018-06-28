@@ -6,8 +6,6 @@ class Register extends Component {
   state= {
     name: "",
     username: "",
-    password: "",
-    confirmPassword: "",
     invalidPassword: false
   }
 
@@ -21,10 +19,8 @@ class Register extends Component {
   }
 
   handleValidation = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
-    event.target.value !== this.state.password ?
+    const pass = document.getElementById('password-input')
+    event.target.value !== pass.value ?
     this.setState({
       invalidPassword: true
     }) :
@@ -63,8 +59,8 @@ class Register extends Component {
           label="password"
           type="password"
           name="password"
-          value={this.state.password}
-          onChange={this.handleChange}
+          // value={this.state.password}
+          // onChange={this.handleChange}
           margin="normal"
           /><br />
           <TextField
@@ -72,7 +68,7 @@ class Register extends Component {
           label="confirm password"
           type="password"
           name="confirmPassword"
-          value={this.state.confirmPassword}
+          // value={this.state.confirmPassword}
           onChange={this.handleValidation}
           error={this.state.invalidPassword}
           margin="normal"

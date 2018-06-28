@@ -3,8 +3,9 @@ import Pizzicato from 'pizzicato';
 import {ReactMic} from 'react-mic';
 import {ReactMicPlus} from 'react-mic-plus'
 import {Paper, Typography, TextField, Button, Icon} from '@material-ui/core/';
-import {FiberManualRecord, Stop} from '@material-ui/icons/'
-var lamejs = require("lamejs");
+import {connect} from 'react-redux';
+import {FiberManualRecord, Stop} from '@material-ui/icons/';
+
 
 class Recorder extends Component {
 constructor(props) {
@@ -28,43 +29,16 @@ handleRecording = () => {
      });
    }
 
-   onStop(recordedBlob) {
+   onStop = (recordedBlob) =>  {
   console.log('recordedBlob is: ', recordedBlob);
 
   var sound = new Pizzicato.Sound({
     source: 'file',
     options: { path: [recordedBlob.blobURL] }
-  }, function() {
+  }, () => {
     console.log('sound file loaded!')
-    sound.play();
+    this.props.addRecording(sound)
   });
-
-
-    // fetch('http://localhost:3500/api/v1/users', {
-    //   method: "POST",
-    //   headers:
-    // }
-  // var file = {};
-  // var xhr = new XMLHttpRequest();
-  // xhr.open('GET', recordedBlob.blobURL, true);
-  // xhr.responseType = 'blob';
-  // xhr.onload = function(e) {
-  //   if (this.status == 200) {
-  //       file.file = this.response;
-  //       file.name = "whatever_filename.mp3";
-  //       file.type = "audio/mp3";
-  //     }
-  //     console.log(file);
-  //   }
-  // var reader = new FileReader();
-  //         reader.onload = function(event) {
-  //           var fd = {};
-  //           fd["fname"] = "test.wav";
-  //           fd["data"] = event.target.result;
-  //           callback(fd);
-  //         };
-  //         reader.readAsDataURL(recordedBlob);
-  //         console.log("read blob is", reader);
 }
 
 
@@ -81,11 +55,51 @@ handleRecording = () => {
            nonstop="true"		   // nonstop specrogram
            duration={10}	   // duration of spectrogram on the screen (seconds)
        />
-        <Button className='Recording' onClick={this.handleRecording} variant="fab" color="primary" aria-label="add" mini>
-          {this.state.record ? <Stop />:<FiberManualRecord color="error" />}</Button>
+       {this.props.currentRecording === "" ?
+          "" :
+          <Button
+            className='Play'
+            onClick={() => this.props.currentRecording.play()}
+            variant="fab"
+            color="primary"
+            aria-label="add" mini>
+             {this.state.record ? <Stop />:<FiberManualRecord color="error" />}
+           </Button>}
+
+         <Button
+           className='Recording'
+           onClick={this.handleRecording}
+           variant="fab"
+           color="primary"
+           aria-label="add"
+           mini>
+          {this.state.record ?
+            <Stop /> :
+            <FiberManualRecord color="error"
+          />}
+        </Button>
+        <br /><br />
       </Paper>
     )
   }
 }
 
-export default Recorder
+const mapStateToProps = (state) => {
+  return {
+    currentRecording: state.currentRecording,
+    recording: state.recording
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addRecording: (recording) => {
+      dispatch({
+        type: "ADD_RECORDING",
+        payload: recording
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recorder);

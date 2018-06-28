@@ -23,7 +23,7 @@ swapToRegister = () => {
   render() {
     return (
       <div className="App">'
-        <p> {this.props.getRecording.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
+        <p> {this.props.recording.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
         <Recorder />
         {this.state.loginScreen ?
           <Login swapToRegister={this.swapToRegister}/> :
