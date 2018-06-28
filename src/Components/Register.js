@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
+import Adapter from '../services/adapter';
 
 class Register extends Component {
   state= {
@@ -16,6 +17,9 @@ class Register extends Component {
   }
   handleSubmit = (event) => {
     console.log("I submitted!");
+    const pass = document.getElementById('password-input')
+
+    Adapter.postUsers(this.state.name, this.state.username, pass.value)
   }
 
   handleValidation = (event) => {
