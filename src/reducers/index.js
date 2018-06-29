@@ -1,10 +1,11 @@
 const initialState = {
   authorizedUser: false,
-  currentRecording: "",
+  currentRecording: undefined,
   recording: {
     isRecorded: false,
     hasEffects: false,
-    isDownloaded: false,
+    isSaved: false,
+    isDownloaded: false
   },
   effects: [
     {effectName: '',
@@ -35,7 +36,7 @@ function reducer(state = initialState, action) {
       return {...state, authorizedUser: true};
     case "CLEAR_RECORDING":
       return {...state,
-      currentRecording: "",
+      currentRecording: undefined,
       isRecorded: false,
       hasEffects: false,
       isDownloaded: false, }

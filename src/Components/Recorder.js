@@ -30,13 +30,11 @@ stopRecording = () => {
    }
 
 onStop = (recordedBlob) =>  {
-  console.log('recordedBlob is: ', recordedBlob);
 
   var sound = new Pizzicato.Sound({
     source: 'file',
     options: { path: [recordedBlob.blobURL] }
   }, () => {
-    console.log('sound file loaded!')
     this.props.addRecording(sound)
   });
 }
@@ -48,8 +46,12 @@ listenBeforeSave = () => {
   })
 }
 
+handleClear = () => {
+  this.props.clearRecording()
+}
 
   render() {
+    console.log(this.props);
     return(
       <Paper className='Main-Paper'>
         <h5>Here's the recorder.</h5>
@@ -61,7 +63,7 @@ listenBeforeSave = () => {
           nonstop='true'
           duration={10}
             />
-          {this.props.currentRecording === "" ? <Button
+          {this.props.currentRecording === undefined ? <Button
             className='Recording'
             onClick={this.handleRecording}
             variant="fab"
@@ -75,11 +77,11 @@ listenBeforeSave = () => {
              <div>
                <Button
                  className='Play'
-                 onClick={this.listenBeforeSave}
+                 onDoubleClick={this.listenBeforeSave}
                  variant="fab"
                  color="primary"
                  aria-label="add" mini>
-                  {this.state.playing ? <Pause />:<PlayArrow />}
+                  <PlayArrow />
                 </Button>
                <Button
                  className='Save'
@@ -91,7 +93,7 @@ listenBeforeSave = () => {
               </Button>
               <Button
                 className='Save'
-                onClick={console.log("Delete")}
+                onClick={this.handleClear}
                 variant="fab"
                 color="primary"
                 aria-label="add" mini>
@@ -114,14 +116,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addRecording: (recording) => {
-      console.log("made it to dispatch?");
       dispatch({
         type: "ADD_RECORDING",
         payload: recording
       })
     },
     clearRecording: (recording) => {
-      console.log("made it to dispatch!");
+      console.log('is it deleting immediately?');
       dispatch({
         type: "CLEAR_RECORDING",
         payload: recording
