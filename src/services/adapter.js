@@ -1,19 +1,29 @@
-URL = 'http://localhost:3500/api/v1'
+const URL = 'http://localhost:3500/api/v1'
 
 
-const postUsers = (name, username, pass) => fetch(`${URL}/users`, {
+const postUsers = (userObj) => fetch(`${URL}/users`, {
   method: "POST",
   headers: {'Content-Type':'application/json'},
-  body: JSON.stringify({name: `${name}`,username:`${username}`, password: `${pass}`})
+  body: JSON.stringify({user: userObj})
 }).then(resp => resp.json())
-  .then(json => console.log(json))
+  .then(json => {localStorage.setItem("token", json.token)
+  localStorage.setItem("id", json.id)
+  localStorage.setItem("username", json.username)})
 
 
-const checkAndAddToLocalStore
+const login = (userObj) => fetch(`${URL}/sessions`, {
+  method: "POST",
+  headers: {'Content-Type':'application/json'},
+  body: JSON.stringify({user: userObj})
+}).then(resp => resp.json())
+  .then(json => {localStorage.setItem("token", json.token)
+  localStorage.setItem("id", json.id)
+  localStorage.setItem("username", json.username)})
 
 
 
 
 
 
-export default {postUsers};
+
+export default {postUsers, login};

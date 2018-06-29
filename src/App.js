@@ -7,6 +7,8 @@ import {connect} from 'react-redux'
 import Login from "./Components/Login";
 import Recorder from './Components/Recorder'
 import Register from './Components/Register'
+import LoginAndRegisterContainer from './Containers/LoginAndRegisterContainer'
+import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
 
 class App extends Component {
 
@@ -22,13 +24,17 @@ swapToRegister = () => {
 
   render() {
     return (
-      <div className="App">'
-        <p> {this.props.recording.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
+      <div className="App">
+        <p> {this.props.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
+        {/* <Router>
+          <Switch>
+            <Route path='/' component={LoginAndRegisterContainer} />
+            <Route path='/login' component={Recorder} />
+          </Switch>
+        </Router> */}
         <Recorder />
-        {this.state.loginScreen ?
-          <Login swapToRegister={this.swapToRegister}/> :
-          <Register swapToRegister={this.swapToRegister}/>}
-
+        {/*
+        {localStorage.token && localStorage.id !== 'undefined' ? <Recorder /> : <LoginAndRegisterContainer />} */}
       </div>
     );
   }
@@ -37,7 +43,8 @@ swapToRegister = () => {
 const mapStateToProps = (state) => {
   return {
     recording: state.recording,
-    effects: state.effects
+    effects: state.effects,
+    authorizedUser: state.authorizedUser
   }
 }
 

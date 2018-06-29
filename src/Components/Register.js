@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
 import Adapter from '../services/adapter';
+import {connect} from 'react-redux'
 
 class Register extends Component {
   state= {
@@ -18,8 +19,8 @@ class Register extends Component {
   handleSubmit = (event) => {
     console.log("I submitted!");
     const pass = document.getElementById('password-input')
-
-    Adapter.postUsers(this.state.name, this.state.username, pass.value)
+    let userObj = {name: this.state.name, username: this.state.username, password: pass.value}
+    Adapter.postUsers(userObj).then(() => this.props.authUser)
   }
 
   handleValidation = (event) => {
@@ -95,4 +96,23 @@ class Register extends Component {
   }
 }
 
-export default Register
+const mapStateToProps = (state) => {
+  return {
+    recording: state.recording,
+    effects: state.effects,
+    authorizedUser: state.authorizedUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authUser: (token) => {
+      dispatch({
+        type: "AUTH_USER",
+        payload: ""
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Register)

@@ -1,5 +1,5 @@
 const initialState = {
-  loggedIn: false,
+  authorizedUser: false,
   currentRecording: "",
   recording: {
     isRecorded: false,
@@ -30,7 +30,15 @@ function reducer(state = initialState, action) {
       return {...state};
     case "GET_RECORDINGS":
       console.log("action,", action);
-      return {...state, recording: action.payload}
+      return {...state, recording: action.payload};
+    case "AUTH_USER":
+      return {...state, authorizedUser: true};
+    case "CLEAR_RECORDING":
+      return {...state,
+      currentRecording: "",
+      isRecorded: false,
+      hasEffects: false,
+      isDownloaded: false, }
     default:
       return {...state};
   }

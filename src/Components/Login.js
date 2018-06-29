@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
+import Adapter from '../services/adapter';
+import {connect} from 'react-redux';
 
 class Login extends Component {
   state= {
     username: "",
-    password: "",
     input: true,
   }
 
@@ -16,9 +17,16 @@ class Login extends Component {
   }
   handleSubmit = (event) => {
     console.log("I submitted!");
+    const pass = document.getElementById('password-input-login')
+    let userObj = {username: this.state.username, password: pass.value}
+    Adapter.login(userObj).then(() => {
+      console.log('made it here');
+      this.props.authUser()})
+
     this.setState({
       input: false
     })
+
   }
 
   handleClick = (event) => {
@@ -27,6 +35,7 @@ class Login extends Component {
 
 
   render() {
+    console.log("PROPS", this.props);
     return (<div className='outer-div'>
       <Fade in={this.state.input}>
       <Paper  className='Input-Paper'elevation={1}>
@@ -40,7 +49,7 @@ class Login extends Component {
           margin="normal"
           /><br />
           <TextField
-          id="password-input"
+          id="password-input-login"
           label="password"
           type="password"
           name="password"
@@ -65,4 +74,23 @@ class Login extends Component {
   }
 }
 
-export default Login
+const mapStateToProps = (state) => {
+  return {
+    recording: state.recording,
+    effects: state.effects,
+    authorizedUser: state.authorizedUser
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    authUser: () => {
+      dispatch({
+        type: "AUTH_USER",
+        payload: ""
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

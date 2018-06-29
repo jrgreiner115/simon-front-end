@@ -27,3 +27,7 @@ height: 100vh;
 .Recording {
   color: red;
 }
+
+.Play {
+  padding-right: 10px;
+}

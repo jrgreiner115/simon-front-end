@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
 import {ReactMic} from 'react-mic';
-import {ReactMicPlus} from 'react-mic-plus'
 import {Paper, Typography, TextField, Button, Icon} from '@material-ui/core/';
 import {connect} from 'react-redux';
-import {FiberManualRecord, Stop} from '@material-ui/icons/';
+import {FiberManualRecord, Stop, PlayArrow, Pause, Save, Delete} from '@material-ui/icons/';
 
 
 class Recorder extends Component {
@@ -12,7 +11,8 @@ constructor(props) {
   super(props)
 
   this.state = {
-    record: false
+    record: false,
+    playing: false
   }
 }
 
@@ -23,13 +23,13 @@ handleRecording = () => {
     });
   }
 
-  stopRecording = () => {
+stopRecording = () => {
      this.setState({
        record: false
      });
    }
 
-   onStop = (recordedBlob) =>  {
+onStop = (recordedBlob) =>  {
   console.log('recordedBlob is: ', recordedBlob);
 
   var sound = new Pizzicato.Sound({
@@ -41,43 +41,63 @@ handleRecording = () => {
   });
 }
 
+listenBeforeSave = () => {
+  this.props.currentRecording.play()
+  this.setState({
+    playing: !this.state.playing
+  })
+}
+
 
   render() {
     return(
       <Paper className='Main-Paper'>
         <h5>Here's the recorder.</h5>
-       <ReactMicPlus
-           record={this.state.record}         // defaults -> false.  Set to true to begin recording
-           // provide css class name
-           onStop={this.onStop}        // callback to execute when audio stops recording
-           strokeColor='#a174ad'     // sound wave color
-           backgroundColor='#fff' // background color
-           nonstop="true"		   // nonstop specrogram
-           duration={10}	   // duration of spectrogram on the screen (seconds)
-       />
-       {this.props.currentRecording === "" ?
-          "" :
-          <Button
-            className='Play'
-            onClick={() => this.props.currentRecording.play()}
+        <ReactMic
+           record={this.state.record}
+          className="sound-wave"
+           onStop={this.onStop}
+          strokeColor="#a174ad"
+          nonstop='true'
+          duration={10}
+            />
+          {this.props.currentRecording === "" ? <Button
+            className='Recording'
+            onClick={this.handleRecording}
             variant="fab"
             color="primary"
-            aria-label="add" mini>
-             {this.state.record ? <Stop />:<FiberManualRecord color="error" />}
-           </Button>}
-
-         <Button
-           className='Recording'
-           onClick={this.handleRecording}
-           variant="fab"
-           color="primary"
-           aria-label="add"
-           mini>
-          {this.state.record ?
-            <Stop /> :
-            <FiberManualRecord color="error"
-          />}
-        </Button>
+            aria-label="add"
+            mini>
+           {this.state.record ?
+             <Stop /> :
+             <FiberManualRecord color="error"
+           />}</Button> :
+             <div>
+               <Button
+                 className='Play'
+                 onClick={this.listenBeforeSave}
+                 variant="fab"
+                 color="primary"
+                 aria-label="add" mini>
+                  {this.state.playing ? <Pause />:<PlayArrow />}
+                </Button>
+               <Button
+                 className='Save'
+                 onClick={console.log("Save")}
+                 variant="fab"
+                 color="primary"
+                 aria-label="add" mini>
+                 <Save/>
+              </Button>
+              <Button
+                className='Save'
+                onClick={console.log("Delete")}
+                variant="fab"
+                color="primary"
+                aria-label="add" mini>
+                <Delete/>
+             </Button>
+            </div>}
         <br /><br />
       </Paper>
     )
@@ -94,8 +114,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addRecording: (recording) => {
+      console.log("made it to dispatch?");
       dispatch({
         type: "ADD_RECORDING",
+        payload: recording
+      })
+    },
+    clearRecording: (recording) => {
+      console.log("made it to dispatch!");
+      dispatch({
+        type: "CLEAR_RECORDING",
         payload: recording
       })
     }

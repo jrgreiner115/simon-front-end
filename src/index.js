@@ -10,7 +10,7 @@ import UUID from 'uuid';
 import {Provider} from 'react-redux';
 import reducer from './reducers/index.js'
 
-const store = createStore(reducer)
+const store = createStore(reducer, null, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(
   <Provider store={store}>
