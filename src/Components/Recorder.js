@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
 import {ReactMic} from 'react-mic';
-import {Paper, Typography, TextField, Button, Icon} from '@material-ui/core/';
+import {Paper, Typography, TextField, Button, Icon, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Pause, Save, Delete} from '@material-ui/icons/';
 
@@ -50,11 +50,16 @@ handleClear = () => {
   this.props.clearRecording()
 }
 
+saveRecording = () => {
+  this.props.satisfiedWithRecording()
+}
+
   render() {
-    console.log(this.props);
     return(
+      <Fade in>
+      <div className='outer-div'>
       <Paper className='Main-Paper'>
-        <h5>Here's the recorder.</h5>
+        <br />
         <ReactMic
            record={this.state.record}
           className="sound-wave"
@@ -85,7 +90,7 @@ handleClear = () => {
                 </Button>
                <Button
                  className='Save'
-                 onClick={console.log("Save")}
+                 onClick={this.saveRecording}
                  variant="fab"
                  color="primary"
                  aria-label="add" mini>
@@ -102,6 +107,8 @@ handleClear = () => {
             </div>}
         <br /><br />
       </Paper>
+      </div>
+      </Fade>
     )
   }
 }
@@ -125,6 +132,12 @@ const mapDispatchToProps = (dispatch) => {
       console.log('is it deleting immediately?');
       dispatch({
         type: "CLEAR_RECORDING",
+        payload: recording
+      })
+    },
+    satisfiedWithRecording: (recording) => {
+      dispatch({
+        type: "SATISFIED_WITH_RECORDING",
         payload: recording
       })
     }

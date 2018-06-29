@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
 import Adapter from '../services/adapter';
 import {connect} from 'react-redux';
+import { routeActions } from 'react-router-redux'
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
   state= {
@@ -26,6 +28,7 @@ class Login extends Component {
     this.setState({
       input: false
     })
+    setTimeout(() => this.props.history.push('/record'), 500);
 
   }
 
@@ -75,11 +78,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    recording: state.recording,
-    effects: state.effects,
-    authorizedUser: state.authorizedUser
-  }
+  return state
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -93,4 +92,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))

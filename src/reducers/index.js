@@ -1,32 +1,12 @@
-const initialState = {
-  authorizedUser: false,
-  currentRecording: undefined,
-  recording: {
-    isRecorded: false,
-    hasEffects: false,
-    isSaved: false,
-    isDownloaded: false
-  },
-  effects: [
-    {effectName: '',
-     inFocus: false,
-     activated: false,
-     parameters: [
-     ]
-    }
-  ]
-}
+import {initialState} from '../index.js'
 
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_RECORDING":
     console.log(action.payload);
-    return {...state, recording: {
+    return {...state,
       isRecorded: true,
-      hasEffects: false,
-      isDownloaded: false,
-    },
-    currentRecording: action.payload};
+      currentRecording: action.payload};
     case "ADD_EFFECT":
       return {...state};
     case "GET_RECORDINGS":
@@ -38,8 +18,11 @@ function reducer(state = initialState, action) {
       return {...state,
       currentRecording: undefined,
       isRecorded: false,
-      hasEffects: false,
-      isDownloaded: false, }
+      isSaved: false, };
+    case "SATISFIED_WITH_RECORDING":
+    return {...state,
+      isRecorded: true,
+      isSaved: true, };
     default:
       return {...state};
   }
