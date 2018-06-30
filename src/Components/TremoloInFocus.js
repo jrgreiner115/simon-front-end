@@ -22,23 +22,21 @@ constructor(props) {
   }
 }
 
-componentDidMount() {
+  componentDidMount() {
 
-}
+  }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendTremoloChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendTremoloChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    console.log(event.target.checked);
-    this.props.switchTremolo(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchTremolo(event.target.checked)
+    };
 
   render() {
-    console.log("TREMOLO PROPS", this.props.mainReducer.effects.Tremolo.on);
     return (
       <div>
         <Fade in>
@@ -96,7 +94,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchTremolo: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_TREMOLO",
         payload

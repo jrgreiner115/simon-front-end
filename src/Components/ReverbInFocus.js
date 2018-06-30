@@ -26,21 +26,19 @@ componentDidMount() {
 
 }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendReverbChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendReverbChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    console.log(event.target.checked);
-    this.props.switchReverb(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchReverb(event.target.checked)
+    };
 
 
 
   render() {
-    console.log("REVERB PROPS", this.props.mainReducer.effects.Reverb.on);
     return (
       <div>
         <Fade in>
@@ -50,7 +48,6 @@ handleSwitch = name => event => {
             <Typography variant="headline">
               Reverb
             </Typography>
-            {/*  HOOK THIS UP TO A REDUX ACTION LATER THAN TURNS THE EFFECT ON/OFF*/}
             <Switch
               checked={this.props.mainReducer.effects.Reverb.on}
               onChange={this.handleSwitch("ON")}
@@ -99,7 +96,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchReverb: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_REVERB",
         payload

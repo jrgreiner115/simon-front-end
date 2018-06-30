@@ -35,14 +35,12 @@ handleChange = (event, value, name) => {
 }
 
 handleSwitch = name => event => {
-    console.log(event.target.checked);
     this.props.switchFuzz(event.target.checked)
   };
 
 
 
   render() {
-    console.log("FUZZ PROPS", this.props.mainReducer.effects.Fuzz.on);
     return (
       <div>
         <Fade in>
@@ -114,7 +112,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchFuzz: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_FUZZ",
         payload

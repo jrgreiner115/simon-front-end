@@ -33,14 +33,12 @@ handleChange = (event, value, name) => {
 }
 
 handleSwitch = name => event => {
-    console.log(event.target.checked);
     this.props.switchDelay(event.target.checked)
   };
 
 
 
   render() {
-    console.log("DELAY PROPS", this.props.mainReducer.effects.Delay.on);
     return (
       <div>
         <Fade in>
@@ -104,7 +102,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchDelay: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_DELAY",
         payload

@@ -16,6 +16,7 @@ import TremoloInFocus from './TremoloInFocus';
 import FuzzInFocus from './FuzzInFocus';
 import LowPassInFocus from './LowPassInFocus';
 import HighPassInFocus from './HighPassInFocus';
+import InFocusEffect from '../Containers/InFocusEffect'
 import EffectsGrid from './EffectsGrid'
 import SpeedDialer from './SpeedDialer'
 
@@ -24,10 +25,15 @@ class Edit extends Component {
   constructor(props){
     super(props)
 
+    this.state = {
+      displayGrid: true,
+      displayEffect: false,
+    }
   }
 
 
 componentDidMount = () => {
+
 }
 
 
@@ -41,10 +47,6 @@ pause = () => {
 
 stop = () => {
   // this.props.mainReducer.currentRecording.stop()
-}
-
-addDelay = () => {
-  console.log("CLICKED!");
 }
 
   render() {
@@ -90,16 +92,17 @@ addDelay = () => {
              </Button>
         </Paper>
         <br /> <br />
-        <EffectsGrid />
+        {this.state.displayGrid ? <EffectsGrid /> : <DelayInFocus />}
 
-        <DelayInFocus />
-        <ReverbInFocus />
+
+        <InFocusEffect />
+        {/* <ReverbInFocus />
         <DistortionInFocus />
         <FlangerInFocus />
         <TremoloInFocus />
         <FuzzInFocus />
         <LowPassInFocus />
-        <HighPassInFocus />
+        <HighPassInFocus /> */}
         <SpeedDialer />
       </div>
     )
@@ -114,25 +117,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addRecording: (recording) => {
-      dispatch({
-        type: "ADD_RECORDING",
-        payload: recording
-      })
-    },
-    clearRecording: (recording) => {
-      console.log('is it deleting immediately?');
-      dispatch({
-        type: "CLEAR_RECORDING",
-        payload: recording
-      })
-    },
-    satisfiedWithRecording: (recording) => {
-      dispatch({
-        type: "SATISFIED_WITH_RECORDING",
-        payload: recording
-      })
-    }
+
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Edit));

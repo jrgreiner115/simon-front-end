@@ -31,14 +31,12 @@ handleChange = (event, value, name) => {
 }
 
 handleSwitch = name => event => {
-    console.log(event.target.checked);
     this.props.switchDistortion(event.target.checked)
   };
 
 
 
   render() {
-    console.log("DISTORTION PROPS", this.props.mainReducer.effects.Distortion.on);
     return (
       <div>
         <Fade in>
@@ -82,7 +80,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchDistortion: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_DISTORTION",
         payload

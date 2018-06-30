@@ -28,21 +28,19 @@ componentDidMount() {
 
 }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendFlangerChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendFlangerChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    console.log(event.target.checked);
-    this.props.switchFlanger(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchFlanger(event.target.checked)
+    };
 
 
 
   render() {
-    console.log("FLANGER PROPS", this.props.mainReducer.effects.Flanger.on);
     return (
       <div>
         <Fade in>
@@ -114,7 +112,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchFlanger: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_FLANGER",
         payload

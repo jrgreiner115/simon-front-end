@@ -33,14 +33,12 @@ handleChange = (event, value, name) => {
 }
 
 handleSwitch = name => event => {
-    console.log(event.target.checked);
     this.props.switchLowPass(event.target.checked)
   };
 
 
 
   render() {
-    console.log("LOWPASS PROPS", this.props.mainReducer.effects.LowPass.on);
     return (
       <div>
         <Fade in>
@@ -98,7 +96,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchLowPass: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_LOWPASS",
         payload

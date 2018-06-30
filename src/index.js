@@ -20,7 +20,7 @@ export const initialState = {
   hasEffects: false,
   isSaved: false,
   isDownloaded: false,
-  currentEffect: "",
+  focusedEffect: "",
   effects: {
     Flanger: {
       name: "Flanger",

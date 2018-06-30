@@ -22,25 +22,23 @@ constructor(props) {
   }
 }
 
-componentDidMount() {
+  componentDidMount() {
 
-}
+  }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendHighPassChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendHighPassChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    console.log(event.target.checked);
-    this.props.switchHighPass(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchHighPass(event.target.checked)
+    };
 
 
 
   render() {
-    console.log("HIGHPASS PROPS", this.props.mainReducer.effects.HighPass.on);
     return (
       <div>
         <Fade in>

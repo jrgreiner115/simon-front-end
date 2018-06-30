@@ -58,25 +58,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addRecording: (recording) => {
-      dispatch({
-        type: "ADD_RECORDING",
-        payload: recording
-      })
-    },
-    clearRecording: (recording) => {
-      console.log('is it deleting immediately?');
-      dispatch({
-        type: "CLEAR_RECORDING",
-        payload: recording
-      })
-    },
-    satisfiedWithRecording: (recording) => {
-      dispatch({
-        type: "SATISFIED_WITH_RECORDING",
-        payload: recording
-      })
-    }
   }
 }
 
