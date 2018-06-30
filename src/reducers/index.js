@@ -29,16 +29,33 @@ function reducer(state = initialState, action) {
         Delay: {...state.effects.Delay, settings:
         action.payload}}}
     case "ADD_EFFECT":
-      console.log(...state.effects[action.payload]);
+      console.log("ADD EFFECT", state.effects[action.payload]);
       var effectName = action.payload
       return {
       ...state,
       effects: state.effects,
       [effectName]: {...state.effects[effectName],
       active: true}
-      }
+    };
+    case "ADD_DELAY":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Delay: {
+            ...state.effects.Delay,
+            on: true,
+            active: true}}};
+    case "SWITCH_DELAY":
+    console.log("SWITCH", action.payload);
+    return {...state,
+      effects: {
+        ...state.effects,
+        Delay: {
+          ...state.effects.Delay,
+          on: action.payload,
+          }}};
     default:
-      return {...state};
+      return {...state}
   }
 }
 

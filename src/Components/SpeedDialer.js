@@ -46,11 +46,9 @@ class SpeedDialer extends Component {
   };
 
   handleClick = (name) => {
-    console.log(name);
     this.setState({
       open: !this.state.open,
     });
-    this.props.addEffect(name)
   };
 
   handleOpen = () => {
@@ -67,6 +65,15 @@ class SpeedDialer extends Component {
     });
   };
 
+  handleDelayClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addDelay()
+  };
+
+
+
 
   render() {
     const { classes } = this.props;
@@ -76,7 +83,7 @@ class SpeedDialer extends Component {
     if (typeof document !== 'undefined') {
       isTouch = 'ontouchstart' in document.documentElement;
     }
-
+    // console.log("PROPS", this.props)
     return (
       <div className={classes.root}>
         <SpeedDial
@@ -99,6 +106,12 @@ class SpeedDialer extends Component {
               onClick={(name) => this.handleClick(action.name)}
             />
           ))}
+          <SpeedDialAction
+            key="Delay"
+            icon={<SaveIcon />}
+            tooltipTitle={"Delay"}
+            onClick={(name) => this.handleDelayClick("Delay")}
+          />
         </SpeedDial>
       </div>
     );
@@ -111,10 +124,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addEffect: (effectName) => {
+    addDelay: () => {
+      dispatch({
+        type: "ADD_DELAY",
+        payload: "did it!"
+      })
+    },
+    addEffect: (name) => {
       dispatch({
         type: "ADD_EFFECT",
-        payload: effectName
+        payload: name
       })
     },
     }
@@ -124,4 +143,4 @@ SpeedDialer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(SpeedDialer));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SpeedDialer));

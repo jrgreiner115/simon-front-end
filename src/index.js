@@ -36,7 +36,7 @@ export const initialState = {
     Delay: {
       name: "Delay",
       on: false,
-      active: true,
+      active: false,
       settings: {
       time: 0,
       feedback: 0,
@@ -49,8 +49,8 @@ export const initialState = {
       settings: {
       gain: 0.4
     }},
-    Delay: {
-      name: 'Delay',
+    Reverb: {
+      name: 'Reverb',
       on: false,
       active: false,
       settings: {
