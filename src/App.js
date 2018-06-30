@@ -11,6 +11,7 @@ import MainApplication from './Containers/MainApplication'
 import LoginAndRegisterContainer from './Containers/LoginAndRegisterContainer'
 import {BrowserRouter as Router, Route, Switch, Link, Redirect, withRouter} from 'react-router-dom';
 import { routeActions } from 'react-router-redux';
+import Edit from './Components/Edit'
 
 
 
@@ -29,15 +30,15 @@ swapToRegister = () => {
 }
 
   render() {
-    console.log("APP PROPS", this.props);
     return (
       <div className="App">
         <p> This is where I'll put some sort of Nav bar, after auth. Recorded? {this.props.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
           <Switch props={this.props.history}>
             <Route path='/login' component={LoginAndRegisterContainer} />
-            <Route path='/record' component={MainApplication} />
+            <Route path='/record' render={() => <Recorder />} />
+            <Route path='/edit'
+            render={() => <Edit />} />
           </Switch>
-        {/* <Recorder /> */}
         {/*
         {localStorage.token && localStorage.id !== 'undefined' ? <Recorder /> : <LoginAndRegisterContainer />} */}
       </div>

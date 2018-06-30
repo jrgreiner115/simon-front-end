@@ -22,4 +22,8 @@ class MainApplication extends Component {
   }
 }
 
-export default connect(null, null)(MainApplication)
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps, null)(MainApplication)

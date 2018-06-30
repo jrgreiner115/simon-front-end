@@ -3,10 +3,10 @@ import {initialState} from '../index.js'
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_RECORDING":
-    console.log(action.payload);
     return {...state,
       isRecorded: true,
       currentRecording: action.payload};
+    console.log('we did it!', state);
     case "ADD_EFFECT":
       return {...state};
     case "GET_RECORDINGS":
@@ -23,6 +23,20 @@ function reducer(state = initialState, action) {
     return {...state,
       isRecorded: true,
       isSaved: true, };
+    case "ALTER_DELAY":
+      return {...state,
+        effects: {...state.effects,
+        Delay: {...state.effects.Delay, settings:
+        action.payload}}}
+    case "ADD_EFFECT":
+      console.log(...state.effects[action.payload]);
+      var effectName = action.payload
+      return {
+      ...state,
+      effects: state.effects,
+      [effectName]: {...state.effects[effectName],
+      active: true}
+      }
     default:
       return {...state};
   }

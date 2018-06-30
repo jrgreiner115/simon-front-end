@@ -28,6 +28,15 @@ height: 100vh;
   color: red;
 }
 
+.Edit {
+  height: 200px;
+}
+
 .Play {
   padding-right: 10px;
+}
+
+#effects-grid {
+
+  text-align: center;
 }

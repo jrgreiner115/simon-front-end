@@ -4,7 +4,14 @@ import {ReactMic} from 'react-mic';
 import {Paper, Typography, TextField, Button, Icon, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Pause, Save, Delete} from '@material-ui/icons/';
+import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
+const styles = {
+  textColor: {
+    color: 'white'
+  },
+};
 
 class Recorder extends Component {
 constructor(props) {
@@ -12,7 +19,7 @@ constructor(props) {
 
   this.state = {
     record: false,
-    playing: false
+    fade: true
   }
 }
 
@@ -40,10 +47,9 @@ onStop = (recordedBlob) =>  {
 }
 
 listenBeforeSave = () => {
-  this.props.currentRecording.play()
-  this.setState({
-    playing: !this.state.playing
-  })
+  return (
+  this.props.mainReducer.currentRecording.play())
+  console.log("did it listen? ");
 }
 
 handleClear = () => {
@@ -51,13 +57,21 @@ handleClear = () => {
 }
 
 saveRecording = () => {
+  this.setState({
+    fade: false
+  })
   this.props.satisfiedWithRecording()
+  setTimeout(() =>
+  this.props.history.push('/edit'), 500);
+
 }
 
   render() {
     return(
-      <Fade in>
+      <Fade in={this.state.fade}>
       <div className='outer-div'>
+      <Typography align="center" gutterBottom variant="display1">This is Simon. Record below to get started</Typography>
+      <div>
       <Paper className='Main-Paper'>
         <br />
         <ReactMic
@@ -68,7 +82,7 @@ saveRecording = () => {
           nonstop='true'
           duration={10}
             />
-          {this.props.currentRecording === undefined ? <Button
+          {!this.props.mainReducer.isRecorded ? <Button
             className='Recording'
             onClick={this.handleRecording}
             variant="fab"
@@ -82,7 +96,7 @@ saveRecording = () => {
              <div>
                <Button
                  className='Play'
-                 onDoubleClick={this.listenBeforeSave}
+                 onClick={this.listenBeforeSave}
                  variant="fab"
                  color="primary"
                  aria-label="add" mini>
@@ -108,16 +122,14 @@ saveRecording = () => {
         <br /><br />
       </Paper>
       </div>
+    </div>
       </Fade>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    currentRecording: state.currentRecording,
-    recording: state.recording
-  }
+  return state
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -144,4 +156,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Recorder);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Recorder));

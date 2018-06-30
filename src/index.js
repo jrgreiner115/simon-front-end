@@ -20,14 +20,70 @@ export const initialState = {
   hasEffects: false,
   isSaved: false,
   isDownloaded: false,
-  effects: [
-    {effectName: '',
-     inFocus: false,
-     activated: false,
-     parameters: [
-     ]
-    }
-  ]
+  currentEffect: "",
+  effects: {
+    Flanger: {
+      name: "Flanger",
+      on: false,
+      active: true,
+      settings: {
+      time: 0.45,
+      speed: 0.2,
+      depth: 0.1,
+      feedback: 0.1,
+      mix: 0.5
+  }},
+    Delay: {
+      name: "Delay",
+      on: false,
+      active: true,
+      settings: {
+      time: 0,
+      feedback: 0,
+      mix: 0
+  }},
+    Distortion: {
+      name: 'Distortion',
+      on: false,
+      active: true,
+      settings: {
+      gain: 0.4
+    }},
+    Delay: {
+      name: 'Delay',
+      on: false,
+      active: false,
+      settings: {
+      time: 0.4,
+      decay: 0.01,
+      reverse: false,
+      mix: 0.5
+    }},
+    Tremolo: { name: "Tremolo",
+      on: false,
+      active: false,
+      settings: {
+      speed: 7,
+      depth: 0.6,
+      mix: 1
+    }},
+    LowPass: {
+      name: "Low Pass Filter",
+      on: false,
+      active: true,
+      settings: {
+      frequency: 400,
+      peak : 10
+    }},
+    HighPass: {
+      name: "High Pass Filter",
+      on: false,
+      active: false,
+      settings: {
+      frequency: 400,
+      peak : 10
+    }}
+  }
 }
 
 const masterReducer = combineReducers({
