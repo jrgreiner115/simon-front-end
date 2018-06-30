@@ -9,8 +9,8 @@ constructor(props) {
 
 }
 
-componentDidMount() {
-
+handleEditButton = (name) => {
+  this.handle 
 }
 
 
@@ -22,10 +22,10 @@ componentDidMount() {
     }
     return (
       <div>
-        <Fade in>
         <Grid container justify='center' alignContent='center' id='effects-grid' spacing={32}>
           {effects.map(effect =>
             effect.active ?
+            <Fade in>
             <Grid key={effect.name} item xs={2}>
             <Card>
               <CardContent>
@@ -34,7 +34,7 @@ componentDidMount() {
                 </Typography>
               </CardContent>
               <CardActions id='effects-grid'>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary"onClick={(name) => this.handleEditButton(effect.name)}>
                   Edit
                 </Button>
                 <Button size="small" color="primary">
@@ -42,11 +42,12 @@ componentDidMount() {
                 </Button>
               </CardActions>
             </Card>
-          </Grid> :
+          </Grid>
+        </Fade>
+          :
           null
           )}
         </Grid>
-        </Fade>
       </div>
     )
   }

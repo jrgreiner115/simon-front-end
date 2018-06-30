@@ -10,13 +10,15 @@ import TremoloInFocus from '../Components/TremoloInFocus';
 import FuzzInFocus from '../Components/FuzzInFocus';
 import LowPassInFocus from '../Components/LowPassInFocus';
 import HighPassInFocus from '../Components/HighPassInFocus';
+import {Fade} from '@material-ui/core/';
 
 class InFocusEffect extends Component {
+
 
   render(){
     switch (this.props.effectInFocus){
           case "Delay":
-            return <DelayInFocus />
+            return (<DelayInFocus />)
           case "Flanger":
             return <FlangerInFocus />
           case "Reverb":
@@ -45,6 +47,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+
   }
 }
 

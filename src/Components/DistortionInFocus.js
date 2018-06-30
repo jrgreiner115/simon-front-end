@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -12,33 +12,40 @@ const styles = {
 };
 
 class DistortionInFocus extends Component {
-constructor(props) {
-  super(props)
+  constructor(props) {
+    super(props)
 
-  this.state = {
-    gain: 0.4
+    this.state = {
+      gain: 0.4
+    }
   }
-}
 
-componentDidMount() {
+  componentDidMount() {
 
-}
+  }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendDistortionChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendDistortionChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    this.props.switchDistortion(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchDistortion(event.target.checked)
+    };
+  handleClickAway = () => {
+    this.setState({
+      fade: !this.state.fade
+    })
+    this.props.clearInFocusEffect("")
+  }
 
 
 
   render() {
     return (
       <div>
+        <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper>
           <span>IMG ANIMATION SPAN</span>
@@ -62,6 +69,7 @@ handleSwitch = name => event => {
           </span>
         </Paper>
         </Fade>
+        </ClickAwayListener>
       </div>
     )
   }
@@ -84,7 +92,13 @@ const mapDispatchToProps = (dispatch) => {
         type: "SWITCH_DISTORTION",
         payload
       })
-    }
+    },
+    clearInFocusEffect: (payload) => {
+      dispatch({
+        type: "CLEAR_INFOCUS_EFFECT",
+        payload: payload
+      })
+    },
   }
 }
 

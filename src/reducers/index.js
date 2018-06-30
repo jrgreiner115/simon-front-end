@@ -24,8 +24,15 @@ function reducer(state = initialState, action) {
       isRecorded: true,
       isSaved: true, };
 
+    case "CLEAR_INFOCUS_EFFECT":
+      return {
+        ...state,
+        focusedEffect: action.payload
+      }
+
     case "ADD_DELAY":
       return {...state,
+        focusedEffect: "Delay",
         effects: {
           ...state.effects,
           Delay: {
@@ -50,6 +57,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_REVERB":
       return {...state,
+        focusedEffect: "Reverb",
         effects: {
           ...state.effects,
           Reverb: {
@@ -74,6 +82,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_DISTORTION":
       return {...state,
+        focusedEffect: "Distortion",
         effects: {
           ...state.effects,
           Distortion: {
@@ -98,6 +107,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_FLANGER":
       return {...state,
+        focusedEffect: "Flanger",
         effects: {
           ...state.effects,
           Flanger: {
@@ -122,6 +132,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_TREMOLO":
       return {...state,
+        focusedEffect: "Tremolo",
         effects: {
           ...state.effects,
           Tremolo: {
@@ -146,6 +157,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_FUZZ":
       return {...state,
+        focusedEffect: "Fuzz",
         effects: {
           ...state.effects,
           Fuzz: {
@@ -170,6 +182,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_LOWPASS":
       return {...state,
+        focusedEffect: "LowPass",
         effects: {
           ...state.effects,
           LowPass: {
@@ -194,6 +207,7 @@ function reducer(state = initialState, action) {
 
     case "ADD_HIGHPASS":
       return {...state,
+        focusedEffect: "HighPass",
         effects: {
           ...state.effects,
           HighPass: {

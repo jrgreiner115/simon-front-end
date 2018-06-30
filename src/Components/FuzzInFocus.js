@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -12,37 +12,44 @@ const styles = {
 };
 
 class FuzzInFocus extends Component {
-constructor(props) {
-  super(props)
+  constructor(props) {
+    super(props)
 
-  this.state = {
-    lowGain: 0.6,
-    midLowGain: 0.8,
-    midHighGain: 0.5,
-    highGain: 0.6,
-    mix: 1.0
+    this.state = {
+      lowGain: 0.6,
+      midLowGain: 0.8,
+      midHighGain: 0.5,
+      highGain: 0.6,
+      mix: 1.0
+    }
   }
-}
 
-componentDidMount() {
+  componentDidMount() {
 
-}
+  }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendFuzzChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendFuzzChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    this.props.switchFuzz(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchFuzz(event.target.checked)
+    };
+  handleClickAway = () => {
+    this.setState({
+      fade: !this.state.fade
+    })
+    this.props.clearInFocusEffect("")
+  }
 
 
 
   render() {
     return (
       <div>
+        <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper>
           <span>IMG ANIMATION SPAN</span>
@@ -94,6 +101,7 @@ handleSwitch = name => event => {
           </span>
         </Paper>
         </Fade>
+        </ClickAwayListener>
       </div>
     )
   }
@@ -116,7 +124,13 @@ const mapDispatchToProps = (dispatch) => {
         type: "SWITCH_FUZZ",
         payload
       })
-    }
+    },
+    clearInFocusEffect: (payload) => {
+      dispatch({
+        type: "CLEAR_INFOCUS_EFFECT",
+        payload: payload
+      })
+    },
   }
 }
 

@@ -70,7 +70,8 @@ export const initialState = {
       decay: 0,
       mix: 0
     }},
-    Tremolo: { name: "Tremolo",
+    Tremolo: {
+      name: "Tremolo",
       on: false,
       active: false,
       settings: {
@@ -79,7 +80,7 @@ export const initialState = {
       mix: 1
     }},
     LowPass: {
-      name: "Low-Pass Filter",
+      name: "LowPass",
       on: false,
       active: false,
       settings: {
@@ -87,7 +88,7 @@ export const initialState = {
       peak : 10
     }},
     HighPass: {
-      name: "High-Pass Filter",
+      name: "HighPass",
       on: false,
       active: false,
       settings: {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -12,35 +12,43 @@ const styles = {
 };
 
 class LowPassInFocus extends Component {
-constructor(props) {
-  super(props)
+  constructor(props) {
+    super(props)
 
-  this.state = {
-    volume: 0,
-    frequency: 0,
-    peak: 0
+    this.state = {
+      volume: 0,
+      frequency: 0,
+      peak: 0
+    }
   }
-}
 
-componentDidMount() {
+  componentDidMount() {
 
-}
+  }
 
-handleChange = (event, value, name) => {
-  this.setState({
-    [name]: value
-  }, this.props.sendLowPassChange(this.state))
-}
+  handleChange = (event, value, name) => {
+    this.setState({
+      [name]: value
+    }, this.props.sendLowPassChange(this.state))
+  }
 
-handleSwitch = name => event => {
-    this.props.switchLowPass(event.target.checked)
-  };
+  handleSwitch = name => event => {
+      this.props.switchLowPass(event.target.checked)
+    };
+
+  handleClickAway = () => {
+    this.setState({
+      fade: !this.state.fade
+    })
+    this.props.clearInFocusEffect("")
+  }
 
 
 
   render() {
     return (
       <div>
+        <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper>
           <span>IMG ANIMATION SPAN</span>
@@ -78,6 +86,7 @@ handleSwitch = name => event => {
           </span>
         </Paper>
         </Fade>
+        </ClickAwayListener>
       </div>
     )
   }
@@ -100,7 +109,13 @@ const mapDispatchToProps = (dispatch) => {
         type: "SWITCH_LOWPASS",
         payload
       })
-    }
+    },
+    clearInFocusEffect: (payload) => {
+      dispatch({
+        type: "CLEAR_INFOCUS_EFFECT",
+        payload: payload
+      })
+    },
   }
 }
 

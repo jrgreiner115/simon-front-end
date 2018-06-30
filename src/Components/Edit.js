@@ -33,7 +33,14 @@ class Edit extends Component {
 
 
 componentDidMount = () => {
-
+  if (this.props.mainReducer.focusedEffect === "") {
+    this.setState({
+      displayGrid: false
+    })
+  } else
+  {this.setState({
+    displayGrid: true
+  })}
 }
 
 
@@ -50,6 +57,7 @@ stop = () => {
 }
 
   render() {
+    console.log("State,", this.state);
     var panel = document.getElementById('panel'),
     showcode = document.getElementById('showcode'),
     selectFx = document.getElementById('selections-fx'),
@@ -92,17 +100,7 @@ stop = () => {
              </Button>
         </Paper>
         <br /> <br />
-        {this.state.displayGrid ? <EffectsGrid /> : <DelayInFocus />}
-
-
-        <InFocusEffect />
-        {/* <ReverbInFocus />
-        <DistortionInFocus />
-        <FlangerInFocus />
-        <TremoloInFocus />
-        <FuzzInFocus />
-        <LowPassInFocus />
-        <HighPassInFocus /> */}
+        {this.props.mainReducer.focusedEffect === "" ? <EffectsGrid /> : <InFocusEffect />}
         <SpeedDialer />
       </div>
     )
