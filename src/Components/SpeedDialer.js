@@ -23,15 +23,6 @@ const styles = theme => ({
   },
 });
 
-const actions = [
-  { icon: <ContentCopyIcon />, name: 'Delay' },
-  { icon: <SaveIcon />, name: 'Reverb' },
-  { icon: <PrintIcon />, name: 'Distortion' },
-  { icon: <ShareIcon />, name: 'Flanger' },
-  { icon: <DeleteIcon />, name: 'High Pass Filter' },
-  { icon: <DeleteIcon />, name: 'Lo Pass Filter' },
-];
-
 class SpeedDialer extends Component {
   state = {
     open: false,
@@ -72,6 +63,19 @@ class SpeedDialer extends Component {
     this.props.addDelay()
   };
 
+  handleReverbClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addReverb()
+  };
+
+  handleDistortionClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addDistortion()
+  };
 
 
 
@@ -98,19 +102,23 @@ class SpeedDialer extends Component {
           onMouseLeave={this.handleClose}
           open={open}
         >
-          {actions.map(action => (
-            <SpeedDialAction
-              key={action.name}
-              icon={action.icon}
-              tooltipTitle={action.name}
-              onClick={(name) => this.handleClick(action.name)}
-            />
-          ))}
           <SpeedDialAction
             key="Delay"
             icon={<SaveIcon />}
             tooltipTitle={"Delay"}
             onClick={(name) => this.handleDelayClick("Delay")}
+          />
+          <SpeedDialAction
+            key="Reverb"
+            icon={<PrintIcon />}
+            tooltipTitle={"Reverb"}
+            onClick={(name) => this.handleReverbClick("Reverb")}
+          />
+          <SpeedDialAction
+            key="Distortion"
+            icon={<PrintIcon />}
+            tooltipTitle={"Distortion"}
+            onClick={(name) => this.handleDistortionClick("Distortion")}
           />
         </SpeedDial>
       </div>
@@ -130,10 +138,16 @@ const mapDispatchToProps = (dispatch) => {
         payload: "did it!"
       })
     },
-    addEffect: (name) => {
+    addReverb: () => {
       dispatch({
-        type: "ADD_EFFECT",
-        payload: name
+        type: "ADD_REVERB",
+        payload: "did it!"
+      })
+    },
+    addDistortion: () => {
+      dispatch({
+        type: "ADD_DISTORTION",
+        payload: "did it!"
       })
     },
     }

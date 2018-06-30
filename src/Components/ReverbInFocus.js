@@ -11,13 +11,13 @@ const styles = {
   },
 };
 
-class DelayInFocus extends Component {
+class ReverbInFocus extends Component {
 constructor(props) {
   super(props)
 
   this.state = {
     mix: 0,
-    feedback: 0,
+    decay: 0,
     time: 0
   }
 }
@@ -29,18 +29,18 @@ componentDidMount() {
 handleChange = (event, value, name) => {
   this.setState({
     [name]: value
-  }, this.props.sendDelayChange(this.state))
+  }, this.props.sendReverbChange(this.state))
 }
 
 handleSwitch = name => event => {
     console.log(event.target.checked);
-    this.props.switchDelay(event.target.checked)
+    this.props.switchReverb(event.target.checked)
   };
 
 
 
   render() {
-    console.log("DELAY PROPS", this.props.mainReducer.effects.Delay.on);
+    console.log("REVERB PROPS", this.props.mainReducer.effects.Reverb.on);
     return (
       <div>
         <Fade in>
@@ -48,11 +48,11 @@ handleSwitch = name => event => {
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
-              Delay
+              Reverb
             </Typography>
             {/*  HOOK THIS UP TO A REDUX ACTION LATER THAN TURNS THE EFFECT ON/OFF*/}
             <Switch
-              checked={this.props.mainReducer.effects.Delay.on}
+              checked={this.props.mainReducer.effects.Reverb.on}
               onChange={this.handleSwitch("ON")}
             />
             <div>
@@ -60,22 +60,22 @@ handleSwitch = name => event => {
               <Slider
                 max={1}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.mix}
+                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.mix}
                 onChange={(event, value, name) => this.handleChange(event, value, "mix")}
-              />
-              <Typography id="label">Feedback</Typography>
-              <Slider
-                max={1}
-                min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.feedback}
-                onChange={(event, value, name) => this.handleChange(event, value, "feedback")}
               />
               <Typography id="label">Time</Typography>
               <Slider
+                max={1}
+                min={0}
+                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.time}
+                onChange={(event, value, name) => this.handleChange(event, value, "time")}
+              />
+              <Typography id="label">Decay</Typography>
+              <Slider
                 max={5}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.time}
-                onChange={(event, value, name) => this.handleChange(event, value, "time")}
+                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.decay}
+                onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
             </div>
           </span>
@@ -92,22 +92,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addRecording: (recording) => {
+    sendReverbChange: (payload) => {
       dispatch({
-        type: "ADD_RECORDING",
-        payload: recording
-      })
-    },
-    sendDelayChange: (payload) => {
-      dispatch({
-        type: "ALTER_DELAY",
+        type: "ALTER_REVERB",
         payload: payload
       })
     },
-    switchDelay: (payload) => {
+    switchReverb: (payload) => {
       console.log(payload);
       dispatch({
-        type: "SWITCH_DELAY",
+        type: "SWITCH_REVERB",
         payload
       })
     }
@@ -115,4 +109,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DelayInFocus));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReverbInFocus));

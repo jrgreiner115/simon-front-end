@@ -23,20 +23,7 @@ function reducer(state = initialState, action) {
     return {...state,
       isRecorded: true,
       isSaved: true, };
-    case "ALTER_DELAY":
-      return {...state,
-        effects: {...state.effects,
-        Delay: {...state.effects.Delay, settings:
-        action.payload}}}
-    case "ADD_EFFECT":
-      console.log("ADD EFFECT", state.effects[action.payload]);
-      var effectName = action.payload
-      return {
-      ...state,
-      effects: state.effects,
-      [effectName]: {...state.effects[effectName],
-      active: true}
-    };
+
     case "ADD_DELAY":
       return {...state,
         effects: {
@@ -45,6 +32,13 @@ function reducer(state = initialState, action) {
             ...state.effects.Delay,
             on: true,
             active: true}}};
+
+    case "ALTER_DELAY":
+      return {...state,
+        effects: {...state.effects,
+        Delay: {...state.effects.Delay, settings:
+        action.payload}}};
+
     case "SWITCH_DELAY":
     console.log("SWITCH", action.payload);
     return {...state,
@@ -52,6 +46,50 @@ function reducer(state = initialState, action) {
         ...state.effects,
         Delay: {
           ...state.effects.Delay,
+          on: action.payload,
+          }}};
+    case "ADD_REVERB":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Reverb: {
+            ...state.effects.Reverb,
+            on: true,
+            active: true}}};
+    case "ALTER_REVERB":
+      return {...state,
+        effects: {...state.effects,
+        Reverb: {...state.effects.Reverb, settings:
+        action.payload}}};
+    case "SWITCH_REVERB":
+    console.log("SWITCH", action.payload);
+    return {...state,
+      effects: {
+        ...state.effects,
+        Reverb: {
+          ...state.effects.Reverb,
+          on: action.payload,
+          }}};
+    case "ADD_DISTORTION":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Distortion: {
+            ...state.effects.Distortion,
+            on: true,
+            active: true}}};
+    case "ALTER_DISTORTION":
+      return {...state,
+        effects: {...state.effects,
+        Distortion: {...state.effects.Distortion, settings:
+        action.payload}}};
+    case "SWITCH_DISTORTION":
+    console.log("SWITCH", action.payload);
+    return {...state,
+      effects: {
+        ...state.effects,
+        Distortion: {
+          ...state.effects.Distortion,
           on: action.payload,
           }}};
     default:

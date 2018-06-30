@@ -50,7 +50,6 @@ handleSwitch = name => event => {
             <Typography variant="headline">
               Delay
             </Typography>
-            {/*  HOOK THIS UP TO A REDUX ACTION LATER THAN TURNS THE EFFECT ON/OFF*/}
             <Switch
               checked={this.props.mainReducer.effects.Delay.on}
               onChange={this.handleSwitch("ON")}

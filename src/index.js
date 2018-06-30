@@ -25,7 +25,7 @@ export const initialState = {
     Flanger: {
       name: "Flanger",
       on: false,
-      active: true,
+      active: false,
       settings: {
       time: 0.45,
       speed: 0.2,
@@ -45,7 +45,7 @@ export const initialState = {
     Distortion: {
       name: 'Distortion',
       on: false,
-      active: true,
+      active: false,
       settings: {
       gain: 0.4
     }},
@@ -54,10 +54,9 @@ export const initialState = {
       on: false,
       active: false,
       settings: {
-      time: 0.4,
-      decay: 0.01,
-      reverse: false,
-      mix: 0.5
+      time: 0,
+      decay: 0,
+      mix: 0
     }},
     Tremolo: { name: "Tremolo",
       on: false,
@@ -70,7 +69,7 @@ export const initialState = {
     LowPass: {
       name: "Low Pass Filter",
       on: false,
-      active: true,
+      active: false,
       settings: {
       frequency: 400,
       peak : 10

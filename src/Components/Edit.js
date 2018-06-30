@@ -8,7 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import 'react-mfb/mfb.css';
-import DelayInFocus from './DelayInFocus'
+import DelayInFocus from './DelayInFocus';
+import ReverbInFocus from './ReverbInFocus';
+import DistortionInFocus from './DistortionInFocus';
 import EffectsGrid from './EffectsGrid'
 import SpeedDialer from './SpeedDialer'
 
@@ -86,6 +88,8 @@ addDelay = () => {
         <EffectsGrid />
 
         <DelayInFocus />
+        <ReverbInFocus />
+        <DistortionInFocus />
         <SpeedDialer />
       </div>
     )
