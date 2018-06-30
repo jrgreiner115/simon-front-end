@@ -77,6 +77,27 @@ class SpeedDialer extends Component {
     this.props.addDistortion()
   };
 
+  handleFlangerClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addFlanger()
+  };
+
+  handleTremoloClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addTremolo()
+  };
+  
+  handleFuzzClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addFuzz()
+  };
+
 
 
   render() {
@@ -120,6 +141,24 @@ class SpeedDialer extends Component {
             tooltipTitle={"Distortion"}
             onClick={(name) => this.handleDistortionClick("Distortion")}
           />
+          <SpeedDialAction
+            key="Flanger"
+            icon={<PrintIcon />}
+            tooltipTitle={"Flanger"}
+            onClick={(name) => this.handleFlangerClick("Flanger")}
+          />
+          <SpeedDialAction
+            key="Tremolo"
+            icon={<PrintIcon />}
+            tooltipTitle={"Tremolo"}
+            onClick={(name) => this.handleTremoloClick("Tremolo")}
+          />
+          <SpeedDialAction
+            key="Fuzz"
+            icon={<PrintIcon />}
+            tooltipTitle={"Fuzz"}
+            onClick={(name) => this.handleFuzzClick("Fuzz")}
+          />
         </SpeedDial>
       </div>
     );
@@ -147,6 +186,24 @@ const mapDispatchToProps = (dispatch) => {
     addDistortion: () => {
       dispatch({
         type: "ADD_DISTORTION",
+        payload: "did it!"
+      })
+    },
+    addFlanger: () => {
+      dispatch({
+        type: "ADD_FLANGER",
+        payload: "did it!"
+      })
+    },
+    addTremolo: () => {
+      dispatch({
+        type: "ADD_TREMOLO",
+        payload: "did it!"
+      })
+    },
+    addFuzz: () => {
+      dispatch({
+        type: "ADD_FUZZ",
         payload: "did it!"
       })
     },

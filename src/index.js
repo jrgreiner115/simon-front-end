@@ -49,6 +49,18 @@ export const initialState = {
       settings: {
       gain: 0.4
     }},
+    Fuzz: {
+      name: 'Fuzz',
+      on: false,
+      active: false,
+      settings: {
+      lowGain: 0.6,
+      midLowGain: 0.8,
+      midHighGain: 0.5,
+      highGain: 0.6,
+      mix: 1.0
+    }},
+
     Reverb: {
       name: 'Reverb',
       on: false,

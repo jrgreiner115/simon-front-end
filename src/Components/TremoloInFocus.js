@@ -11,14 +11,14 @@ const styles = {
   },
 };
 
-class ReverbInFocus extends Component {
+class TremoloInFocus extends Component {
 constructor(props) {
   super(props)
 
   this.state = {
     mix: 0,
-    decay: 0,
-    time: 0
+    speed: 0,
+    depth: 0
   }
 }
 
@@ -29,18 +29,16 @@ componentDidMount() {
 handleChange = (event, value, name) => {
   this.setState({
     [name]: value
-  }, this.props.sendReverbChange(this.state))
+  }, this.props.sendTremoloChange(this.state))
 }
 
 handleSwitch = name => event => {
     console.log(event.target.checked);
-    this.props.switchReverb(event.target.checked)
+    this.props.switchTremolo(event.target.checked)
   };
 
-
-
   render() {
-    console.log("REVERB PROPS", this.props.mainReducer.effects.Reverb.on);
+    console.log("TREMOLO PROPS", this.props.mainReducer.effects.Tremolo.on);
     return (
       <div>
         <Fade in>
@@ -48,11 +46,10 @@ handleSwitch = name => event => {
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
-              Reverb
+              Tremolo
             </Typography>
-            {/*  HOOK THIS UP TO A REDUX ACTION LATER THAN TURNS THE EFFECT ON/OFF*/}
             <Switch
-              checked={this.props.mainReducer.effects.Reverb.on}
+              checked={this.props.mainReducer.effects.Tremolo.on}
               onChange={this.handleSwitch("ON")}
             />
             <div>
@@ -60,22 +57,22 @@ handleSwitch = name => event => {
               <Slider
                 max={1}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.mix}
+                aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.mix}
                 onChange={(event, value, name) => this.handleChange(event, value, "mix")}
               />
-              <Typography id="label">Time</Typography>
+              <Typography id="label">Speed</Typography>
               <Slider
-                max={3}
+                max={1}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.time}
-                onChange={(event, value, name) => this.handleChange(event, value, "time")}
+                aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.speed}
+                onChange={(event, value, name) => this.handleChange(event, value, "speed")}
               />
-              <Typography id="label">Decay</Typography>
+              <Typography id="label">Depth</Typography>
               <Slider
-                max={3}
+                max={5}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.decay}
-                onChange={(event, value, name) => this.handleChange(event, value, "decay")}
+                aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.depth}
+                onChange={(event, value, name) => this.handleChange(event, value, "depth")}
               />
             </div>
           </span>
@@ -92,16 +89,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendReverbChange: (payload) => {
+    sendTremoloChange: (payload) => {
       dispatch({
-        type: "ALTER_REVERB",
+        type: "ALTER_TREMOLO",
         payload: payload
       })
     },
-    switchReverb: (payload) => {
+    switchTremolo: (payload) => {
       console.log(payload);
       dispatch({
-        type: "SWITCH_REVERB",
+        type: "SWITCH_TREMOLO",
         payload
       })
     }
@@ -109,4 +106,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ReverbInFocus));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TremoloInFocus));

@@ -11,6 +11,9 @@ import 'react-mfb/mfb.css';
 import DelayInFocus from './DelayInFocus';
 import ReverbInFocus from './ReverbInFocus';
 import DistortionInFocus from './DistortionInFocus';
+import FlangerInFocus from './FlangerInFocus';
+import TremoloInFocus from './TremoloInFocus';
+import FuzzInFocus from './FuzzInFocus';
 import EffectsGrid from './EffectsGrid'
 import SpeedDialer from './SpeedDialer'
 
@@ -90,6 +93,9 @@ addDelay = () => {
         <DelayInFocus />
         <ReverbInFocus />
         <DistortionInFocus />
+        <FlangerInFocus />
+        <TremoloInFocus />
+        <FuzzInFocus />
         <SpeedDialer />
       </div>
     )

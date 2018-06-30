@@ -40,14 +40,14 @@ function reducer(state = initialState, action) {
         action.payload}}};
 
     case "SWITCH_DELAY":
-    console.log("SWITCH", action.payload);
-    return {...state,
-      effects: {
-        ...state.effects,
-        Delay: {
-          ...state.effects.Delay,
-          on: action.payload,
-          }}};
+      return {...state,
+        effects: {
+          ...state.effects,
+          Delay: {
+            ...state.effects.Delay,
+            on: action.payload,
+            }}};
+
     case "ADD_REVERB":
       return {...state,
         effects: {
@@ -56,20 +56,22 @@ function reducer(state = initialState, action) {
             ...state.effects.Reverb,
             on: true,
             active: true}}};
+
     case "ALTER_REVERB":
       return {...state,
         effects: {...state.effects,
         Reverb: {...state.effects.Reverb, settings:
         action.payload}}};
+
     case "SWITCH_REVERB":
-    console.log("SWITCH", action.payload);
-    return {...state,
-      effects: {
-        ...state.effects,
-        Reverb: {
-          ...state.effects.Reverb,
-          on: action.payload,
-          }}};
+      return {...state,
+        effects: {
+          ...state.effects,
+          Reverb: {
+            ...state.effects.Reverb,
+            on: action.payload,
+            }}};
+
     case "ADD_DISTORTION":
       return {...state,
         effects: {
@@ -78,20 +80,93 @@ function reducer(state = initialState, action) {
             ...state.effects.Distortion,
             on: true,
             active: true}}};
+
     case "ALTER_DISTORTION":
       return {...state,
         effects: {...state.effects,
         Distortion: {...state.effects.Distortion, settings:
         action.payload}}};
+
     case "SWITCH_DISTORTION":
-    console.log("SWITCH", action.payload);
-    return {...state,
-      effects: {
-        ...state.effects,
-        Distortion: {
-          ...state.effects.Distortion,
-          on: action.payload,
-          }}};
+      return {...state,
+        effects: {
+          ...state.effects,
+          Distortion: {
+            ...state.effects.Distortion,
+            on: action.payload,
+            }}};
+
+    case "ADD_FLANGER":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Flanger: {
+            ...state.effects.Flanger,
+            on: true,
+            active: true}}};
+
+    case "ALTER_FLANGER":
+      return {...state,
+        effects: {...state.effects,
+        Flanger: {...state.effects.Flanger, settings:
+        action.payload}}};
+
+    case "SWITCH_FLANGER":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Flanger: {
+            ...state.effects.Flanger,
+            on: action.payload,
+            }}};
+
+    case "ADD_TREMOLO":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Tremolo: {
+            ...state.effects.Tremolo,
+            on: true,
+            active: true}}};
+
+    case "ALTER_TREMOLO":
+      return {...state,
+        effects: {...state.effects,
+        Tremolo: {...state.effects.Tremolo, settings:
+        action.payload}}};
+
+    case "SWITCH_TREMOLO":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Tremolo: {
+            ...state.effects.Tremolo,
+            on: action.payload,
+            }}};
+
+    case "ADD_FUZZ":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Fuzz: {
+            ...state.effects.Fuzz,
+            on: true,
+            active: true}}};
+
+    case "ALTER_FUZZ":
+      return {...state,
+        effects: {...state.effects,
+        Fuzz: {...state.effects.Fuzz, settings:
+        action.payload}}};
+
+    case "SWITCH_FUZZ":
+      return {...state,
+        effects: {
+          ...state.effects,
+          Fuzz: {
+            ...state.effects.Fuzz,
+            on: action.payload,
+            }}};
     default:
       return {...state}
   }
