@@ -79,7 +79,7 @@ export const initialState = {
       mix: 1
     }},
     LowPass: {
-      name: "Low Pass Filter",
+      name: "Low-Pass Filter",
       on: false,
       active: false,
       settings: {
@@ -87,7 +87,7 @@ export const initialState = {
       peak : 10
     }},
     HighPass: {
-      name: "High Pass Filter",
+      name: "High-Pass Filter",
       on: false,
       active: false,
       settings: {

@@ -90,12 +90,26 @@ class SpeedDialer extends Component {
     });
     this.props.addTremolo()
   };
-  
+
   handleFuzzClick = () => {
     this.setState({
       open: !this.state.open,
     });
     this.props.addFuzz()
+  };
+
+  handleLowPassClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addLowPass()
+  };
+
+  handleHighPassClick = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+    this.props.addHighPass()
   };
 
 
@@ -159,6 +173,18 @@ class SpeedDialer extends Component {
             tooltipTitle={"Fuzz"}
             onClick={(name) => this.handleFuzzClick("Fuzz")}
           />
+          <SpeedDialAction
+            key="LowPass"
+            icon={<PrintIcon />}
+            tooltipTitle={"LowPass"}
+            onClick={(name) => this.handleLowPassClick("LowPass")}
+          />
+          <SpeedDialAction
+            key="HighPass"
+            icon={<PrintIcon />}
+            tooltipTitle={"HighPass"}
+            onClick={(name) => this.handleHighPassClick("HighPass")}
+          />
         </SpeedDial>
       </div>
     );
@@ -207,6 +233,19 @@ const mapDispatchToProps = (dispatch) => {
         payload: "did it!"
       })
     },
+    addLowPass: () => {
+      dispatch({
+        type: "ADD_LOWPASS",
+        payload: "did it!"
+      })
+    },
+    addHighPass: () => {
+      dispatch({
+        type: "ADD_HIGHPASS",
+        payload: "did it!"
+      })
+    },
+
     }
   }
 

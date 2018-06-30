@@ -167,6 +167,54 @@ function reducer(state = initialState, action) {
             ...state.effects.Fuzz,
             on: action.payload,
             }}};
+
+    case "ADD_LOWPASS":
+      return {...state,
+        effects: {
+          ...state.effects,
+          LowPass: {
+            ...state.effects.LowPass,
+            on: true,
+            active: true}}};
+
+    case "ALTER_LOWPASS":
+      return {...state,
+        effects: {...state.effects,
+        LowPass: {...state.effects.LowPass, settings:
+        action.payload}}};
+
+    case "SWITCH_LOWPASS":
+      return {...state,
+        effects: {
+          ...state.effects,
+          LowPass: {
+            ...state.effects.LowPass,
+            on: action.payload,
+            }}};
+
+    case "ADD_HIGHPASS":
+      return {...state,
+        effects: {
+          ...state.effects,
+          HighPass: {
+            ...state.effects.HighPass,
+            on: true,
+            active: true}}};
+
+    case "ALTER_HIGHPASS":
+      return {...state,
+        effects: {...state.effects,
+        HighPass: {...state.effects.HighPass, settings:
+        action.payload}}};
+
+    case "SWITCH_HIGHPASS":
+      return {...state,
+        effects: {
+          ...state.effects,
+          HighPass: {
+            ...state.effects.HighPass,
+            on: action.payload,
+            }}};
     default:
       return {...state}
   }

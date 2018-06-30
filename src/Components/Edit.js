@@ -14,6 +14,8 @@ import DistortionInFocus from './DistortionInFocus';
 import FlangerInFocus from './FlangerInFocus';
 import TremoloInFocus from './TremoloInFocus';
 import FuzzInFocus from './FuzzInFocus';
+import LowPassInFocus from './LowPassInFocus';
+import HighPassInFocus from './HighPassInFocus';
 import EffectsGrid from './EffectsGrid'
 import SpeedDialer from './SpeedDialer'
 
@@ -96,6 +98,8 @@ addDelay = () => {
         <FlangerInFocus />
         <TremoloInFocus />
         <FuzzInFocus />
+        <LowPassInFocus />
+        <HighPassInFocus />
         <SpeedDialer />
       </div>
     )
