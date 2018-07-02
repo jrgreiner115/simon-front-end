@@ -38,7 +38,7 @@ componentDidMount() {
       this.props.switchFlanger(event.target.checked)
     };
 
-  handleClickAway = () => {
+  handleClickAway = (event) => {
     console.log(event);
     if (event.path[4].id === 'recordedAudioPlayer'|| event.path[2].id === 'recordedAudioPlayer' || event.path[0].id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object') {
       null

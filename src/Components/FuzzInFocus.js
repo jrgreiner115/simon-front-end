@@ -20,7 +20,6 @@ class FuzzInFocus extends Component {
       midLowGain: 0.8,
       midHighGain: 0.5,
       highGain: 0.6,
-      mix: 1.0
     }
   }
 
@@ -37,7 +36,7 @@ class FuzzInFocus extends Component {
   handleSwitch = name => event => {
       this.props.switchFuzz(event.target.checked)
     };
-  handleClickAway = () => {
+  handleClickAway = (event) => {
     console.log(event);
     if (event.path[4].id === 'recordedAudioPlayer'|| event.path[2].id === 'recordedAudioPlayer' || event.path[0].id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object') {
       null

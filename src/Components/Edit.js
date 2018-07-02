@@ -14,6 +14,7 @@ import SpeedDialer from './SpeedDialer';
 import Recorder from 'recorder-js';
 import FileSaver from 'file-saver'
 
+var sounds = undefined
 
 
 
@@ -37,16 +38,11 @@ class Edit extends Component {
     {this.setState({
       displayGrid: true
     })}
+    // this.loadEffects()
   }
 
-
-
-  play = () => {
-    // console.log(this.props.mainReducer.effects.Delay.settings)
-    var sounds = this.props.mainReducer.currentRecording
-    //
-
-      let newEffect = new Pizzicato.Effects.Delay()
+  loadEffects = () => {
+    sounds = this.props.mainReducer.currentRecording
 
     for (var effect in this.props.mainReducer.effects) {
         console.log("EFFECT IS ONE", );
@@ -56,11 +52,32 @@ class Edit extends Component {
           effectProps.settings
         );
         sounds.addEffect(newEffect)
-        else if (!this.props.mainReducer.effects[effect].on) {
-        sounds.removeEffect(newEffect)
       }
     }
-    sounds.play()
+  }
+
+
+  play = () => {
+    this.loadEffects()
+    // console.log(this.props.mainReducer.effects.Delay.settings)
+    // var sounds = this.props.mainReducer.currentRecording
+    // //
+    //
+    //   let newEffect = new Pizzicato.Effects.Delay()
+    //
+    // for (var effect in this.props.mainReducer.effects) {
+    //     console.log("EFFECT IS ONE", );
+    //   if (this.props.mainReducer.effects[effect].on) {
+    //     let effectProps = this.props.mainReducer.effects[effect]
+    //     let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](
+    //       effectProps.settings
+    //     );
+    //     sounds.addEffect(newEffect)
+    //     else if (!this.props.mainReducer.effects[effect].on) {
+    //     sounds.removeEffect(newEffect)
+    //   }
+    // }
+    this.props.mainReducer.currentRecording.play()
   }
   pause = () => {
     this.props.mainReducer.currentRecording.pause()
