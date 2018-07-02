@@ -24,6 +24,7 @@ export const initialState = {
   effects: {
     Flanger: {
       name: "Flanger",
+      pizzicatoName: "Flanger",
       on: false,
       active: false,
       settings: {
@@ -35,6 +36,7 @@ export const initialState = {
   }},
     Delay: {
       name: "Delay",
+      pizzicatoName: "Delay",
       on: false,
       active: false,
       settings: {
@@ -44,6 +46,7 @@ export const initialState = {
   }},
     Distortion: {
       name: 'Distortion',
+      pizzicatoName: "Distortion",
       on: false,
       active: false,
       settings: {
@@ -51,6 +54,7 @@ export const initialState = {
     }},
     Fuzz: {
       name: 'Fuzz',
+      pizzicatoName: "Quadrafuzz",
       on: false,
       active: false,
       settings: {
@@ -63,6 +67,7 @@ export const initialState = {
 
     Reverb: {
       name: 'Reverb',
+      pizzicatoName: "Reverb",
       on: false,
       active: false,
       settings: {
@@ -72,6 +77,7 @@ export const initialState = {
     }},
     Tremolo: {
       name: "Tremolo",
+      pizzicatoName: "Tremolo",
       on: false,
       active: false,
       settings: {
@@ -81,6 +87,7 @@ export const initialState = {
     }},
     LowPass: {
       name: "LowPass",
+      pizzicatoName: "LowPassFilter",
       on: false,
       active: false,
       settings: {
@@ -89,6 +96,7 @@ export const initialState = {
     }},
     HighPass: {
       name: "HighPass",
+      pizzicatoName: "HighPassFilter",
       on: false,
       active: false,
       settings: {

@@ -37,7 +37,7 @@ stopRecording = () => {
    }
 
 onStop = (recordedBlob) =>  {
-
+  console.log(recordedBlob);
   var sound = new Pizzicato.Sound({
     source: 'file',
     options: { path: [recordedBlob.blobURL] }

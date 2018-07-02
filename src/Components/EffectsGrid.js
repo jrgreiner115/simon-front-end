@@ -10,7 +10,6 @@ constructor(props) {
 }
 
 handleEditButton = (name) => {
-  this.handle 
 }
 
 

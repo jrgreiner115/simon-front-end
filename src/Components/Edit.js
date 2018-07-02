@@ -8,17 +8,13 @@ import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import 'react-mfb/mfb.css';
-import DelayInFocus from './DelayInFocus';
-import ReverbInFocus from './ReverbInFocus';
-import DistortionInFocus from './DistortionInFocus';
-import FlangerInFocus from './FlangerInFocus';
-import TremoloInFocus from './TremoloInFocus';
-import FuzzInFocus from './FuzzInFocus';
-import LowPassInFocus from './LowPassInFocus';
-import HighPassInFocus from './HighPassInFocus';
-import InFocusEffect from '../Containers/InFocusEffect'
-import EffectsGrid from './EffectsGrid'
-import SpeedDialer from './SpeedDialer'
+import InFocusEffect from '../Containers/InFocusEffect';
+import EffectsGrid from './EffectsGrid';
+import SpeedDialer from './SpeedDialer';
+import Recorder from 'recorder-js';
+import FileSaver from 'file-saver'
+
+
 
 
 class Edit extends Component {
@@ -32,28 +28,75 @@ class Edit extends Component {
   }
 
 
-componentDidMount = () => {
-  if (this.props.mainReducer.focusedEffect === "") {
-    this.setState({
-      displayGrid: false
-    })
-  } else
-  {this.setState({
-    displayGrid: true
-  })}
+  componentDidMount = () => {
+    if (this.props.mainReducer.focusedEffect === "") {
+      this.setState({
+        displayGrid: false
+      })
+    } else
+    {this.setState({
+      displayGrid: true
+    })}
+  }
+
+
+
+  play = () => {
+    // console.log(this.props.mainReducer.effects.Delay.settings)
+    var sounds = this.props.mainReducer.currentRecording
+    //
+
+      let newEffect = new Pizzicato.Effects.Delay()
+
+    for (var effect in this.props.mainReducer.effects) {
+        console.log("EFFECT IS ONE", );
+      if (this.props.mainReducer.effects[effect].on) {
+        let effectProps = this.props.mainReducer.effects[effect]
+        let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](
+          effectProps.settings
+        );
+        sounds.addEffect(newEffect)
+      } else if (this.props.mainReducer.effects[effect].on && !!newEffect) {
+        null
+      } else if (!this.props.mainReducer.effects[effect].on && !!newEffect) {
+        sounds.removeEffect(newEffect)
+      }
+    }
+    sounds.play()
+  }
+  pause = () => {
+    this.props.mainReducer.currentRecording.pause()
+    // recorder.stop()
+    // recorder.stop()
+    // console.log(recorder);
+  }
+
+  stop = () => {
+    this.props.mainReducer.currentRecording.stop()
+
+  }
+
+saveSource = () => {
+
+  // console.log(this.props.mainReducer.currentRecording);
+  // let toSave = this.props.mainReducer.currentRecording.masterGainNaode
+  // var file = new File([toSave], "helloWorld.opus", {type:'audio/webm;codecs=opus'});
+  //
+  // console.log("file", file);
+  // FileSaver.saveAs(file)
+  //
+
+
+  // console.log(recorder);
+  // recorder && recorder.record();
+  // recorder.exportWAV(() => console.log('it worked?'))
 }
 
 
+addEffects = () => {
+  ;
 
-play = () => {
-  // this.props.mainReducer.currentRecording.play()
-}
-pause = () => {
-  // this.props.mainReducer.currentRecording.pause()
-}
-
-stop = () => {
-  // this.props.mainReducer.currentRecording.stop()
+  // this.props.mainReducer.currentRecording.addEffect(delay);
 }
 
   render() {
@@ -68,14 +111,15 @@ stop = () => {
     method = 'hover';
     return (
       <div>
-        <Paper className='Main-Paper Edit' elevation={1}>
+        <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
 
           <div>
           {/* Add a visualizer here */}
           </div>
 
           <Button
-            className='Play'
+            className='Player'
+            id='recordedAudioPlayer'
             onClick={this.play}
             variant="fab"
             color="primary"
@@ -83,7 +127,8 @@ stop = () => {
              <PlayArrow />
            </Button>
            <Button
-             className='Play'
+             className='Player'
+             id='recordedAudioPlayer'
              onClick={this.pause}
              variant="fab"
              color="primary"
@@ -91,13 +136,23 @@ stop = () => {
               <Pause />
             </Button>
             <Button
-              className='Play'
+              className='Player'
+              id='recordedAudioPlayer'
               onClick={this.stop}
               variant="fab"
               color="primary"
               aria-label="add" mini>
                <Stop />
              </Button>
+             <Button
+               className='Player'
+               id='recordedAudioPlayer'
+               onClick={this.saveSource}
+               variant="fab"
+               color="primary"
+               aria-label="add" mini>
+                <Stop />
+              </Button>
         </Paper>
         <br /> <br />
         {this.props.mainReducer.focusedEffect === "" ? <EffectsGrid /> : <InFocusEffect />}

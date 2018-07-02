@@ -16,9 +16,9 @@ constructor(props) {
   super(props)
 
   this.state = {
-      mix: 0,
-      feedback: 0,
-      time: 0
+      mix: this.props.mainReducer.effects.Delay.settings.mix,
+      feedback: this.props.mainReducer.effects.Delay.settings.feedback,
+      time: this.props.mainReducer.effects.Delay.settings.time
   }
 }
 
@@ -36,8 +36,13 @@ constructor(props) {
       this.props.switchDelay(event.target.checked)
     };
 
-  handleClickAway = () => {
-    this.props.clearInFocusEffect("")
+  handleClickAway = (event) => {
+    console.log(event);
+    if (event.path[5].id === 'recordedAudioPlayer' || event.path[0].id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object') {
+      null
+    }else {
+      this.props.clearInFocusEffect("")
+    }
   }
 
 
