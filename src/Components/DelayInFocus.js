@@ -38,7 +38,7 @@ constructor(props) {
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.path[5].id === 'recordedAudioPlayer' || event.path[0].id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object') {
+    if (event.path[4].id === 'recordedAudioPlayer'|| event.path[2].id === 'recordedAudioPlayer' || event.path[0].id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object') {
       null
     }else {
       this.props.clearInFocusEffect("")

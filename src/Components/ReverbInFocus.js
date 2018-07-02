@@ -37,10 +37,12 @@ class ReverbInFocus extends Component {
     };
 
   handleClickAway = () => {
-    this.setState({
-      fade: !this.state.fade
-    })
-    this.props.clearInFocusEffect("")
+    console.log(event);
+    if (event.path[4].id === 'recordedAudioPlayer'|| event.path[2].id === 'recordedAudioPlayer' || event.path[0].id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object') {
+      null
+    }else {
+      this.props.clearInFocusEffect("")
+    }
   }
 
 

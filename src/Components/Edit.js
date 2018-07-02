@@ -56,9 +56,7 @@ class Edit extends Component {
           effectProps.settings
         );
         sounds.addEffect(newEffect)
-      } else if (this.props.mainReducer.effects[effect].on && !!newEffect) {
-        null
-      } else if (!this.props.mainReducer.effects[effect].on && !!newEffect) {
+        else if (!this.props.mainReducer.effects[effect].on) {
         sounds.removeEffect(newEffect)
       }
     }
