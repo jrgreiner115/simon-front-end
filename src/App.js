@@ -6,6 +6,7 @@ import LoginAndRegisterContainer from './Containers/LoginAndRegisterContainer'
 import {BrowserRouter as Router, Route, Switch, Link, Redirect, withRouter} from 'react-router-dom';
 import { routeActions } from 'react-router-redux';
 import Edit from './Components/Edit'
+import TemporaryDrawer from './Containers/Menu'
 
 
 
@@ -13,28 +14,27 @@ import Edit from './Components/Edit'
 
 class App extends Component {
 
-state = {
-  loginScreen: true
-}
 
-swapToRegister = () => {
-  this.setState({
-    loginScreen: !this.state.loginScreen
-  })
-}
+
+
+
 
   render() {
+    const routes = [
+      <Route path='/record' render={() => <Recorder />} />,
+      <Route path='/edit'
+      render={() => <Edit />} />
+    ]
+
+    const preauth = [<Route path='/login' component={LoginAndRegisterContainer} />]
+
     return (
       <div className="App">
-        <p> This is where I'll put some sort of Nav bar, after auth. Recorded? {this.props.isRecorded ? "RECORDED" : "NOT RECORDED"} </p>
+         { localStorage.getItem("token") ? <TemporaryDrawer /> : ""}
           <Switch props={this.props.history}>
-            <Route path='/login' component={LoginAndRegisterContainer} />
-            <Route path='/record' render={() => <Recorder />} />
-            <Route path='/edit'
-            render={() => <Edit />} />
+            { localStorage.getItem("token") ? routes : preauth}
+            <Route path='/' component={LoginAndRegisterContainer} />
           </Switch>
-        {/*
-        {localStorage.token && localStorage.id !== 'undefined' ? <Recorder /> : <LoginAndRegisterContainer />} */}
       </div>
     );
   }

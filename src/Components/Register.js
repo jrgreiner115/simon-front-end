@@ -20,7 +20,7 @@ class Register extends Component {
     console.log("I submitted!");
     const pass = document.getElementById('password-input')
     let userObj = {name: this.state.name, username: this.state.username, password: pass.value}
-    Adapter.postUsers(userObj).then(() => this.props.authUser)
+    Adapter.postUsers(userObj).then(() => this.props.authUser())
   }
 
   handleValidation = (event) => {

@@ -12,6 +12,9 @@ import reducer from './reducers/index.js';
 import { syncHistoryWithStore, routerReducer, ConnectedRouter } from 'react-router-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { createBrowserHistory } from 'history'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import theme from './theme.js';
+
 
 export const initialState = {
   authorizedUser: false,
@@ -119,7 +122,9 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </Router>
   </Provider>, document.getElementById('root'));
 registerServiceWorker();

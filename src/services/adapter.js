@@ -22,10 +22,17 @@ const login = (userObj) => fetch(`${URL}/sessions`, {
   localStorage.setItem("recordings", json.recordings)
   localStorage.setItem("username", json.username)})
 
+  const createRecording = (audioBlob) =>
+  fetch(`${URL}/recordings`, {
+    method: "POST",
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({user_id: localStorage.getItem("id"), audio: audioBlob})
+  }).then(resp => resp.json())
+    .then(json => console.log(json))
 
 
 
 
 
 
-export default {postUsers, login};
+export default {postUsers, login, createRecording};

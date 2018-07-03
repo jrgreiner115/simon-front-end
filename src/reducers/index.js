@@ -30,6 +30,12 @@ function reducer(state = initialState, action) {
         focusedEffect: action.payload
       }
 
+    case "SET_INFOCUS_EFFECT":
+      return {
+        ...state,
+        focusedEffect: action.payload
+      }
+
     case "ADD_DELAY":
       return {...state,
         focusedEffect: "Delay",

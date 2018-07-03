@@ -10,6 +10,7 @@ constructor(props) {
 }
 
 handleEditButton = (name) => {
+  this.props.setFocus(name)
 }
 
 
@@ -58,6 +59,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setFocus: (name) => {
+      dispatch({
+        type: "SET_INFOCUS_EFFECT",
+        payload: name
+      })
+    },
   }
 }
 

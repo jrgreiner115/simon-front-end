@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
 import {ReactMic} from 'react-mic';
+import Adapter from '../services/adapter';
 import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Save, Delete} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
+
 
 const styles = {
   textColor: {
@@ -36,7 +38,23 @@ stopRecording = () => {
    }
 
 onStop = (recordedBlob) =>  {
-  console.log(recordedBlob);
+
+  var reader = new FileReader();
+          reader.onload = function(event) {
+            var fd = {};
+            fd["fname"] = "test.wav";
+            fd["data"] = event.target.result;
+
+          };
+          reader.readAsDataURL(recordedBlob.blob);
+
+
+
+  console.log("reader result is", reader.result.toString());
+  localStorage.setItem("blob", reader.result)
+  // localStorage.setItem("test", reader.result)
+
+  Adapter.createRecording(reader.result)
   var sound = new Pizzicato.Sound({
     source: 'file',
     options: { path: [recordedBlob.blobURL] }
@@ -90,7 +108,7 @@ saveRecording = () => {
             mini>
            {this.state.record ?
              <Stop /> :
-             <FiberManualRecord color="error"
+             <FiberManualRecord
            />}</Button> :
              <div>
                <Button

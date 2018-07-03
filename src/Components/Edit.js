@@ -4,13 +4,10 @@ import {Paper, Button} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {Stop, PlayArrow, Pause} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
-import { Menu, MainButton, ChildButton } from 'react-mfb';
-import 'react-mfb/mfb.css';
 import InFocusEffect from '../Containers/InFocusEffect';
 import EffectsGrid from './EffectsGrid';
-import SpeedDialer from './SpeedDialer';
-import Recorder from 'recorder-js';
-import FileSaver from 'file-saver'
+import SpeedDialer from './AddEffectsMenu';
+
 
 var sounds = undefined
 
@@ -42,7 +39,7 @@ class Edit extends Component {
   loadEffects = () => {
     sounds = this.props.mainReducer.currentRecording
 
-    for (var effect in this.props.mainReducer.effects) {
+    for (let effect in this.props.mainReducer.effects) {
         console.log("EFFECT IS ONE", );
       if (this.props.mainReducer.effects[effect].on) {
         let effectProps = this.props.mainReducer.effects[effect]
@@ -115,6 +112,7 @@ addEffects = () => {
   render() {
     return (
       <div>
+
         <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
 
           <div>
@@ -128,7 +126,7 @@ addEffects = () => {
             variant="fab"
             color="primary"
             aria-label="add" mini>
-             <PlayArrow />
+             <PlayArrow id='recordedAudioPlayerIcon'/>
            </Button>
            <Button
              className='Player'
@@ -137,7 +135,7 @@ addEffects = () => {
              variant="fab"
              color="primary"
              aria-label="add" mini>
-              <Pause />
+              <Pause id='recordedAudioPlayerIcon'/>
             </Button>
             <Button
               className='Player'
@@ -146,7 +144,7 @@ addEffects = () => {
               variant="fab"
               color="primary"
               aria-label="add" mini>
-               <Stop />
+               <Stop id='recordedAudioPlayerIcon'/>
              </Button>
              <Button
                className='Player'
@@ -155,7 +153,7 @@ addEffects = () => {
                variant="fab"
                color="primary"
                aria-label="add" mini>
-                <Stop />
+                <Stop id='recordedAudioPlayerIcon'/>
               </Button>
         </Paper>
         <br /> <br />

@@ -4,10 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import SaveIcon from '@material-ui/icons/Save';
-import PrintIcon from '@material-ui/icons/Print';
-import ShareIcon from '@material-ui/icons/Share';
-import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import ReverbIcon from './Icons/ReverbIcon'
@@ -18,6 +14,9 @@ import FlangerIcon  from './Icons/FlangerIcon'
 import TremoloIcon  from './Icons/TremoloIcon'
 import LowPassIcon  from './Icons/LowPassIcon'
 import HighPassIcon  from './Icons/HighPassIcon'
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const styles = theme => ({
@@ -31,10 +30,19 @@ const styles = theme => ({
   },
 });
 
-class SpeedDialer extends Component {
+class AddEffectsMenu extends Component {
   state = {
     open: false,
     hidden: false,
+    openSnack: false
+  };
+
+  handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openSnack: false });
   };
 
   handleVisibility = () => {
@@ -68,7 +76,8 @@ class SpeedDialer extends Component {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addDelay()
+    (this.props.mainReducer.effects.Delay.active ? this.setState({openSnack: true}) :
+    this.props.addDelay())
   };
 
   handleReverbClick = () => {
@@ -148,7 +157,7 @@ class SpeedDialer extends Component {
           <SpeedDialAction
             key="Delay"
             icon={<DelayIcon
-              style={{"padding-top": "9%"}}/>}
+              style={{"paddingTop": "9%"}}/>}
             tooltipTitle={"Delay"}
             onClick={(name) => this.handleDelayClick("Delay")}
           />
@@ -161,46 +170,70 @@ class SpeedDialer extends Component {
           <SpeedDialAction
             key="Distortion"
             icon={<DistortionIcon
-              style={{"padding-top": "20%"}}/>}
+              style={{"paddingTop": "20%"}}/>}
             tooltipTitle={"Distortion"}
             onClick={(name) => this.handleDistortionClick("Distortion")}
           />
           <SpeedDialAction
             key="Flanger"
             icon={<FlangerIcon
-              style={{"padding-top": "20%"}}/>}
+              style={{"paddingTop": "20%"}}/>}
             tooltipTitle={"Flanger"}
             onClick={(name) => this.handleFlangerClick("Flanger")}
           />
           <SpeedDialAction
             key="Tremolo"
             icon={<TremoloIcon
-              style={{"padding-top": "20%"}}/>}
+              style={{"paddingTop": "20%"}}/>}
             tooltipTitle={"Tremolo"}
             onClick={(name) => this.handleTremoloClick("Tremolo")}
           />
           <SpeedDialAction
             key="Fuzz"
             icon={<FuzzIcon
-              style={{"padding-top": "20%"}} />}
+              style={{"paddingTop": "20%"}} />}
             tooltipTitle={"Fuzz"}
             onClick={(name) => this.handleFuzzClick("Fuzz")}
           />
           <SpeedDialAction
             key="LowPass"
             icon={<LowPassIcon
-              style={{"padding-top": "16%"}} />}
+              style={{"paddingTop": "16%"}} />}
             tooltipTitle={"LowPass"}
             onClick={(name) => this.handleLowPassClick("LowPass")}
           />
           <SpeedDialAction
             key="HighPass"
             icon={<HighPassIcon
-              style={{"padding-top": "3%", "padding-left": "7%"}} />}
+              style={{"paddingTop": "3%", "paddingLeft": "7%"}} />}
             tooltipTitle={"HighPass"}
             onClick={(name) => this.handleHighPassClick("HighPass")}
           />
         </SpeedDial>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.openSnack}
+          autoHideDuration={4000}
+          onClose={this.handleSnackClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Effect Already Added</span>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleSnackClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
+        />
       </div>
     );
   }
@@ -264,8 +297,8 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 
-SpeedDialer.propTypes = {
+AddEffectsMenu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SpeedDialer));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AddEffectsMenu));
