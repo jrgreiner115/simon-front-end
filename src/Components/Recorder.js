@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
 import {ReactMic} from 'react-mic';
-import {Paper, Typography, TextField, Button, Icon, Fade} from '@material-ui/core/';
+import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
-import {FiberManualRecord, Stop, PlayArrow, Pause, Save, Delete} from '@material-ui/icons/';
-import { withStyles } from '@material-ui/core/styles';
+import {FiberManualRecord, Stop, PlayArrow, Save, Delete} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
 
 const styles = {

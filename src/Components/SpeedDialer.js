@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
-import ContentCopyIcon from '@material-ui/icons/ContentCopy';
 import SaveIcon from '@material-ui/icons/Save';
 import PrintIcon from '@material-ui/icons/Print';
 import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {connect} from 'react-redux';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import ReverbIcon from './Icons/ReverbIcon'
+import FuzzIcon from './Icons/FuzzIcon'
+import DelayIcon  from './Icons/DelayIcon'
+import DistortionIcon  from './Icons/DistortionIcon'
+import FlangerIcon  from './Icons/FlangerIcon'
+import TremoloIcon  from './Icons/TremoloIcon'
+import LowPassIcon  from './Icons/LowPassIcon'
+import HighPassIcon  from './Icons/HighPassIcon'
+
 
 const styles = theme => ({
   root: {
@@ -139,49 +147,56 @@ class SpeedDialer extends Component {
         >
           <SpeedDialAction
             key="Delay"
-            icon={<SaveIcon />}
+            icon={<DelayIcon
+              style={{"padding-top": "9%"}}/>}
             tooltipTitle={"Delay"}
             onClick={(name) => this.handleDelayClick("Delay")}
           />
           <SpeedDialAction
             key="Reverb"
-            icon={<PrintIcon />}
+            icon={<ReverbIcon/>}
             tooltipTitle={"Reverb"}
             onClick={(name) => this.handleReverbClick("Reverb")}
           />
           <SpeedDialAction
             key="Distortion"
-            icon={<PrintIcon />}
+            icon={<DistortionIcon
+              style={{"padding-top": "20%"}}/>}
             tooltipTitle={"Distortion"}
             onClick={(name) => this.handleDistortionClick("Distortion")}
           />
           <SpeedDialAction
             key="Flanger"
-            icon={<PrintIcon />}
+            icon={<FlangerIcon
+              style={{"padding-top": "20%"}}/>}
             tooltipTitle={"Flanger"}
             onClick={(name) => this.handleFlangerClick("Flanger")}
           />
           <SpeedDialAction
             key="Tremolo"
-            icon={<PrintIcon />}
+            icon={<TremoloIcon
+              style={{"padding-top": "20%"}}/>}
             tooltipTitle={"Tremolo"}
             onClick={(name) => this.handleTremoloClick("Tremolo")}
           />
           <SpeedDialAction
             key="Fuzz"
-            icon={<PrintIcon />}
+            icon={<FuzzIcon
+              style={{"padding-top": "20%"}} />}
             tooltipTitle={"Fuzz"}
             onClick={(name) => this.handleFuzzClick("Fuzz")}
           />
           <SpeedDialAction
             key="LowPass"
-            icon={<PrintIcon />}
+            icon={<LowPassIcon
+              style={{"padding-top": "16%"}} />}
             tooltipTitle={"LowPass"}
             onClick={(name) => this.handleLowPassClick("LowPass")}
           />
           <SpeedDialAction
             key="HighPass"
-            icon={<PrintIcon />}
+            icon={<HighPassIcon
+              style={{"padding-top": "3%", "padding-left": "7%"}} />}
             tooltipTitle={"HighPass"}
             onClick={(name) => this.handleHighPassClick("HighPass")}
           />

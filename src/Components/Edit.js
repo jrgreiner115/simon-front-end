@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {ReactMic} from 'react-mic';
-import {Paper, Typography, TextField, Button, Icon, Fade, Slide} from '@material-ui/core/';
+import {Paper, Button} from '@material-ui/core/';
 import {connect} from 'react-redux';
-import {FiberManualRecord, Stop, PlayArrow, Pause, Save, Delete, Add } from '@material-ui/icons/';
-import { withStyles } from '@material-ui/core/styles';
+import {Stop, PlayArrow, Pause} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import 'react-mfb/mfb.css';
@@ -115,15 +113,6 @@ addEffects = () => {
 }
 
   render() {
-    console.log("State,", this.state);
-    var panel = document.getElementById('panel'),
-    showcode = document.getElementById('showcode'),
-    selectFx = document.getElementById('selections-fx'),
-    selectPos = document.getElementById('selections-pos'),
-    selectMethod = document.getElementById('selections-method');
-    var effect = 'zoomin',
-    pos = 'br',
-    method = 'hover';
     return (
       <div>
         <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>

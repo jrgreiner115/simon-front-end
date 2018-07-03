@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
-import Login from "../Components/Login";
-import Register from '../Components/Register';
 import DelayInFocus from '../Components/DelayInFocus';
 import ReverbInFocus from '../Components/ReverbInFocus';
 import DistortionInFocus from '../Components/DistortionInFocus';
@@ -10,7 +8,6 @@ import TremoloInFocus from '../Components/TremoloInFocus';
 import FuzzInFocus from '../Components/FuzzInFocus';
 import LowPassInFocus from '../Components/LowPassInFocus';
 import HighPassInFocus from '../Components/HighPassInFocus';
-import {Fade} from '@material-ui/core/';
 
 class InFocusEffect extends Component {
 

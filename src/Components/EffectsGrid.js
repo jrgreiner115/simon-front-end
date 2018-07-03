@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Typography,Button, Fade, Grid, Card, CardMedia, CardActions, CardContent} from '@material-ui/core/';
+import {Typography,Button, Fade, Grid, Card, CardActions, CardContent} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 

@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import {Typography, TextField, Button} from '@material-ui/core/';
 import {connect} from 'react-redux'
-import Login from "./Components/Login";
 import Recorder from './Components/Recorder'
-import Register from './Components/Register'
-import MainApplication from './Containers/MainApplication'
 import LoginAndRegisterContainer from './Containers/LoginAndRegisterContainer'
 import {BrowserRouter as Router, Route, Switch, Link, Redirect, withRouter} from 'react-router-dom';
 import { routeActions } from 'react-router-redux';
