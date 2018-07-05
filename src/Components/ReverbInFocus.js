@@ -4,6 +4,8 @@ import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/c
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Character from './Character/guy1.png'
+import Theater from './Character/amphitheatre.png'
 
 const styles = {
   textColor: {
@@ -48,14 +50,17 @@ class ReverbInFocus extends Component {
 
 
   render() {
+    let charHeight = 100 - (((this.state.decay)+(this.state.time)) * 10)
     return (
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
           <span className='left-side-effect-card'>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
+          <div className='ReverbChar'>
+            <img src={Character} height={charHeight} style={{opacity:this.state.mix}}/>
+          </div>
+          <span className='Effect-Details'>
             <Typography variant="headline">
               Reverb
             </Typography>

@@ -29,6 +29,7 @@ height: 100vh;
 }
 
 .Edit {
+  width: 800px;
   height: 200px;
 }
 
@@ -48,8 +49,28 @@ height: 100vh;
    overflow: hidden;
 }
 
-.edit-suit-slider {
+.edit-suite-slider {
   margin: 30%;
+}
+
+.edit-div {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.volume-slider-div {
+  display: block;
+  position: absolute;
+  right: 120px;
+  width: 100px;
+  bottom: 15px;
+  padding: 10px;
+}
+
+.volume-slider {
+  color: #fff;
+  background-color: #fff;
 }
 
 .left-side-effect-card  {
@@ -69,6 +90,30 @@ height: 100vh;
 #effects-grid {
 
   text-align: center;
+}
+
+.dancing-edit-guy-div {
+  height: 170px;
+  float: left;
+}
+
+.dancing-edit-guy {
+  height: 170px;
+  opacity: 80%;
+}
+
+.ReverbChar {
+  height: 100px;
+  margin: 10px;
+  background-color: #D3D3D3;
+}
+
+.Effect-Details {
+  position:absolute;
+  left: 50px;
+   top:50px;
+   width:100px;
+   height:50%;
 }
 
 .Hambuger {
