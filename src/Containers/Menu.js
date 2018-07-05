@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import MenuIcon from '@material-ui/icons/Menu';
-// import white from '@material-ui/core/colors/white';
+import {Drawer, Button, List, ListItem, Divider, ListItemIcon,ListItemText, } from '@material-ui/core/';
+import {Menu, Drafts, Inbox} from '@material-ui/icons/';
+import {connect} from 'react-redux';
+import { routeActions } from 'react-router-redux';
+import { withRouter } from 'react-router-dom';
 
 
 const styles = {
@@ -16,13 +15,17 @@ const styles = {
   fullList: {
     width: 'auto',
   },
+  white: {
+    color: '#fff',
+    float: 'right',
+  },
+  icons: {
+    color: 'rgba(0, 0, 0, 0.54)',
+  },
 };
 
 class TemporaryDrawer extends React.Component {
   state = {
-    top: false,
-    left: false,
-    bottom: false,
     right: false,
   };
 
@@ -32,14 +35,40 @@ class TemporaryDrawer extends React.Component {
     });
   };
 
+  handleLogout = () => {
+    localStorage.removeItem('id');
+    localStorage.removeItem('recordings');
+    localStorage.removeItem('username')
+    localStorage.removeItem('token');
+
+    this.props.history.push('/login')
+  }
+
   render() {
     const { classes } = this.props;
 
     const sideList = (
       <div className={classes.list}>
-        <List>{["1","2","3"]}</List>
-        <Divider />
-        <List>{["1","2","3"]}</List>
+        <List component="nav">
+        <ListItem button>
+          <ListItemText primary="Recordings" />
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Save" />
+        </ListItem>
+        <ListItem button>
+          <ListItemText primary="Export" />
+        </ListItem>
+      </List>
+      <Divider />
+      <List component="nav">
+        <ListItem button>
+          <ListItemText primary="Settings" />
+        </ListItem>
+        <ListItem button component="a" href="#simple-list">
+          <ListItemText onClick={this.handleLogout} primary="Log Out" />
+        </ListItem>
+      </List>
       </div>
     );
 
@@ -53,42 +82,15 @@ class TemporaryDrawer extends React.Component {
 
     return (
       <div>
-        <MenuIcon onClick={this.toggleDrawer('right', true)} />
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
-          >
-            {sideList}
-          </div>
-        </Drawer>
-        <Drawer anchor="top" open={this.state.top} onClose={this.toggleDrawer('top', false)}>
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('top', false)}
-            onKeyDown={this.toggleDrawer('top', false)}
-          >
-            {fullList}
-          </div>
-        </Drawer>
+        <Button
+          className={classes.white}
+          onClick={this.toggleDrawer('right', true)}>
+            Options
+        </Button>
         <Drawer
-          anchor="bottom"
-          open={this.state.bottom}
-          onClose={this.toggleDrawer('bottom', false)}
-        >
-          <div
-            tabIndex={0}
-            role="button"
-            onClick={this.toggleDrawer('bottom', false)}
-            onKeyDown={this.toggleDrawer('bottom', false)}
-          >
-            {fullList}
-          </div>
-        </Drawer>
-        <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
+          anchor="right"
+          open={this.state.right}
+          onClose={this.toggleDrawer('right', false)}>
           <div
             tabIndex={0}
             role="button"
@@ -107,4 +109,8 @@ TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TemporaryDrawer);
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default withRouter(connect(mapStateToProps, null)(withStyles(styles)(TemporaryDrawer)));

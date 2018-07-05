@@ -87,7 +87,7 @@ saveRecording = () => {
     return(
       <Fade in={this.state.fade}>
       <div className='outer-div'>
-      <Typography align="center" gutterBottom variant="display1">This is Simon. Record below to get started</Typography>
+      <Typography align="center" gutterBottom variant="display1">Record below to get started</Typography>
       <div>
       <Paper className='Main-Paper'>
         <br />

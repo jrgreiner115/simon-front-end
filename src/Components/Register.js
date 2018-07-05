@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
 import Adapter from '../services/adapter';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 
 class Register extends Component {
   state= {
     name: "",
     username: "",
-    invalidPassword: false
+    invalidPassword: false,
+    input: true
   }
 
   handleChange = (event) => {
@@ -21,6 +22,8 @@ class Register extends Component {
     const pass = document.getElementById('password-input')
     let userObj = {name: this.state.name, username: this.state.username, password: pass.value}
     Adapter.postUsers(userObj).then(() => this.props.authUser())
+
+    this.props.swapToRegister()
   }
 
   handleValidation = (event) => {
@@ -40,7 +43,7 @@ class Register extends Component {
 
   render() {
     return (<div className='outer-div'>
-      <Fade in>
+      <Fade in={this.state.input}>
       <Paper  className='Input-Paper'elevation={2}>
         <form>
           <TextField
