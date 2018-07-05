@@ -16,9 +16,8 @@ class LowPassInFocus extends Component {
     super(props)
 
     this.state = {
-      volume: 0,
-      frequency: 0,
-      peak: 0
+      frequency: this.props.mainReducer.effects.LowPass.settings.frequency,
+      peak: this.props.mainReducer.effects.LowPass.settings.peak,
     }
   }
 
@@ -52,7 +51,8 @@ class LowPassInFocus extends Component {
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper>
+        <Paper className='Effect-Paper'>
+          <span className='left-side-effect-card'>
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
@@ -62,14 +62,9 @@ class LowPassInFocus extends Component {
               checked={this.props.mainReducer.effects.LowPass.on}
               onChange={this.handleSwitch("ON")}
             />
-            <div>
-              <Typography id="label">Volume</Typography>
-              <Slider
-                max={1}
-                min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.volume}
-                onChange={(event, value, name) => this.handleChange(event, value, "volume")}
-              />
+                </span>
+              </span>
+            <span className='right-side-effect-card'>
               <Typography id="label">Frequency</Typography>
               <Slider
                 max={22050}
@@ -79,12 +74,11 @@ class LowPassInFocus extends Component {
               />
               <Typography id="label">Peak</Typography>
               <Slider
-                max={10}
+                max={1000}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
-            </div>
           </span>
         </Paper>
         </Fade>

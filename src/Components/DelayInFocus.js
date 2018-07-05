@@ -51,17 +51,20 @@ constructor(props) {
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
-            <Typography variant="headline">
-              Delay
-            </Typography>
-            <Switch
-              checked={this.props.mainReducer.effects.Delay.on}
-              onChange={this.handleSwitch("ON")}
-            />
-            <div>
+        <Paper className='Effect-Paper'>
+          <span className='left-side-effect-card'>
+            <span>IMG ANIMATION SPAN</span>
+            <span>
+              <Typography variant="headline">
+                Delay
+              </Typography>
+              <Switch
+                checked={this.props.mainReducer.effects.Delay.on}
+                onChange={this.handleSwitch("ON")}
+              />
+              </span>
+            </span>
+            <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
                 max={1}
@@ -83,8 +86,7 @@ constructor(props) {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.time}
                 onChange={(event, value, name) => this.handleChange(event, value, "time")}
               />
-            </div>
-          </span>
+            </span>
         </Paper>
         </Fade>
         </ClickAwayListener>

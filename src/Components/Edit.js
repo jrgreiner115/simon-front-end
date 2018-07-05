@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Button} from '@material-ui/core/';
+import {Paper, Button, Typography} from '@material-ui/core/';
+import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import {Stop, PlayArrow, Pause} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
@@ -109,16 +110,19 @@ addEffects = () => {
   // this.props.mainReducer.currentRecording.addEffect(delay);
 }
 
+handleVolume = (event, value) => {
+  this.props.sendVolumeChange(value)
+}
+
   render() {
     return (
       <div>
-
-        <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
-
+        <div className="Edit-Suite">
+          <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
           <div>
           {/* Add a visualizer here */}
           </div>
-
+          <div>
           <Button
             className='Player'
             id='recordedAudioPlayer'
@@ -155,8 +159,13 @@ addEffects = () => {
                aria-label="add" mini>
                 <Stop id='recordedAudioPlayerIcon'/>
               </Button>
+              </div>
+              <span className='edit-suit-slider'>
+                <Typography id="label">Volume</Typography>
+                <Slider max={1} min={0} aria-labelledby="label" value={this.props.mainReducer.volume} onChange={(event, value) => this.handleVolume(event, value)}/>
+              </span>
         </Paper>
-        <br /> <br />
+      </div>
         {this.props.mainReducer.focusedEffect === "" ? <EffectsGrid /> : <InFocusEffect />}
         <SpeedDialer />
       </div>
@@ -172,7 +181,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    sendVolumeChange: (payload) => {
+      dispatch({
+        type: "CHANGE_VOLUME",
+        payload
+      })
+    },
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Edit));

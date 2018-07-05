@@ -16,7 +16,7 @@ class DistortionInFocus extends Component {
     super(props)
 
     this.state = {
-      gain: 0.4
+      gain: this.props.mainReducer.effects.Distortion.settings.gain,
     }
   }
 
@@ -50,7 +50,8 @@ class DistortionInFocus extends Component {
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper>
+        <Paper className='Effect-Paper'>
+          <span className='left-side-effect-card'>
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
@@ -60,7 +61,9 @@ class DistortionInFocus extends Component {
               checked={this.props.mainReducer.effects.Distortion.on}
               onChange={this.handleSwitch("ON")}
             />
-            <div>
+            </span>
+          </span>
+            <span className='right-side-effect-card'>
               <Typography id="label">Gain</Typography>
               <Slider
                 max={1}
@@ -68,8 +71,7 @@ class DistortionInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Distortion.settings.gain}
                 onChange={(event, value, name) => this.handleChange(event, value, "gain")}
               />
-            </div>
-          </span>
+            </span>
         </Paper>
         </Fade>
         </ClickAwayListener>

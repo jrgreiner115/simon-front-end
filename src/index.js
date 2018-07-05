@@ -22,6 +22,7 @@ export const initialState = {
   isRecorded: false,
   hasEffects: false,
   isSaved: false,
+  volume: 0.8,
   isDownloaded: false,
   focusedEffect: "",
   effects: {
@@ -43,9 +44,9 @@ export const initialState = {
       on: false,
       active: false,
       settings: {
-      time: 0,
-      feedback: 0,
-      mix: 0
+      time: 0.3,
+      feedback: 0.4,
+      mix: 0.2
   }},
     Distortion: {
       name: 'Distortion',
@@ -74,9 +75,9 @@ export const initialState = {
       on: false,
       active: false,
       settings: {
-      time: 0,
-      decay: 0,
-      mix: 0
+      time: 0.1,
+      decay: 0.3,
+      mix: 0.3
     }},
     Tremolo: {
       name: "Tremolo",
@@ -84,9 +85,9 @@ export const initialState = {
       on: false,
       active: false,
       settings: {
-      speed: 7,
+      speed: 2,
       depth: 0.6,
-      mix: 1
+      mix: 0.3
     }},
     LowPass: {
       name: "LowPass",

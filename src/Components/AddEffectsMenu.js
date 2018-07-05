@@ -216,7 +216,7 @@ class AddEffectsMenu extends Component {
             horizontal: 'left',
           }}
           open={this.state.openSnack}
-          autoHideDuration={4000}
+          autoHideDuration={2500}
           onClose={this.handleSnackClose}
           ContentProps={{
             'aria-describedby': 'message-id',

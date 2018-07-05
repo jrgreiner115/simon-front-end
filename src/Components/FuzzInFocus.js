@@ -16,10 +16,10 @@ class FuzzInFocus extends Component {
     super(props)
 
     this.state = {
-      lowGain: 0.6,
-      midLowGain: 0.8,
-      midHighGain: 0.5,
-      highGain: 0.6,
+      lowGain: this.props.mainReducer.effects.Fuzz.settings.lowGain,
+      midLowGain: this.props.mainReducer.effects.Fuzz.settings.midLowGain,
+      midHighGain: this.props.mainReducer.effects.Fuzz.settings.midHighGain,
+      highGain: this.props.mainReducer.effects.Fuzz.settings.highGain,
     }
   }
 
@@ -52,7 +52,8 @@ class FuzzInFocus extends Component {
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper>
+        <Paper className='Effect-Paper'>
+          <span className='left-side-effect-card'>
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
@@ -62,7 +63,9 @@ class FuzzInFocus extends Component {
               checked={this.props.mainReducer.effects.Fuzz.on}
               onChange={this.handleSwitch("ON")}
             />
-            <div>
+          </span>
+        </span>
+        <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
                 max={1}
@@ -98,7 +101,6 @@ class FuzzInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.highGain}
                 onChange={(event, value, name) => this.handleChange(event, value, "highGain")}
               />
-            </div>
           </span>
         </Paper>
         </Fade>

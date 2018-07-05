@@ -9,6 +9,8 @@ function reducer(state = initialState, action) {
     console.log('we did it!', state);
     case "ADD_EFFECT":
       return {...state};
+    case "CHANGE_VOLUME":
+      return {...state, volume: action.payload}
     case "GET_RECORDINGS":
       console.log("action,", action);
       return {...state, recording: action.payload};

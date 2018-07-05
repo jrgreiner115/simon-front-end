@@ -16,11 +16,11 @@ constructor(props) {
   super(props)
 
   this.state = {
-    time: 0.45,
-    speed: 0.2,
-    depth: 0.1,
-    feedback: 0.1,
-    mix: 0.5
+    time: this.props.mainReducer.effects.Flanger.settings.time,
+    speed: this.props.mainReducer.effects.Flanger.settings.speed,
+    depth: this.props.mainReducer.effects.Flanger.settings.depth,
+    feedback: this.props.mainReducer.effects.Flanger.settings.feedback,
+    mix: this.props.mainReducer.effects.Flanger.settings.mix,
   }
 }
 
@@ -54,7 +54,8 @@ componentDidMount() {
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper>
+        <Paper className='Effect-Paper'>
+          <span className='left-side-effect-card'>
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
@@ -64,7 +65,9 @@ componentDidMount() {
               checked={this.props.mainReducer.effects.Flanger.on}
               onChange={this.handleSwitch("ON")}
             />
-            <div>
+              </span>
+            </span>
+            <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
                 max={1}
@@ -100,7 +103,6 @@ componentDidMount() {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.feedback}
                 onChange={(event, value, name) => this.handleChange(event, value, "feedback")}
               />
-            </div>
           </span>
         </Paper>
         </Fade>

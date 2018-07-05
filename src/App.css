@@ -32,6 +32,36 @@ height: 100vh;
   height: 200px;
 }
 
+.Edit-Suite {
+  padding-top: 7%;
+  padding-bottom: 2%;
+}
+
+.Edit {
+  padding: 2%;
+}
+
+.Effect-Paper {
+   padding: 4%;
+   margin: 0 auto;
+   width: 1200px;
+   overflow: hidden;
+}
+
+.edit-suit-slider {
+  margin: 30%;
+}
+
+.left-side-effect-card  {
+  float: left;
+  width: 300px
+}
+
+.right-side-effect-card {
+  float: right;
+  width: 900px
+}
+
 .Play {
   padding-right: 10px;
 }

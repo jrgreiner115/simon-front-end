@@ -16,9 +16,9 @@ class ReverbInFocus extends Component {
     super(props)
 
     this.state = {
-      mix: 0,
-      decay: 0,
-      time: 0
+      mix: this.props.mainReducer.effects.Reverb.settings.mix,
+      decay: this.props.mainReducer.effects.Reverb.settings.decay,
+      time: this.props.mainReducer.effects.Reverb.settings.time,
     }
   }
 
@@ -52,7 +52,8 @@ class ReverbInFocus extends Component {
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper>
+        <Paper className='Effect-Paper'>
+          <span className='left-side-effect-card'>
           <span>IMG ANIMATION SPAN</span>
           <span>
             <Typography variant="headline">
@@ -62,7 +63,9 @@ class ReverbInFocus extends Component {
               checked={this.props.mainReducer.effects.Reverb.on}
               onChange={this.handleSwitch("ON")}
             />
-            <div>
+          </span>
+        </span>
+        <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
                 max={1}
@@ -84,7 +87,6 @@ class ReverbInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.decay}
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
-            </div>
           </span>
         </Paper>
         </Fade>

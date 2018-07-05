@@ -3,12 +3,12 @@ import Pizzicato from 'pizzicato';
 import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 const styles = {
   textColor: {
     color: 'white'
-  },
+  }
 };
 
 class TremoloInFocus extends Component {
@@ -16,15 +16,13 @@ class TremoloInFocus extends Component {
     super(props)
 
     this.state = {
-      mix: 0,
-      speed: 0,
-      depth: 0
+      mix: this.props.mainReducer.effects.Tremolo.settings.mix,
+      speed: this.props.mainReducer.effects.Tremolo.settings.speed,
+      depth: this.props.mainReducer.effects.Tremolo.settings.depth,
     }
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   handleChange = (event, value, name) => {
     this.setState({
@@ -33,62 +31,44 @@ class TremoloInFocus extends Component {
   }
 
   handleSwitch = name => event => {
-      this.props.switchTremolo(event.target.checked)
-    };
+    this.props.switchTremolo(event.target.checked)
+  };
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer' || event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
       null
-    }else {
+    } else {
       this.props.clearInFocusEffect("")
     }
   }
 
   render() {
-    return (
-      <div>
-        <ClickAwayListener onClickAway={this.handleClickAway}>
-        <Fade in>
-        <Paper>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
-            <Typography variant="headline">
-              Tremolo
-            </Typography>
-            <Switch
-              checked={this.props.mainReducer.effects.Tremolo.on}
-              onChange={this.handleSwitch("ON")}
-            />
-            <div>
+    return (<div>
+      <ClickAwayListener onClickAway={this.handleClickAway}>
+        <Fade in="in">
+          <Paper className='Effect-Paper'>
+            <span className='left-side-effect-card'>
+              <span>IMG ANIMATION SPAN</span>
+              <span>
+                <Typography variant="headline">
+                  Tremolo
+                </Typography>
+                <Switch checked={this.props.mainReducer.effects.Tremolo.on} onChange={this.handleSwitch("ON")}/>
+              </span>
+            </span>
+            <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
-              <Slider
-                max={1}
-                min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.mix}
-                onChange={(event, value, name) => this.handleChange(event, value, "mix")}
-              />
+              <Slider max={1} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.mix} onChange={(event, value, name) => this.handleChange(event, value, "mix")}/>
               <Typography id="label">Speed</Typography>
-              <Slider
-                max={1}
-                min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.speed}
-                onChange={(event, value, name) => this.handleChange(event, value, "speed")}
-              />
+              <Slider max={20} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.speed} onChange={(event, value, name) => this.handleChange(event, value, "speed")}/>
               <Typography id="label">Depth</Typography>
-              <Slider
-                max={5}
-                min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.depth}
-                onChange={(event, value, name) => this.handleChange(event, value, "depth")}
-              />
-            </div>
-          </span>
-        </Paper>
+              <Slider max={1} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.depth} onChange={(event, value, name) => this.handleChange(event, value, "depth")}/>
+            </span>
+          </Paper>
         </Fade>
-        </ClickAwayListener>
-      </div>
-    )
+      </ClickAwayListener>
+    </div>)
   }
 }
 
@@ -99,25 +79,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     sendTremoloChange: (payload) => {
-      dispatch({
-        type: "ALTER_TREMOLO",
-        payload: payload
-      })
+      dispatch({type: "ALTER_TREMOLO", payload: payload})
     },
     switchTremolo: (payload) => {
-      dispatch({
-        type: "SWITCH_TREMOLO",
-        payload
-      })
+      dispatch({type: "SWITCH_TREMOLO", payload})
     },
     clearInFocusEffect: (payload) => {
-      dispatch({
-        type: "CLEAR_INFOCUS_EFFECT",
-        payload: payload
-      })
-    },
+      dispatch({type: "CLEAR_INFOCUS_EFFECT", payload: payload})
+    }
   }
 }
-
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TremoloInFocus));

@@ -50,10 +50,9 @@ onStop = (recordedBlob) =>  {
 
 
 
-  console.log("reader result is", reader.result.toString());
+  console.log("reader result is", reader.result);
   localStorage.setItem("blob", reader.result)
   // localStorage.setItem("test", reader.result)
-
   Adapter.createRecording(reader.result)
   var sound = new Pizzicato.Sound({
     source: 'file',
