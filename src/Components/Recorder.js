@@ -6,9 +6,7 @@ import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Save, Delete} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
-// import {default as Mic} from 'react-mp3-recorder'
-import ReactMediaRecorder from "react-media-recorder";
-import {default as Mic} from 'react-recorder-3s'
+
 
 
 
@@ -99,8 +97,6 @@ saveRecording = () => {
           nonstop='true'
           duration={10}
             />
-          <Mic command={this.state.command}
-            onStop={this.onStop} />
           {!this.props.mainReducer.isRecorded ? <Button
             className='Recording'
             onClick={this.handleRecording}
@@ -176,7 +172,7 @@ const mapDispatchToProps = (dispatch) => {
         type: "GET_RECORDINGS",
         payload: array
       })
-    }
+    },
   }
 }
 

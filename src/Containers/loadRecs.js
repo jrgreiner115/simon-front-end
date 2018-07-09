@@ -18,7 +18,6 @@ class LoadRecs extends Component {
   };
 
   render() {
-    console.log("LOADREC PROPS,", this.props);
     return (
       <Dialog onClose={this.handleClose}
         open={this.props.open} aria-labelledby="simple-dialog-title">

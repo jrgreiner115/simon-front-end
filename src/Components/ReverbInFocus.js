@@ -24,7 +24,19 @@ class ReverbInFocus extends Component {
   }
 
   componentDidMount() {
-
+    let effectSettings = this.props.mainReducer.effects.Reverb.settings
+    let newEffect = new Pizzicato.Effects.Reverb(effectSettings);
+    console.log(newEffect);
+    if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active && !this.props.mainReducer.effects.Reverb.added){
+    let sounds = this.props.mainReducer.currentRecording
+    sounds.addEffect(newEffect)
+    this.props.effectAdded("Reverb")}
+  // }else if (!this.props.mainReducer.effects.Reverb.on) {
+  //   newEffect.options(mix: 0)
+  // }
+  else {
+    newEffect.options(effectSettings)
+  }
   }
 
   handleChange = (event, value, name) => {
@@ -48,12 +60,12 @@ class ReverbInFocus extends Component {
 
   handleRemoveButton = (name) => {
     this.props.removeEffect(name)
+    this.props.clearInFocusEffect("")
   }
 
 
 
   render() {
-    let charHeight = (((this.state.decay)+(this.state.time)) * 20) + 30
     return (
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
@@ -71,8 +83,11 @@ class ReverbInFocus extends Component {
             />
           </div>
           <div className='ReverbChar'>
-            <img src={Theater} className="RevHall" width={charHeight} style={{opacity:this.state.mix}}/>
+            <img src={Theater} className="RevHall" width='150px' />
           </div>
+          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
+            Remove Effect
+          </Button>
         </div>
         <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
@@ -96,9 +111,6 @@ class ReverbInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.decay}
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
-              <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
-                Remove
-              </Button>
           </span>
         </Paper>
         </Fade>
@@ -137,6 +149,11 @@ const mapDispatchToProps = (dispatch) => {
         type: "REMOVE_EFFECT",
         payload: name
       })
+    },
+    effectAdded: (payload) => {
+      dispatch({
+        type: "EFFECT_ADDED",
+        payload})
     },
   }
 }

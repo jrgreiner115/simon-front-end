@@ -114,3 +114,11 @@ height: 100vh;
 .char-effect {
   object-position: 50% 50%;
 }
+
+.save-dialog {
+  text-align: center;
+   width: 200px;
+}
+.Menu-button{
+  z-index: 10;
+}

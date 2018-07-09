@@ -54,7 +54,7 @@ class Edit extends Component {
 
     for (let effect in this.props.mainReducer.effects) {
 
-      if (this.props.mainReducer.effects[effect].on && !this.props.mainReducer.effects[effect].added) {
+      if (this.props.mainReducer.effects[effect].on) {
         let effectProps = this.props.mainReducer.effects[effect]
         let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](effectProps.settings);
         sounds.addEffect(newEffect)
@@ -242,6 +242,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "SATISFIED_WITH_RECORDING",
         payload: recording
+      })
+    },
+    getRecs: (array) => {
+      dispatch({
+        type: "GET_RECORDINGS",
+        payload: array
       })
     },
   }

@@ -34,6 +34,7 @@ export const initialState = {
       pizzicatoName: "Flanger",
       on: false,
       active: false,
+      added: false,
       settings: {
       time: 0.45,
       speed: 0.2,

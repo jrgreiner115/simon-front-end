@@ -40,13 +40,17 @@ const login = (userObj) => fetch(`${URI}/sessions`, {
   localStorage.setItem("username", json.username)
 })
 
-const createRecording = (uri) => fetch(`${URI}/recordings`, {
+const createRecording = (id) => fetch(`${URI}/recordings`, {
   method: "POST",
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({user_id: localStorage.getItem("id"), path: uri})
-}).then(resp => resp.json()).then(json => localStorage.setItem("rec_path", json.path))
+  body: JSON.stringify({user_id: localStorage.getItem("id"), path: id, name: "untitled"})
+})
+  .then(resp => resp.json())
+  .then(json => {
+    localStorage.setItem("rec_path", json.path);
+    localStorage.setItem("rec_id", json.id)})
 
 
 const postRecord = (audioBlob) => {
@@ -103,13 +107,13 @@ const getRecs = (id) => {
 }
 
 const patchRecordingName = (name, id) => {
-  fetch(`${URI}/recordings/`, {
-    method: "POST",
+  fetch(`${URI}/recordings/${id}`, {
+    method: "PATCH",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({user_id: localStorage.getItem("id"), path: uri})
-  }).then(resp => resp.json()).then(json => localStorage.setItem("rec_path", json.path))
+    body: JSON.stringify({name: name})
+  }).then(resp => resp.json())
 }
 
-export default {postUsers, login, createRecording, postRecord, getRecs};
+export default {postUsers, login, createRecording, postRecord, getRecs, patchRecordingName};

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {DialogTitle, Dialog, Typography, TextField, Button} from '@material-ui/core/';
 import {connect} from 'react-redux';
+import Adapter from '../services/adapter'
+let rec_id = undefined
 
 class SaveRec extends Component {
   constructor(props) {
@@ -12,12 +14,15 @@ class SaveRec extends Component {
     }
   }
 
+  componentDidMount = () => {
+    rec_id = localStorage.getItem("rec_id")
+  }
+
   handleClose = () => {
     this.props.onSaveClose(this.props.selectedValue);
   };
 
   handleListItemClick = value => {
-    console.log(value);
     this.props.onSaveClose(value);
   };
 
@@ -28,18 +33,19 @@ class SaveRec extends Component {
   }
 
   handleSubmit = () => {
-    Adapter.patchRecordingName(this.state.recName)
+    Adapter.patchRecordingName(this.state.recName, rec_id)
+    this.props.onSaveClose(this.props.selectedValue);
   }
 
   render() {
-    console.log("SAVEREC PROPS,", this.props);
     return (
+      <div>
       <Dialog onClose={this.handleClose}
-        open={this.props.saveRecOpen} aria-labelledby="simple-dialog-title">
+        open={this.props.open} aria-labelledby="simple-dialog-title">
       <DialogTitle id="simple-dialog-title">
         Save Recording
       </DialogTitle>
-      <div>
+      <div className="save-dialog">
         <form>
           <TextField
           id="save-recording"
@@ -54,12 +60,13 @@ class SaveRec extends Component {
             variant='contained'
             color='primary'
             onClick={this.handleSubmit}>
-            Save As
+            Save
           </Button>
 
         </form>
       </div>
-    </Dialog>);
+    </Dialog>
+    </div>);
   }
 
 }

@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import { withRouter } from 'react-router-dom';
 import LoadRecs from './loadRecs'
+import SaveRecs from './saveRecName'
 
 
 const styles = {
@@ -28,7 +29,8 @@ const styles = {
 class TemporaryDrawer extends React.Component {
   state = {
     right: false,
-    open: false
+    open: false,
+    saveOpen: false,
   };
 
   toggleDrawer = (side, open) => () => {
@@ -52,12 +54,26 @@ class TemporaryDrawer extends React.Component {
     });
   }
 
-  handleClose = value => {
+  handleOpenSaveRecording = () => {
+    this.setState({
+      saveOpen: true,
+    });
+  }
 
+  handleClose = value => {
     this.setState({open: false });
+    if (value) {
     localStorage.setItem("rec_path", value.path)
-    this.props.history.push('/edit')
+    this.props.history.push('/edit')}
   };
+
+  handleSaveClose = value => {
+    this.setState({saveOpen: false });
+  };
+
+  handleNewRecording = () => {
+    this.props.history.push('/record')
+  }
 
   render() {
     const { classes } = this.props;
@@ -65,10 +81,13 @@ class TemporaryDrawer extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List component="nav">
+        <ListItem button onClick={this.handleNewRecording}>
+          <ListItemText primary="New" />
+        </ListItem>
         <ListItem button onClick={this.handleOpenRecording}>
           <ListItemText primary="Open" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={this.handleOpenSaveRecording}>
           <ListItemText primary="Save" />
         </ListItem>
         <ListItem button>
@@ -90,7 +109,7 @@ class TemporaryDrawer extends React.Component {
 
 
     return (
-      <div>
+      <div className='Menu-button'>
         <Button
           className={classes.white}
           onClick={this.toggleDrawer('right', true)}>
@@ -110,9 +129,12 @@ class TemporaryDrawer extends React.Component {
           </div>
         </Drawer>
         <LoadRecs
-          selectedValue={this.state.selectedValue}
           open={this.state.open}
           onClose={this.handleClose}
+        />
+        <SaveRecs
+          open={this.state.saveOpen}
+          onSaveClose={this.handleSaveClose}
         />
       </div>
     );
