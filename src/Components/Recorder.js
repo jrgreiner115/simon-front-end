@@ -6,6 +6,12 @@ import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Save, Delete} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
+// import {default as Mic} from 'react-mp3-recorder'
+import ReactMediaRecorder from "react-media-recorder";
+import {default as Mic} from 'react-recorder-3s'
+
+
+
 
 
 const styles = {
@@ -20,8 +26,15 @@ constructor(props) {
 
   this.state = {
     record: false,
-    fade: true
+    fade: true,
+    command: "none"
   }
+}
+
+componentDidMount = () => {
+  let userId = localStorage.getItem("id")
+  fetch(`http://localhost:3500/api/v1/users/${userId}`)
+    .then(resp=> resp.json()).then((json) =>{ this.props.getRecs(json.recordings)})
 }
 
 
@@ -38,34 +51,18 @@ stopRecording = () => {
    }
 
 onStop = (recordedBlob) =>  {
-
-  var reader = new FileReader();
-          reader.onload = function(event) {
-            var fd = {};
-            fd["fname"] = "test.wav";
-            fd["data"] = event.target.result;
-
-          };
-          reader.readAsDataURL(recordedBlob.blob);
-
-
-
-  console.log("reader result is", reader.result);
-  localStorage.setItem("blob", reader.result)
-  // localStorage.setItem("test", reader.result)
-  Adapter.createRecording(reader.result)
+  console.log(recordedBlob);
   var sound = new Pizzicato.Sound({
     source: 'file',
     options: { path: [recordedBlob.blobURL] }
   }, () => {
-    this.props.addRecording(sound)
+    this.props.addRecording({sound: sound, blob: recordedBlob.blob})
   });
 }
 
 listenBeforeSave = () => {
   return (
   this.props.mainReducer.currentRecording.play())
-  console.log("did it listen? ");
 }
 
 handleClear = () => {
@@ -76,10 +73,14 @@ saveRecording = () => {
   this.setState({
     fade: false
   })
-  this.props.satisfiedWithRecording()
-  setTimeout(() =>
-  this.props.history.push('/edit'), 500);
-
+  Adapter.postRecord(this.props.mainReducer.currentBlob).then(thing =>{
+  let newsound = new Pizzicato.Sound({
+    source: 'file',
+    options: { path: process.env.REACT_APP_AWS_TEST_URL }
+  }, () => {
+    this.props.satisfiedWithRecording(newsound)
+  });}).then(() => setTimeout(() =>
+  this.props.history.push('/edit'), 200))
 }
 
   render() {
@@ -98,6 +99,8 @@ saveRecording = () => {
           nonstop='true'
           duration={10}
             />
+          <Mic command={this.state.command}
+            onStop={this.onStop} />
           {!this.props.mainReducer.isRecorded ? <Button
             className='Recording'
             onClick={this.handleRecording}
@@ -157,7 +160,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     clearRecording: (recording) => {
-      console.log('is it deleting immediately?');
       dispatch({
         type: "CLEAR_RECORDING",
         payload: recording
@@ -167,6 +169,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "SATISFIED_WITH_RECORDING",
         payload: recording
+      })
+    },
+    getRecs: (array) => {
+      dispatch({
+        type: "GET_RECORDINGS",
+        payload: array
       })
     }
   }

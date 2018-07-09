@@ -9,6 +9,7 @@ import InFocusEffect from '../Containers/InFocusEffect';
 import EffectsGrid from './EffectsGrid';
 import SpeedDialer from './AddEffectsMenu';
 import DancingGuy from './Character/dancing-guy.gif'
+import Adapter from '../services/adapter'
 
 var sounds = undefined
 
@@ -26,23 +27,38 @@ class Edit extends Component {
   }
 
   componentDidMount = () => {
+    // debugger
+    if (!!localStorage.getItem("rec_path")) {
+      let newsound = new Pizzicato.Sound({
+        source: 'file',
+        options: { path: process.env.REACT_APP_AWS_TEST_URL }
+      }, () => {
+        this.props.satisfiedWithRecording(newsound);
+        this.createVisualization()
+    })}
+
+    let userId = localStorage.getItem("id")
+    fetch(`http://localhost:3500/api/v1/users/${userId}`)
+      .then(resp=> resp.json()).then((json) =>{ this.props.getRecs(json.recordings)})
+
     if (this.props.mainReducer.focusedEffect === "") {
       this.setState({displayGrid: false})
     } else {
       this.setState({displayGrid: true})
     }
-    this.createVisualization()
+
   }
 
   loadEffects = () => {
     sounds = this.props.mainReducer.currentRecording
 
     for (let effect in this.props.mainReducer.effects) {
-      console.log("EFFECT IS ONE",);
-      if (this.props.mainReducer.effects[effect].on) {
+
+      if (this.props.mainReducer.effects[effect].on && !this.props.mainReducer.effects[effect].added) {
         let effectProps = this.props.mainReducer.effects[effect]
         let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](effectProps.settings);
         sounds.addEffect(newEffect)
+        this.props.effectAdded(effect)
       }
     }
   }
@@ -70,11 +86,14 @@ class Edit extends Component {
     //     sounds.removeEffect(newEffect)
     //   }
     // }
+    let sound = this.props.mainReducer.currentRecording
+    sound.volume = this.props.mainReducer.volume
     this.loadEffects()
-    this.props.mainReducer.currentRecording.play()
+    sound.play()
 
 
-    this.props.mainReducer.currentRecording.on('end', () => {
+
+    sound.on('end', () => {
       this.setState({
         playing:false
       })
@@ -210,8 +229,21 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     sendVolumeChange: (payload) => {
-      dispatch({type: "CHANGE_VOLUME", payload})
-    }
+      dispatch({
+        type: "CHANGE_VOLUME",
+        payload})
+    },
+    effectAdded: (payload) => {
+      dispatch({
+        type: "EFFECT_ADDED",
+        payload})
+    },
+    satisfiedWithRecording: (recording) => {
+      dispatch({
+        type: "SATISFIED_WITH_RECORDING",
+        payload: recording
+      })
+    },
   }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Edit));

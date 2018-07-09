@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Character from './Character/guy1.png'
 import Theater from './Character/amphitheatre.png'
 
 const styles = {
@@ -47,29 +46,34 @@ class ReverbInFocus extends Component {
     }
   }
 
+  handleRemoveButton = (name) => {
+    this.props.removeEffect(name)
+  }
+
 
 
   render() {
-    let charHeight = 100 - (((this.state.decay)+(this.state.time)) * 10)
+    let charHeight = (((this.state.decay)+(this.state.time)) * 20) + 30
     return (
       <div>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
-          <span className='left-side-effect-card'>
-          <div className='ReverbChar'>
-            <img src={Character} height={charHeight} style={{opacity:this.state.mix}}/>
-          </div>
-          <span className='Effect-Details'>
+          <div className='left-side-effect-card'>
+          <div className='Effect-Details'>
             <Typography variant="headline">
               Reverb
             </Typography>
+
             <Switch
               checked={this.props.mainReducer.effects.Reverb.on}
               onChange={this.handleSwitch("ON")}
             />
-          </span>
-        </span>
+          </div>
+          <div className='ReverbChar'>
+            <img src={Theater} className="RevHall" width={charHeight} style={{opacity:this.state.mix}}/>
+          </div>
+        </div>
         <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
@@ -92,6 +96,9 @@ class ReverbInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.decay}
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
+              <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
+                Remove
+              </Button>
           </span>
         </Paper>
         </Fade>
@@ -123,6 +130,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "CLEAR_INFOCUS_EFFECT",
         payload: payload
+      })
+    },
+    removeEffect: (name) => {
+      dispatch({
+        type: "REMOVE_EFFECT",
+        payload: name
       })
     },
   }

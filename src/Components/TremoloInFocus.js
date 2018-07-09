@@ -4,6 +4,7 @@ import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/c
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import Beach from './Character/beach.png';
 
 const styles = {
   textColor: {
@@ -44,19 +45,22 @@ class TremoloInFocus extends Component {
   }
 
   render() {
+    let charHeight = (((this.state.depth)+(this.state.speed)) * 5) + 30
     return (<div>
       <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in="in">
           <Paper className='Effect-Paper'>
-            <span className='left-side-effect-card'>
-              <span>IMG ANIMATION SPAN</span>
-              <span>
+            <div className='left-side-effect-card'>
+              <div>
                 <Typography variant="headline">
                   Tremolo
                 </Typography>
                 <Switch checked={this.props.mainReducer.effects.Tremolo.on} onChange={this.handleSwitch("ON")}/>
-              </span>
-            </span>
+              </div>
+              <div className='char-effect-div'>
+                <img src={Beach} className="char-effect" width={charHeight} style={{opacity:this.state.mix}}/>
+              </div>
+            </div>
             <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider max={1} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.mix} onChange={(event, value, name) => this.handleChange(event, value, "mix")}/>

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Drawer, Button, List, ListItem, Divider, ListItemIcon,ListItemText, } from '@material-ui/core/';
-import {Menu, Drafts, Inbox} from '@material-ui/icons/';
+import {Drawer, Button, List, ListItem, Divider, ListItemIcon,ListItemText,} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import { routeActions } from 'react-router-redux';
 import { withRouter } from 'react-router-dom';
+import LoadRecs from './loadRecs'
 
 
 const styles = {
@@ -22,11 +22,13 @@ const styles = {
   icons: {
     color: 'rgba(0, 0, 0, 0.54)',
   },
+  zIndex: 900,
 };
 
 class TemporaryDrawer extends React.Component {
   state = {
     right: false,
+    open: false
   };
 
   toggleDrawer = (side, open) => () => {
@@ -40,9 +42,22 @@ class TemporaryDrawer extends React.Component {
     localStorage.removeItem('recordings');
     localStorage.removeItem('username')
     localStorage.removeItem('token');
-
+    localStorage.removeItem('rec_path');
     this.props.history.push('/login')
   }
+
+  handleOpenRecording = () => {
+    this.setState({
+      open: true,
+    });
+  }
+
+  handleClose = value => {
+
+    this.setState({open: false });
+    localStorage.setItem("rec_path", value.path)
+    this.props.history.push('/edit')
+  };
 
   render() {
     const { classes } = this.props;
@@ -50,8 +65,8 @@ class TemporaryDrawer extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Recordings" />
+        <ListItem button onClick={this.handleOpenRecording}>
+          <ListItemText primary="Open" />
         </ListItem>
         <ListItem button>
           <ListItemText primary="Save" />
@@ -72,13 +87,7 @@ class TemporaryDrawer extends React.Component {
       </div>
     );
 
-    const fullList = (
-      <div className={classes.fullList}>
-        <List>{["1","2","3"]}</List>
-        <Divider />
-        <List>{["1","2","3"]}</List>
-      </div>
-    );
+
 
     return (
       <div>
@@ -100,6 +109,11 @@ class TemporaryDrawer extends React.Component {
             {sideList}
           </div>
         </Drawer>
+        <LoadRecs
+          selectedValue={this.state.selectedValue}
+          open={this.state.open}
+          onClose={this.handleClose}
+        />
       </div>
     );
   }

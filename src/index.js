@@ -14,10 +14,12 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import { createBrowserHistory } from 'history'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import theme from './theme.js';
-
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const initialState = {
   authorizedUser: false,
+  currentBlob: undefined,
   currentRecording: undefined,
   isRecorded: false,
   hasEffects: false,
@@ -25,6 +27,7 @@ export const initialState = {
   volume: 0.8,
   isDownloaded: false,
   focusedEffect: "",
+  recordings: [],
   effects: {
     Flanger: {
       name: "Flanger",
@@ -43,6 +46,7 @@ export const initialState = {
       pizzicatoName: "Delay",
       on: false,
       active: false,
+      added: false,
       settings: {
       time: 0.3,
       feedback: 0.4,
@@ -53,6 +57,7 @@ export const initialState = {
       pizzicatoName: "Distortion",
       on: false,
       active: false,
+      added: false,
       settings: {
       gain: 0.4
     }},
@@ -61,6 +66,7 @@ export const initialState = {
       pizzicatoName: "Quadrafuzz",
       on: false,
       active: false,
+      added: false,
       settings: {
       lowGain: 0.6,
       midLowGain: 0.8,
@@ -74,6 +80,7 @@ export const initialState = {
       pizzicatoName: "Reverb",
       on: false,
       active: false,
+      added: false,
       settings: {
       time: 0.1,
       decay: 0.3,
@@ -84,6 +91,7 @@ export const initialState = {
       pizzicatoName: "Tremolo",
       on: false,
       active: false,
+      added: false,
       settings: {
       speed: 2,
       depth: 0.6,
@@ -94,6 +102,7 @@ export const initialState = {
       pizzicatoName: "LowPassFilter",
       on: false,
       active: false,
+      added: false,
       settings: {
       frequency: 400,
       peak : 10
@@ -103,6 +112,7 @@ export const initialState = {
       pizzicatoName: "HighPassFilter",
       on: false,
       active: false,
+      added: false,
       settings: {
       frequency: 400,
       peak : 10

@@ -37,9 +37,6 @@ handleEditButton = (name) => {
                 <Button size="small" color="primary"onClick={(name) => this.handleEditButton(effect.name)}>
                   Edit
                 </Button>
-                <Button size="small" color="primary">
-                  Remove
-                </Button>
               </CardActions>
             </Card>
           </Grid>
