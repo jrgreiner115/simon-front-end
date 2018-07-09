@@ -48,7 +48,7 @@ constructor(props) {
 
   render() {
     return (
-      <div>
+      <div className="Effect-Paper-Div">
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>

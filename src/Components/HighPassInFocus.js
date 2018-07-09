@@ -68,13 +68,13 @@ class HighPassInFocus extends Component {
               <Typography id="label">Frequency</Typography>
               <Slider
                 max={22050}
-                min={0}
+                min={10}
                 aria-labelledby="label" value={this.props.mainReducer.effects.HighPass.settings.frequency}
                 onChange={(event, value, name) => this.handleChange(event, value, "frequency")}
               />
               <Typography id="label">Peak</Typography>
               <Slider
-                max={1000}
+                max={50}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.HighPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}

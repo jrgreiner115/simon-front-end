@@ -11,7 +11,15 @@ import SpeedDialer from './AddEffectsMenu';
 import DancingGuy from './Character/dancing-guy.gif'
 import Adapter from '../services/adapter'
 
-var sounds = undefined
+var sound = undefined
+let reverb
+let delay
+let fuzz
+let tremolo
+let flanger
+let lowPass
+let highPass
+let distortion
 
 
 class Edit extends Component {
@@ -27,14 +35,14 @@ class Edit extends Component {
   }
 
   componentDidMount = () => {
-    // debugger
     if (!!localStorage.getItem("rec_path")) {
       let newsound = new Pizzicato.Sound({
         source: 'file',
         options: { path: process.env.REACT_APP_AWS_TEST_URL }
       }, () => {
         this.props.satisfiedWithRecording(newsound);
-        this.createVisualization()
+        this.createVisualization();
+        this.loadEffects()
     })}
 
     let userId = localStorage.getItem("id")
@@ -50,17 +58,63 @@ class Edit extends Component {
   }
 
   loadEffects = () => {
-    sounds = this.props.mainReducer.currentRecording
+    sound = this.props.mainReducer.currentRecording
 
-    for (let effect in this.props.mainReducer.effects) {
+    reverb = new Pizzicato.Effects.Reverb(this.props.mainReducer.effects.Reverb.settings);
+    delay = new Pizzicato.Effects.Delay(this.props.mainReducer.effects.Delay.settings);
+    fuzz = new Pizzicato.Effects.Quadrafuzz(this.props.mainReducer.effects.Fuzz.settings);
+    distortion = new Pizzicato.Effects.Distortion(this.props.mainReducer.effects.Distortion.settings);
+    flanger = new Pizzicato.Effects.Flanger(this.props.mainReducer.effects.Flanger.settings);
+    lowPass = new Pizzicato.Effects.LowPassFilter(this.props.mainReducer.effects.LowPass.settings);
+    highPass = new Pizzicato.Effects.HighPassFilter(this.props.mainReducer.effects.HighPass.settings);
+    tremolo = new Pizzicato.Effects.Tremolo(this.props.mainReducer.effects.Tremolo.settings);
 
-      if (this.props.mainReducer.effects[effect].on) {
-        let effectProps = this.props.mainReducer.effects[effect]
-        let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](effectProps.settings);
-        sounds.addEffect(newEffect)
-        this.props.effectAdded(effect)
-      }
-    }
+
+    sound.addEffect(reverb)
+    sound.addEffect(delay)
+    sound.addEffect(fuzz)
+    sound.addEffect(distortion)
+    sound.addEffect(lowPass)
+    sound.addEffect(highPass)
+    sound.addEffect(tremolo)
+    sound.addEffect(flanger)
+
+
+
+    // if (!this.props.mainReducer.effects.Reverb.active) {
+    //   reverb.mix = 0
+    // }
+    //
+    // let effectSettings = this.props.mainReducer.effects.Reverb.settings
+    // var newEffect = new Pizzicato.Effects.Reverb(effectSettings);
+    // console.log(newEffect);
+    // if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active && !this.props.mainReducer.effects.Reverb.added){
+    //   console.log("IN THE IF STATEMENT");
+    // sounds.addEffect(newEffect)
+    // this.props.effectAdded("Reverb")}
+  // }else if (!this.props.mainReducer.effects.Reverb.on) {
+  //   newEffect.options(mix: 0)
+  // }
+  // else {
+  //   console.log("HIT IT");
+  //   newEffect.mix = this.props.mainReducer.effects.Reverb.settings.mix
+  //   newEffect.decay = this.props.mainReducer.effects.Reverb.settings.decay
+  //   newEffect.time = this.props.mainReducer.effects.Reverb.settings.time
+  // }
+
+    // for (let effect in this.props.mainReducer.effects) {
+    //
+    //   if (this.props.mainReducer.effects[effect].on) {
+    //     let effectProps = this.props.mainReducer.effects[effect]
+    //     let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](effectProps.settings);
+    //     sound.addEffect(newEffect)
+    //     this.props.effectAdded(effect)
+    //   }
+    // }
+  }
+
+  removeEffects = () => {
+    console.log("SOUNDS AFTER", sound);
   }
 
   play = () => {
@@ -86,10 +140,96 @@ class Edit extends Component {
     //     sounds.removeEffect(newEffect)
     //   }
     // }
-    let sound = this.props.mainReducer.currentRecording
+    sound = this.props.mainReducer.currentRecording
+    console.log("SOUNDS BEFORE", sound);
     sound.volume = this.props.mainReducer.volume
-    this.loadEffects()
+
+    // if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active) {
+    //   if (!this.props.mainReducer.effects.Reverb.added) {
+    //   sound.addEffect(reverb)
+    //   this.props.effectAdded("Reverb")}
+    //
+    // }
+
+    // Reverb
+    if (!this.props.mainReducer.effects.Reverb.on) {
+      reverb.mix = 0
+    }else {
+      reverb.mix = this.props.mainReducer.effects.Reverb.settings.mix
+    }
+    reverb.decay = this.props.mainReducer.effects.Reverb.settings.decay
+    reverb.time = this.props.mainReducer.effects.Reverb.settings.time
+
+    // Delay
+    if (!this.props.mainReducer.effects.Delay.on) {
+      delay.mix = 0
+    }else {
+      delay.mix = this.props.mainReducer.effects.Delay.settings.mix
+    }
+    delay.feedback = this.props.mainReducer.effects.Delay.settings.feedback
+    delay.time = this.props.mainReducer.effects.Delay.settings.time
+
+    // Fuzz
+    if (!this.props.mainReducer.effects.Fuzz.on) {
+      fuzz.lowGain = 0
+      fuzz.midLowGain = 0
+      fuzz.midHighGain = 0
+      fuzz.highGain = 0
+    }else {
+      fuzz.lowGain = this.props.mainReducer.effects.Fuzz.settings.lowGain;
+      fuzz.midLowGain = this.props.mainReducer.effects.Fuzz.settings.midLowGain;
+      fuzz.midHighGain = this.props.mainReducer.effects.Fuzz.settings.midHighGain;
+      fuzz.highGain = this.props.mainReducer.effects.Fuzz.settings.highGain;
+    }
+
+    // Distortion
+    if (!this.props.mainReducer.effects.Distortion.on) {
+      distortion.gain = 0
+    }else {
+      distortion.gain = this.props.mainReducer.effects.Distortion.settings.gain
+    }
+
+    // Flanger
+    if (!this.props.mainReducer.effects.Flanger.on) {
+      flanger.mix = 0
+    }else {
+      flanger.mix = this.props.mainReducer.effects.Flanger.settings.mix
+    }
+    flanger.feedback = this.props.mainReducer.effects.Flanger.settings.feedback
+    flanger.time = this.props.mainReducer.effects.Flanger.settings.time
+    flanger.depth = this.props.mainReducer.effects.Flanger.settings.depth
+    flanger.speed = this.props.mainReducer.effects.Flanger.settings.speed
+
+    //Tremolo
+    if (!this.props.mainReducer.effects.Tremolo.on) {
+      tremolo.mix = 0
+    }else {
+      tremolo.mix = this.props.mainReducer.effects.Tremolo.settings.mix
+    }
+    tremolo.depth = this.props.mainReducer.effects.Tremolo.settings.depth
+    tremolo.speed = this.props.mainReducer.effects.Tremolo.settings.speed
+
+    // LowPass
+    if (!this.props.mainReducer.effects.LowPass.on) {
+      lowPass.frequency = 22050
+    }else {
+      lowPass.mix = 0.5
+    }
+    lowPass.frequency = this.props.mainReducer.effects.LowPass.settings.frequency
+    lowPass.peak = this.props.mainReducer.effects.LowPass.settings.peak
+
+    // HighPass
+    if (!this.props.mainReducer.effects.HighPass.on) {
+      highPass.frequency = 10
+    }else {
+      highPass.mix = 0.5
+    }
+    highPass.frequency = this.props.mainReducer.effects.HighPass.settings.frequency
+    highPass.peak = this.props.mainReducer.effects.HighPass.settings.peak
+
+
     sound.play()
+    this.removeEffects()
 
 
 
@@ -172,7 +312,9 @@ class Edit extends Component {
 
 
   render() {
-    return (<div className="edit-div">
+    return (
+      <div>
+      <div className="edit-div">
       <div className="Edit-Suite">
         <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
           <Zoom in={this.state.playing}>
@@ -207,6 +349,8 @@ class Edit extends Component {
           ? <EffectsGrid/>
           : <InFocusEffect/>
       }
+      </div>
+        <div>
         <div className="volume-slider-div">
           <Slider
             className="volume-slider"
@@ -217,8 +361,9 @@ class Edit extends Component {
             onChange={(event, value) => this.handleVolume(event, value)}/>
           </div>
           <SpeedDialer/>
-
-    </div>)
+      </div>
+      </div>
+        )
   }
 }
 

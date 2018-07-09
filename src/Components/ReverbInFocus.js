@@ -12,6 +12,9 @@ const styles = {
   },
 };
 
+let sound
+let reverbSettings
+
 class ReverbInFocus extends Component {
   constructor(props) {
     super(props)
@@ -24,25 +27,34 @@ class ReverbInFocus extends Component {
   }
 
   componentDidMount() {
-    let effectSettings = this.props.mainReducer.effects.Reverb.settings
-    let newEffect = new Pizzicato.Effects.Reverb(effectSettings);
-    console.log(newEffect);
-    if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active && !this.props.mainReducer.effects.Reverb.added){
-    let sounds = this.props.mainReducer.currentRecording
-    sounds.addEffect(newEffect)
-    this.props.effectAdded("Reverb")}
-  // }else if (!this.props.mainReducer.effects.Reverb.on) {
-  //   newEffect.options(mix: 0)
+    // sound = this.props.mainReducer.currentRecording
+    // reverbSettings = new Pizzicato.Effects.Reverb(this.props.mainReducer.effects.Reverb.settings)
+    // sound.addEffect(reverbSettings)
+    // console.log(reverbSettings);
+  //   let effectSettings = this.props.mainReducer.effects.Reverb.settings
+  //   let newEffect = new Pizzicato.Effects.Reverb(effectSettings);
+  //   console.log(newEffect);
+  //   if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active && !this.props.mainReducer.effects.Reverb.added){
+  //   let sounds = this.props.mainReducer.currentRecording
+  //   sounds.addEffect(newEffect)
+  //   this.props.effectAdded("Reverb")}
+  // // }else if (!this.props.mainReducer.effects.Reverb.on) {
+  // //   newEffect.options(mix: 0)
+  // // }
+  // else {
+  //   newEffect.options(effectSettings)
   // }
-  else {
-    newEffect.options(effectSettings)
-  }
   }
 
   handleChange = (event, value, name) => {
     this.setState({
       [name]: value
-    }, this.props.sendReverbChange(this.state))
+    }, () => {
+      this.props.sendReverbChange(this.state);
+      // reverbSettings.options = {...this.props.mainReducer.effects.Reverb.settings, reverse: false}
+      // console.log(reverbSettings);
+    })
+
   }
 
   handleSwitch = name => event => {

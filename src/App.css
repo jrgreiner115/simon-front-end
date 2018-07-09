@@ -120,5 +120,8 @@ height: 100vh;
    width: 200px;
 }
 .Menu-button{
+  position: absolute;
   z-index: 10;
+  top: 0;
+  right: 0;
 }

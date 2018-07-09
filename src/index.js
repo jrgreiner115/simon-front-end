@@ -69,11 +69,10 @@ export const initialState = {
       active: false,
       added: false,
       settings: {
-      lowGain: 0.6,
-      midLowGain: 0.8,
-      midHighGain: 0.5,
-      highGain: 0.6,
-      mix: 1.0
+      lowGain: 0,
+      midLowGain: 0,
+      midHighGain: 0,
+      highGain: 0,
     }},
 
     Reverb: {
@@ -83,9 +82,9 @@ export const initialState = {
       active: false,
       added: false,
       settings: {
-      time: 0.1,
-      decay: 0.3,
-      mix: 0.3
+      time: 0.2,
+      decay: 0.8,
+      mix: 0.8
     }},
     Tremolo: {
       name: "Tremolo",
@@ -105,7 +104,7 @@ export const initialState = {
       active: false,
       added: false,
       settings: {
-      frequency: 400,
+      frequency: 22050,
       peak : 10
     }},
     HighPass: {
@@ -115,7 +114,7 @@ export const initialState = {
       active: false,
       added: false,
       settings: {
-      frequency: 400,
+      frequency: 10,
       peak : 10
     }}
   }
