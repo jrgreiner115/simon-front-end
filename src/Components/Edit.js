@@ -88,6 +88,8 @@ class Edit extends Component {
       playing: true
     })
 
+    sound.play()
+
 
     sound = this.props.mainReducer.currentRecording
     sound.volume = this.props.mainReducer.volume
@@ -169,7 +171,7 @@ class Edit extends Component {
     highPass.peak = this.props.mainReducer.effects.HighPass.settings.peak
 
 
-    sound.play()
+
 
     sound.on('end', () => {
       this.setState({
@@ -275,7 +277,7 @@ class Edit extends Component {
             value={this.props.mainReducer.volume}
             onChange={(event, value) => this.handleVolume(event, value)}/>
           </span>
-          
+
           <SpeedDialer/>
       </div>
       </div>

@@ -86,6 +86,8 @@ class HighPassInFocus extends Component {
           </Button>
         </div>
         <span className='right-side-effect-card'>
+              <Typography variant='body2'>The Oppposite of a Low Pass Filter. As you increase the frequency, it cuts the lows from your audio! Also used in EDM music. I like meerkats. I think they would like High Pass Filters.</Typography>
+              <br />
               <Typography id="label">Frequency</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.HighPass.on}

@@ -70,13 +70,15 @@ class TremoloInFocus extends Component {
                 <Switch checked={this.props.mainReducer.effects.Tremolo.on} onChange={this.handleSwitch("ON")}/>
               </div>
               <div className='ReverbChar'>
-                <img alt='Character iwth scuba gear' src={TremoloImage} className="RevHall" width='100px'/>
+                <img alt='Character iwth scuba gear' src={TremoloImage} className="RevHall" width='150px'/>
               </div>
               <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Tremolo')}>
                 Remove Effect
               </Button>
             </div>
             <span className='right-side-effect-card'>
+              <Typography variant='body2'>Tremolo is like turning the volume knob on a speaker up and down, very very quickly and accurately. Tremolo is used in a lot of Classic Rock, especially in Surf Rock, but can be used to make a stuttering effect, too (turn the Mix & Depth up to 100%)! </Typography>
+              <br />
               <Typography id="label">Mix</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.Tremolo.on}

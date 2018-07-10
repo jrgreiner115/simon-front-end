@@ -83,6 +83,8 @@ class LowPassInFocus extends Component {
           </Button>
         </div>
             <span className='right-side-effect-card'>
+              <Typography variant='body2'>Low Pass Filters are used to make muffled sounds. These are often used in EDM music for the drop! Adjust the frequency to 0% to increase the muffling.</Typography>
+              <br />
               <Typography id="label">Frequency</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.LowPass.on}
@@ -94,7 +96,7 @@ class LowPassInFocus extends Component {
               <Typography id="label">Peak</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.LowPass.on}
-                max={1000}
+                max={20}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}

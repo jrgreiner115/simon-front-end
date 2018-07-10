@@ -81,6 +81,8 @@ class FuzzInFocus extends Component {
           </Button>
         </div>
         <span className='right-side-effect-card'>
+              <Typography variant='body2'>Fuzz is a lot like distortion! Made Famous by Jimi Hendrix, it's basically the first attempt at creating a guitar effect! This fuzz effect let's you control which part of the audio is getting the distortion - the Low Gain affects the deepest part of the recording (Bass), and the High Gain affects the highest notes (Treble).</Typography>
+              <br />
               <Typography id="label">Mix</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.Fuzz.on}
