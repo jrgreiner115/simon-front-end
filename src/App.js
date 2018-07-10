@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import Recorder from './Components/Recorder'
 import LoginAndRegisterContainer from './Containers/LoginAndRegisterContainer'
 import {Route, Switch, withRouter} from 'react-router-dom';
-import { routeActions } from 'react-router-redux';
+// import { routeActions } from 'react-router-redux';
 import Edit from './Components/Edit'
 import TemporaryDrawer from './Containers/Menu'
 import StoryBook from './Components/Story'

@@ -6,9 +6,8 @@ import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LoadRecs from './loadRecs';
 import SaveRecs from './saveRecName';
-import Adapter from '../services/adapter'
-import {Close, Settings} from '@material-ui/icons'
-
+import Adapter from '../services/adapter';
+import {Close, Settings} from '@material-ui/icons';
 
 const styles = {
   list: {
@@ -180,7 +179,7 @@ class TemporaryDrawer extends React.Component {
           }
         />
         <span className='settingsButton'>
-        <Button className='Player' id='recordedAudioPlayer' onClick={this.toggleDrawer('right', true)} variant="fab" color="primary" mini aria-label="add" mini>
+        <Button className='Menu-button' id='recordedAudioPlayer' onClick={this.toggleDrawer('right', true)} variant="fab" color="primary" mini aria-label="add">
           <Settings/>
         </Button>
         </span>

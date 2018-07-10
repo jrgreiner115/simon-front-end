@@ -8,7 +8,7 @@ import { createStore } from "redux";
 import { combineReducers } from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducers/index.js';
-import { syncHistoryWithStore, routerReducer, ConnectedRouter } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { createBrowserHistory } from 'history'
 import { MuiThemeProvider } from '@material-ui/core/styles';

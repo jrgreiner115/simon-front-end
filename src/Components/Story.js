@@ -1,7 +1,4 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {ReactMic} from 'react-mic';
-import Adapter from '../services/adapter';
 import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';

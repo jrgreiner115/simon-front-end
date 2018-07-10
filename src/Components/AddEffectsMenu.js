@@ -190,7 +190,7 @@ class AddEffectsMenu extends Component {
           <SpeedDialAction
             key="Tremolo"
             icon={<TremoloIcon
-              style={{"paddingTop": "20%"}}/>}
+              style={{"paddingTop": "12%"}}/>}
             tooltipTitle={"Tremolo"}
             onClick={(name) => this.handleTremoloClick("Tremolo")}
           />

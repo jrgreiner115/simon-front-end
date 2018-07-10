@@ -34,7 +34,7 @@ class HighPassInFocus extends Component {
       console.log(event);
       if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
       event.path[2].id === 'recordedAudioPlayerIcon') {
-        null
+        return null
       }else {
         this.props.clearInFocusEffect("")
       }
@@ -79,7 +79,7 @@ class HighPassInFocus extends Component {
             />
           </div>
           <div className='ReverbChar'>
-            <img src={HiPass} className="RevHall" width='150px' />
+            <img src={HiPass} className="RevHall" alt='character on safari' width='150px' />
           </div>
           <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('HighPass')}>
             Remove Effect

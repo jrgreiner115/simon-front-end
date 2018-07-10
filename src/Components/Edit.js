@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Button, Zoom, IconButton} from '@material-ui/core/';
+import {Paper, Button, Zoom} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
-import {Stop, PlayArrow, Pause, VolumeUp, Settings, Menu} from '@material-ui/icons/';
+import {Stop, PlayArrow, Pause, VolumeUp} from '@material-ui/icons/';
 import {withRouter} from 'react-router-dom';
 import InFocusEffect from '../Containers/InFocusEffect';
 import EffectsGrid from './EffectsGrid';
 import SpeedDialer from './AddEffectsMenu';
 import DancingGuy from './Character/dancing-guy.gif'
+import Adapter from '../services/adapter'
 
 var sound = undefined
 let reverb
@@ -34,6 +35,15 @@ class Edit extends Component {
   }
 
   componentDidMount = () => {
+    let userId = localStorage.getItem("id")
+    Adapter.getRecs(userId).then((json) =>{ this.props.getRecs(json.recordings)})
+
+    if (this.props.mainReducer.focusedEffect === "") {
+      this.setState({displayGrid: false})
+    } else {
+      this.setState({displayGrid: true})
+    }
+
     if (!!localStorage.getItem("rec_path")) {
       let id = localStorage.getItem("rec_path")
       let newsound = new Pizzicato.Sound({
@@ -46,17 +56,6 @@ class Edit extends Component {
     })}else {
       this.props.history.push("/record")
     }
-
-    let userId = localStorage.getItem("id")
-    fetch(`http://localhost:3500/api/v1/users/${userId}`)
-      .then(resp=> resp.json()).then((json) =>{ this.props.getRecs(json.recordings)})
-
-    if (this.props.mainReducer.focusedEffect === "") {
-      this.setState({displayGrid: false})
-    } else {
-      this.setState({displayGrid: true})
-    }
-
   }
 
   loadEffects = () => {

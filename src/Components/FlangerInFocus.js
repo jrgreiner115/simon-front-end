@@ -37,7 +37,7 @@ componentDidMount() {
     console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
-      null
+      return null
     }else {
       this.props.clearInFocusEffect("")
     }

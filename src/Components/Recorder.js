@@ -21,8 +21,7 @@ constructor(props) {
 
 componentDidMount = () => {
   let userId = localStorage.getItem("id")
-  fetch(`http://localhost:3500/api/v1/users/${userId}`)
-    .then(resp=> resp.json()).then((json) =>{ this.props.getRecs(json.recordings)})
+  Adapter.getRecs(userId).then((json) =>{ this.props.getRecs(json.recordings)})
 }
 
 

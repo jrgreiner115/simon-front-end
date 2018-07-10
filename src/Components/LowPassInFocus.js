@@ -30,7 +30,7 @@ class LowPassInFocus extends Component {
     console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
-      null
+      return null
     }else {
       this.props.clearInFocusEffect("")
     }
@@ -76,7 +76,7 @@ class LowPassInFocus extends Component {
             />
           </div>
           <div className='ReverbChar'>
-            <img src={LowPass} className="RevHall" width='150px' />
+            <img src={LowPass} alt='character listening to some sick beats' className="RevHall" width='150px' />
           </div>
           <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('LowPass')}>
             Remove Effect

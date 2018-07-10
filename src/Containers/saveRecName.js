@@ -32,8 +32,10 @@ class SaveRec extends Component {
   }
 
   handleSubmit = () => {
-    Adapter.patchRecordingName(this.state.recName, rec_id)
+    Adapter.patchRecordingName(this.state.recName, rec_id).then(json => this.props.getRecs(json))
+
     this.props.onSaveClose(this.props.selectedValue);
+
   }
 
   render() {
@@ -78,4 +80,14 @@ const mapStateToProps = (state) => {
     return state
   }
 
-export default connect(mapStateToProps, null)(SaveRec);
+const mapDispatchToProps = (dispatch) => {
+  return {
+  getRecs: (array) => {
+    dispatch({
+      type: "GET_RECORDINGS",
+      payload: array
+    })
+  },
+}}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SaveRec);

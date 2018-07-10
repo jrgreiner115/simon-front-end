@@ -79,18 +79,19 @@ const postRecord = (audioBlob) => {
 }
 
 const getRecs = (id) => {
-  fetch(`${URI}/users/${id}`)
+  return fetch(`${URI}/users/${id}`)
     .then(resp => resp.json())
 }
 
 const patchRecordingName = (name, id) => {
-  fetch(`${URI}/recordings/${id}`, {
+  return fetch(`${URI}/recordings/${id}`, {
     method: "PATCH",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({name: name})
-  })
+  }).then(resp => resp.json())
+
 }
 
 const deleteRecording = (id) => {

@@ -29,7 +29,7 @@ class DistortionInFocus extends Component {
     console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
-      null
+      return null
     }else {
       this.props.clearInFocusEffect("")
     }
@@ -74,7 +74,7 @@ class DistortionInFocus extends Component {
             />
           </div>
           <div className='ReverbChar'>
-            <img src={Distortion} className="RevHall" width='170px' />
+            <img src={Distortion} alt='character playing electric guitar' className="RevHall" width='170px' />
           </div>
           <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Distortion')}>
             Remove Effect

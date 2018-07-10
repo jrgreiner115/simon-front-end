@@ -34,7 +34,7 @@ class ReverbInFocus extends Component {
     console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
-      null
+      return null
     }else {
       this.props.clearInFocusEffect("")
     }
@@ -80,7 +80,7 @@ class ReverbInFocus extends Component {
             />
           </div>
           <div className='ReverbChar'>
-            <img src={Reverb} className="RevHall" width='170px' />
+            <img src={Reverb} alt='character with mining hat, listening to the sounds of a cave' className="RevHall" width='170px' />
           </div>
           <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
             Remove Effect
