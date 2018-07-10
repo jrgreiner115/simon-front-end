@@ -3,20 +3,12 @@ import './App.css';
 import {connect} from 'react-redux'
 import Recorder from './Components/Recorder'
 import LoginAndRegisterContainer from './Containers/LoginAndRegisterContainer'
-import {BrowserRouter as Router, Route, Switch, Link, Redirect, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import { routeActions } from 'react-router-redux';
 import Edit from './Components/Edit'
 import TemporaryDrawer from './Containers/Menu'
 
-
-
-
 class App extends Component {
-
-
-
-
-
 
   render() {
     const routes = [

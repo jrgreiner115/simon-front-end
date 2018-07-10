@@ -4,10 +4,7 @@ import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 class EffectsGrid extends Component {
-constructor(props) {
-  super(props)
 
-}
 
 handleEditButton = (name) => {
   this.props.setFocus(name)

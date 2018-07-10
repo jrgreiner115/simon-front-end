@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
+import LowPass from './Character/lowPass.png'
+import CloseIcon from '@material-ui/icons/Close';
 
 class LowPassInFocus extends Component {
   constructor(props) {
@@ -19,10 +14,6 @@ class LowPassInFocus extends Component {
       frequency: this.props.mainReducer.effects.LowPass.settings.frequency,
       peak: this.props.mainReducer.effects.LowPass.settings.peak,
     }
-  }
-
-  componentDidMount() {
-
   }
 
   handleChange = (event, value, name) => {
@@ -37,36 +28,64 @@ class LowPassInFocus extends Component {
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+    event.path[2].id === 'recordedAudioPlayerIcon') {
       null
     }else {
       this.props.clearInFocusEffect("")
     }
   }
 
+  handleRemoveButton = (name) => {
+    this.props.removeEffect(name)
+    this.props.clearInFocusEffect("")
+  }
+
+  handleEffectClose = () => {
+    this.props.clearInFocusEffect("")
+  }
+
+
 
 
   render() {
     return (
-      <div>
+      <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
-          <span className='left-side-effect-card'>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
+          <div className="effect-close">
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleEffectClose}
+            >
+              <CloseIcon
+                style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+            </IconButton>
+          </div>
+          <div className='left-side-effect-card'>
+          <div className='Effect-Details'>
             <Typography variant="headline">
-              LowPass
+              Low Pass Filter
             </Typography>
             <Switch
               checked={this.props.mainReducer.effects.LowPass.on}
               onChange={this.handleSwitch("ON")}
             />
-                </span>
-              </span>
+          </div>
+          <div className='ReverbChar'>
+            <img src={LowPass} className="RevHall" width='150px' />
+          </div>
+          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('LowPass')}>
+            Remove Effect
+          </Button>
+        </div>
             <span className='right-side-effect-card'>
               <Typography id="label">Frequency</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.LowPass.on}
                 max={22050}
                 min={10}
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.frequency}
@@ -74,6 +93,7 @@ class LowPassInFocus extends Component {
               />
               <Typography id="label">Peak</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.LowPass.on}
                 max={1000}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.peak}
@@ -110,6 +130,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "CLEAR_INFOCUS_EFFECT",
         payload: payload
+      })
+    },
+    removeEffect: (name) => {
+      dispatch({
+        type: "REMOVE_EFFECT",
+        payload: name
       })
     },
   }

@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
+import HiPass from './Character/hiPass.png';
+import CloseIcon from '@material-ui/icons/Close';
 
 class HighPassInFocus extends Component {
   constructor(props) {
@@ -37,36 +32,63 @@ class HighPassInFocus extends Component {
 
     handleClickAway = (event) => {
       console.log(event);
-      if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+      if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+      event.path[2].id === 'recordedAudioPlayerIcon') {
         null
       }else {
         this.props.clearInFocusEffect("")
       }
     }
 
+    handleRemoveButton = (name) => {
+      this.props.removeEffect(name)
+      this.props.clearInFocusEffect("")
+    }
+
+    handleEffectClose = () => {
+      this.props.clearInFocusEffect("")
+    }
+
 
 
   render() {
     return (
-      <div>
+      <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
-          <span className='left-side-effect-card'>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
+          <div className="effect-close">
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleEffectClose}
+            >
+              <CloseIcon
+                style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+            </IconButton>
+          </div>
+          <div className='left-side-effect-card'>
+            <div className='Effect-Details'>
             <Typography variant="headline">
-              HighPass
+              High Pass Filter
             </Typography>
             <Switch
               checked={this.props.mainReducer.effects.HighPass.on}
               onChange={this.handleSwitch("ON")}
             />
-          </span>
-        </span>
+          </div>
+          <div className='ReverbChar'>
+            <img src={HiPass} className="RevHall" width='150px' />
+          </div>
+          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('HighPass')}>
+            Remove Effect
+          </Button>
+        </div>
         <span className='right-side-effect-card'>
               <Typography id="label">Frequency</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.HighPass.on}
                 max={22050}
                 min={10}
                 aria-labelledby="label" value={this.props.mainReducer.effects.HighPass.settings.frequency}
@@ -74,6 +96,7 @@ class HighPassInFocus extends Component {
               />
               <Typography id="label">Peak</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.HighPass.on}
                 max={50}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.HighPass.settings.peak}
@@ -111,6 +134,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "CLEAR_INFOCUS_EFFECT",
         payload: payload
+      })
+    },
+    removeEffect: (name) => {
+      dispatch({
+        type: "REMOVE_EFFECT",
+        payload: name
       })
     },
   }

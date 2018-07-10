@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
+import FlangerImage from './Character/Flanger.png';
+import CloseIcon from '@material-ui/icons/Close';
 
 class FlangerInFocus extends Component {
 constructor(props) {
@@ -40,24 +35,44 @@ componentDidMount() {
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+    event.path[2].id === 'recordedAudioPlayerIcon') {
       null
     }else {
       this.props.clearInFocusEffect("")
     }
+  }
+  handleRemoveButton = (name) => {
+    this.props.removeEffect(name)
+    this.props.clearInFocusEffect("")
+  }
+
+  handleEffectClose = () => {
+    this.props.clearInFocusEffect("")
   }
 
 
 
   render() {
     return (
-      <div>
+      <div
+        id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
-          <span className='left-side-effect-card'>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
+          <div className="effect-close">
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleEffectClose}
+            >
+              <CloseIcon
+                style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+            </IconButton>
+          </div>
+          <div className='left-side-effect-card'>
+          <div>
             <Typography variant="headline">
               Flanger
             </Typography>
@@ -65,11 +80,18 @@ componentDidMount() {
               checked={this.props.mainReducer.effects.Flanger.on}
               onChange={this.handleSwitch("ON")}
             />
-              </span>
-            </span>
+          </div>
+          <div className='ReverbChar'>
+            <img alt='Character with hippie sunglasses' src={FlangerImage} className="RevHall" width='150px' />
+          </div>
+          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Flanger')}>
+            Remove Effect
+          </Button>
+        </div>
             <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Flanger.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.mix}
@@ -77,6 +99,7 @@ componentDidMount() {
               />
               <Typography id="label">Time</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Flanger.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.time}
@@ -84,6 +107,7 @@ componentDidMount() {
               />
               <Typography id="label">Speed</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Flanger.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.speed}
@@ -91,6 +115,7 @@ componentDidMount() {
               />
               <Typography id="label">Depth</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Flanger.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.depth}
@@ -98,6 +123,7 @@ componentDidMount() {
               />
               <Typography id="label">Feedback</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Flanger.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.feedback}
@@ -134,6 +160,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "CLEAR_INFOCUS_EFFECT",
         payload: payload
+      })
+    },
+    removeEffect: (name) => {
+      dispatch({
+        type: "REMOVE_EFFECT",
+        payload: name
       })
     },
   }

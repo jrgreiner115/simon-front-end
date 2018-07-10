@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {Drawer, Button, List, ListItem, Divider, ListItemIcon,ListItemText,} from '@material-ui/core/';
+import {Drawer, Button, List, ListItem, Divider, ListItemText,IconButton, Snackbar} from '@material-ui/core/';
 import {connect} from 'react-redux';
-import { routeActions } from 'react-router-redux';
 import { withRouter } from 'react-router-dom';
-import LoadRecs from './loadRecs'
-import SaveRecs from './saveRecName'
+import LoadRecs from './loadRecs';
+import SaveRecs from './saveRecName';
+import Adapter from '../services/adapter'
+import {Close} from '@material-ui/icons'
 
 
 const styles = {
@@ -31,6 +32,7 @@ class TemporaryDrawer extends React.Component {
     right: false,
     open: false,
     saveOpen: false,
+    openSnack: false
   };
 
   toggleDrawer = (side, open) => () => {
@@ -41,10 +43,10 @@ class TemporaryDrawer extends React.Component {
 
   handleLogout = () => {
     localStorage.removeItem('id');
-    localStorage.removeItem('recordings');
-    localStorage.removeItem('username')
+    localStorage.removeItem('username');
     localStorage.removeItem('token');
     localStorage.removeItem('rec_path');
+    localStorage.removeItem('rec_id');
     this.props.history.push('/login')
   }
 
@@ -72,8 +74,27 @@ class TemporaryDrawer extends React.Component {
   };
 
   handleNewRecording = () => {
+    this.props.newRecording()
     this.props.history.push('/record')
   }
+
+  handleDeleteRecording = () => {
+    Adapter.deleteRecording(localStorage.getItem("rec_id"))
+
+    localStorage.removeItem('rec_path');
+    localStorage.removeItem('rec_id');
+    this.setState({
+      openSnack: true})
+    this.handleNewRecording()
+  }
+
+  handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    this.setState({ openSnack: false });
+  };
 
   render() {
     const { classes } = this.props;
@@ -85,10 +106,13 @@ class TemporaryDrawer extends React.Component {
           <ListItemText primary="New" />
         </ListItem>
         <ListItem button onClick={this.handleOpenRecording}>
-          <ListItemText primary="Open" />
+          <ListItemText primary="Open..." />
         </ListItem>
         <ListItem button onClick={this.handleOpenSaveRecording}>
-          <ListItemText primary="Save" />
+          <ListItemText primary="Save As..." />
+        </ListItem>
+        <ListItem button onClick={this.handleDeleteRecording}>
+          <ListItemText primary="Delete" />
         </ListItem>
         <ListItem button>
           <ListItemText primary="Export" />
@@ -136,6 +160,30 @@ class TemporaryDrawer extends React.Component {
           open={this.state.saveOpen}
           onSaveClose={this.handleSaveClose}
         />
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={this.state.openSnack}
+          autoHideDuration={2500}
+          onClose={this.handleSnackClose}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">Recording Successfully Deleted</span>}
+          action={
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              className={classes.close}
+              onClick={this.handleSnackClose}
+            >
+              <Close />
+            </IconButton>
+          }
+        />
       </div>
     );
   }
@@ -149,4 +197,15 @@ const mapStateToProps = (state) => {
   return state
 }
 
-export default withRouter(connect(mapStateToProps, null)(withStyles(styles)(TemporaryDrawer)));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newRecording: () => {
+      dispatch({
+        type: "NEW_RECORDING_FROM_MENU",
+        payload: false
+      })
+    },
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TemporaryDrawer)));

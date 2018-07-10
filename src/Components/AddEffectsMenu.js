@@ -5,7 +5,6 @@ import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import {connect} from 'react-redux';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import ReverbIcon from './Icons/ReverbIcon'
 import FuzzIcon from './Icons/FuzzIcon'
 import DelayIcon  from './Icons/DelayIcon'
@@ -84,49 +83,56 @@ class AddEffectsMenu extends Component {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addReverb()
+    (this.props.mainReducer.effects.Reverb.active ? this.setState({openSnack: true}) :
+    this.props.addReverb())
   };
 
   handleDistortionClick = () => {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addDistortion()
+    (this.props.mainReducer.effects.Distortion.active ? this.setState({openSnack: true}) :
+    this.props.addDistortion())
   };
 
   handleFlangerClick = () => {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addFlanger()
+    (this.props.mainReducer.effects.Flanger.active ? this.setState({openSnack: true}) :
+    this.props.addFlanger())
   };
 
   handleTremoloClick = () => {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addTremolo()
+    (this.props.mainReducer.effects.Tremolo.active ? this.setState({openSnack: true}) :
+    this.props.addTremolo())
   };
 
   handleFuzzClick = () => {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addFuzz()
+    (this.props.mainReducer.effects.Fuzz.active ? this.setState({openSnack: true}) :
+    this.props.addFuzz())
   };
 
   handleLowPassClick = () => {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addLowPass()
+    (this.props.mainReducer.effects.LowPass.active ? this.setState({openSnack: true}) :
+    this.props.addLowPass())
   };
 
   handleHighPassClick = () => {
     this.setState({
       open: !this.state.open,
     });
-    this.props.addHighPass()
+    (this.props.mainReducer.effects.HighPass.active ? this.setState({openSnack: true}) :
+    this.props.addHighPass())
   };
 
 
@@ -143,7 +149,7 @@ class AddEffectsMenu extends Component {
     return (
       <div className={classes.root}>
         <SpeedDial
-          ariaLabel="SpeedDial example"
+          ariaLabel="Menu"
           className={classes.speedDial}
           hidden={hidden}
           icon={<SpeedDialIcon />}

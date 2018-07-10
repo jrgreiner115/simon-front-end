@@ -7,9 +7,7 @@ function reducer(state = initialState, action) {
       isRecorded: true,
       currentBlob: action.payload.blob,
       currentRecording: action.payload.sound};
-    console.log('we did it!', state);
     case "REMOVE_EFFECT":
-      console.log(state.effects[action.payload]);
       return {...state, effects: {...state.effects, [action.payload]: {...state.effects[action.payload], active: false, on:false }}}
     case "EFFECT_ADDED":
       return {...state, effects: {...state.effects, [action.payload]: {...state.effects[action.payload], added: true}}}
@@ -17,6 +15,8 @@ function reducer(state = initialState, action) {
       return {...state, volume: action.payload}
     case "GET_RECORDINGS":
       return {...state, recordings: [...action.payload]};
+    case "NEW_RECORDING_FROM_MENU":
+      return {...state, isRecorded: action.payload }
     case "AUTH_USER":
       return {...state, authorizedUser: true};
     case "CLEAR_RECORDING":

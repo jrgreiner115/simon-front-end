@@ -1,16 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import Beach from './Character/beach.png';
-
-const styles = {
-  textColor: {
-    color: 'white'
-  }
-};
+import TremoloImage from './Character/Tremolo.png';
+import CloseIcon from '@material-ui/icons/Close';
 
 class TremoloInFocus extends Component {
   constructor(props) {
@@ -23,7 +17,6 @@ class TremoloInFocus extends Component {
     }
   }
 
-  componentDidMount() {}
 
   handleChange = (event, value, name) => {
     this.setState({
@@ -37,37 +30,77 @@ class TremoloInFocus extends Component {
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer' || event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+    event.path[2].id === 'recordedAudioPlayerIcon') {
       null
-    } else {
+    }else {
       this.props.clearInFocusEffect("")
     }
   }
+  handleRemoveButton = (name) => {
+    this.props.removeEffect(name)
+    this.props.clearInFocusEffect("")
+  }
+
+  handleEffectClose = () => {
+    this.props.clearInFocusEffect("")
+  }
 
   render() {
-    let charHeight = (((this.state.depth)+(this.state.speed)) * 5) + 30
-    return (<div>
+    return (<div id='effect-container'>
       <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in="in">
           <Paper className='Effect-Paper'>
+            <div className="effect-close">
+              <IconButton
+                key="close"
+                aria-label="Close"
+                color="inherit"
+                onClick={this.handleEffectClose}
+              >
+                <CloseIcon
+                  style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+              </IconButton>
+            </div>
             <div className='left-side-effect-card'>
-              <div>
+              <div className='Effect-Details'>
                 <Typography variant="headline">
                   Tremolo
                 </Typography>
                 <Switch checked={this.props.mainReducer.effects.Tremolo.on} onChange={this.handleSwitch("ON")}/>
               </div>
-              <div className='char-effect-div'>
-                <img src={Beach} className="char-effect" width={charHeight} style={{opacity:this.state.mix}}/>
+              <div className='ReverbChar'>
+                <img alt='Character iwth scuba gear' src={TremoloImage} className="RevHall" width='100px'/>
               </div>
+              <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Tremolo')}>
+                Remove Effect
+              </Button>
             </div>
             <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
-              <Slider max={1} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.mix} onChange={(event, value, name) => this.handleChange(event, value, "mix")}/>
+              <Slider
+                disabled={!this.props.mainReducer.effects.Tremolo.on}
+                max={1}
+                min={0}
+                aria-labelledby="label"
+                value={this.props.mainReducer.effects.Tremolo.settings.mix}
+                onChange={(event, value, name) => this.handleChange(event, value, "mix")}/>
               <Typography id="label">Speed</Typography>
-              <Slider max={20} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.speed} onChange={(event, value, name) => this.handleChange(event, value, "speed")}/>
+              <Slider
+                disabled={!this.props.mainReducer.effects.Tremolo.on}
+                max={20}
+                min={0}
+                aria-labelledby="label"
+                value={this.props.mainReducer.effects.Tremolo.settings.speed}
+                onChange={(event, value, name) => this.handleChange(event, value, "speed")}/>
               <Typography id="label">Depth</Typography>
-              <Slider max={1} min={0} aria-labelledby="label" value={this.props.mainReducer.effects.Tremolo.settings.depth} onChange={(event, value, name) => this.handleChange(event, value, "depth")}/>
+              <Slider
+                disabled={!this.props.mainReducer.effects.Tremolo.on}
+                max={1}
+                min={0}
+                aria-labelledby="label"
+                value={this.props.mainReducer.effects.Tremolo.settings.depth}
+                onChange={(event, value, name) => this.handleChange(event, value, "depth")}/>
             </span>
           </Paper>
         </Fade>

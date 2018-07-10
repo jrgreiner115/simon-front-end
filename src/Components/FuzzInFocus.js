@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
+import FuzzImage from './Character/fuzz.png';
+import CloseIcon from '@material-ui/icons/Close';
 
 class FuzzInFocus extends Component {
   constructor(props) {
@@ -23,10 +18,6 @@ class FuzzInFocus extends Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
   handleChange = (event, value, name) => {
     this.setState({
       [name]: value
@@ -38,24 +29,42 @@ class FuzzInFocus extends Component {
     };
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+    event.path[2].id === 'recordedAudioPlayerIcon') {
       null
     }else {
       this.props.clearInFocusEffect("")
     }
   }
 
+  handleRemoveButton = (name) => {
+    this.props.removeEffect(name)
+    this.props.clearInFocusEffect("")
+  }
 
+  handleEffectClose = () => {
+    this.props.clearInFocusEffect("")
+  }
 
   render() {
     return (
-      <div>
+      <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
-          <span className='left-side-effect-card'>
-          <span>IMG ANIMATION SPAN</span>
-          <span>
+          <div className="effect-close">
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleEffectClose}
+            >
+              <CloseIcon
+                style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+            </IconButton>
+          </div>
+          <div className='left-side-effect-card'>
+            <div className='Effect-Details'>
             <Typography variant="headline">
               Fuzz
             </Typography>
@@ -63,11 +72,18 @@ class FuzzInFocus extends Component {
               checked={this.props.mainReducer.effects.Fuzz.on}
               onChange={this.handleSwitch("ON")}
             />
-          </span>
-        </span>
+          </div>
+          <div className='ReverbChar'>
+            <img alt='Character with fuzzy sweater (get it>)' src={FuzzImage} className="RevHall" width='150px' />
+          </div>
+          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
+            Remove Effect
+          </Button>
+        </div>
         <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Fuzz.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.mix}
@@ -75,6 +91,7 @@ class FuzzInFocus extends Component {
               />
               <Typography id="label">Low Gain</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Fuzz.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.lowGain}
@@ -82,6 +99,7 @@ class FuzzInFocus extends Component {
               />
               <Typography id="label">Mid Low Gain</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Fuzz.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.midLowGain}
@@ -89,6 +107,7 @@ class FuzzInFocus extends Component {
               />
               <Typography id="label">Mid High Gain</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Fuzz.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.midHighGain}
@@ -96,6 +115,7 @@ class FuzzInFocus extends Component {
               />
               <Typography id="label">High</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Fuzz.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.highGain}
@@ -132,6 +152,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "CLEAR_INFOCUS_EFFECT",
         payload: payload
+      })
+    },
+    removeEffect: (name) => {
+      dispatch({
+        type: "REMOVE_EFFECT",
+        payload: name
       })
     },
   }

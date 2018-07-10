@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
+import CloseIcon from '@material-ui/icons/Close';
+import Delay from './Character/delay.png';
 
 class DelayInFocus extends Component {
 constructor(props) {
@@ -22,9 +17,6 @@ constructor(props) {
   }
 }
 
-  componentDidMount() {
-
-  }
 
   handleChange = (event, value, name) => {
     this.setState({
@@ -38,23 +30,44 @@ constructor(props) {
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+    event.path[2].id === 'recordedAudioPlayerIcon') {
       null
     }else {
       this.props.clearInFocusEffect("")
     }
   }
+  handleRemoveButton = (name) => {
+    this.props.removeEffect(name)
+    this.props.clearInFocusEffect("")
+  }
+
+  handleEffectClose = () => {
+    this.props.clearInFocusEffect("")
+  }
 
 
   render() {
     return (
-      <div className="Effect-Paper-Div">
+      <div
+        className="Effect-Paper-Div"
+        id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
-          <span className='left-side-effect-card'>
-            <span>IMG ANIMATION SPAN</span>
-            <span>
+          <div className="effect-close">
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleEffectClose}
+            >
+              <CloseIcon
+                style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+            </IconButton>
+          </div>
+          <div className='left-side-effect-card'>
+            <div className='Effect-Details'>
               <Typography variant="headline">
                 Delay
               </Typography>
@@ -62,11 +75,18 @@ constructor(props) {
                 checked={this.props.mainReducer.effects.Delay.on}
                 onChange={this.handleSwitch("ON")}
               />
-              </span>
-            </span>
+            </div>
+            <div className='ReverbChar'>
+              <img src={Delay} className="RevHall" width='150px' />
+            </div>
+            <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Delay')}>
+              Remove Effect
+            </Button>
+            </div>
             <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Delay.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.mix}
@@ -74,6 +94,7 @@ constructor(props) {
               />
               <Typography id="label">Feedback</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Delay.on}
                 max={1}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.feedback}
@@ -81,6 +102,7 @@ constructor(props) {
               />
               <Typography id="label">Time</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Delay.on}
                 max={5}
                 min={0}
                 aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.time}
@@ -123,6 +145,12 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "CLEAR_INFOCUS_EFFECT",
         payload: payload
+      })
+    },
+    removeEffect: (name) => {
+      dispatch({
+        type: "REMOVE_EFFECT",
+        payload: name
       })
     },
   }

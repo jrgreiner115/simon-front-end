@@ -7,17 +7,6 @@ import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Save, Delete} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
 
-
-
-
-
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
-
 class Recorder extends Component {
 constructor(props) {
   super(props)

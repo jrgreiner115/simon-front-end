@@ -3,7 +3,6 @@ import AWS from 'aws-sdk'
 
 const URI = 'http://localhost:3500/api/v1'
 var creds = new AWS.Credentials(process.env.REACT_APP_AWS_ACCESS_KEY_ID, process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 AWS.config.update({
   region: 'us-east-2',
@@ -62,10 +61,6 @@ const postRecord = (audioBlob) => {
               Key: keyid,
               ContentType: 'audio/webm;codecs=opus',
             };
-      var getParams = {
-        Bucket: process.env.REACT_APP_S3_BUCKET,
-        Key: keyid,
-      }
       return new Promise(function(resolve, reject) {
         s3.putObject(params, function(err, data) {
           if(err) {
@@ -81,24 +76,6 @@ const postRecord = (audioBlob) => {
             console.log("DID IT!", `${process.env.REACT_APP_AWS_URL}/${keyid}`, data);
         createRecording(keyid)
       })
- //      .then(data => s3.getObject(getParams, function(err, data) {
- //   if (err) console.log(err, err.stack); // an error occurred
- //   else {
- //     // debugger
- //     console.log(data);
- //     audioCtx.decodeAudioData(data.Body.buffer, function(buffer) {
- //        console.log("Success", buffer);
- //        let  newFile = new File(buffer, "foo.mpeg",
- //          { type: 'audio/webm;codecs=opus; charset=UTF-8' });
- //        let objectURL = URL.createObjectURL(newFile);
- //      console.log("blob", newFile);
- //      console.log("URL", objectURL);
- //      },
- //      function(e){ console.log("Error with decoding audio data" + e.err); });
- //
- //  }
- //          // successful response
- // }));
 }
 
 const getRecs = (id) => {
@@ -113,7 +90,17 @@ const patchRecordingName = (name, id) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({name: name})
+  })
+}
+
+const deleteRecording = (id) => {
+  fetch(`${URI}/recordings/${id}`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({id: id})
   }).then(resp => resp.json())
 }
 
-export default {postUsers, login, createRecording, postRecord, getRecs, patchRecordingName};
+export default {postUsers, login, createRecording, postRecord, getRecs, patchRecordingName, deleteRecording};

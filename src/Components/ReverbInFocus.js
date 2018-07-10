@@ -1,19 +1,10 @@
 import React, {Component} from 'react';
-import Pizzicato from 'pizzicato';
-import {Paper, Typography, Fade, Switch, ClickAwayListener, Button} from '@material-ui/core/';
+import {Paper, Typography, Fade, Switch, ClickAwayListener, Button, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Theater from './Character/amphitheatre.png'
-
-const styles = {
-  textColor: {
-    color: 'white'
-  },
-};
-
-let sound
-let reverbSettings
+import Reverb from './Character/reverb.png';
+import CloseIcon from '@material-ui/icons/Close';
 
 class ReverbInFocus extends Component {
   constructor(props) {
@@ -26,33 +17,11 @@ class ReverbInFocus extends Component {
     }
   }
 
-  componentDidMount() {
-    // sound = this.props.mainReducer.currentRecording
-    // reverbSettings = new Pizzicato.Effects.Reverb(this.props.mainReducer.effects.Reverb.settings)
-    // sound.addEffect(reverbSettings)
-    // console.log(reverbSettings);
-  //   let effectSettings = this.props.mainReducer.effects.Reverb.settings
-  //   let newEffect = new Pizzicato.Effects.Reverb(effectSettings);
-  //   console.log(newEffect);
-  //   if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active && !this.props.mainReducer.effects.Reverb.added){
-  //   let sounds = this.props.mainReducer.currentRecording
-  //   sounds.addEffect(newEffect)
-  //   this.props.effectAdded("Reverb")}
-  // // }else if (!this.props.mainReducer.effects.Reverb.on) {
-  // //   newEffect.options(mix: 0)
-  // // }
-  // else {
-  //   newEffect.options(effectSettings)
-  // }
-  }
-
   handleChange = (event, value, name) => {
     this.setState({
       [name]: value
     }, () => {
       this.props.sendReverbChange(this.state);
-      // reverbSettings.options = {...this.props.mainReducer.effects.Reverb.settings, reverse: false}
-      // console.log(reverbSettings);
     })
 
   }
@@ -63,7 +32,8 @@ class ReverbInFocus extends Component {
 
   handleClickAway = (event) => {
     console.log(event);
-    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon') {
+    if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
+    event.path[2].id === 'recordedAudioPlayerIcon') {
       null
     }else {
       this.props.clearInFocusEffect("")
@@ -75,14 +45,29 @@ class ReverbInFocus extends Component {
     this.props.clearInFocusEffect("")
   }
 
+  handleEffectClose = () => {
+    this.props.clearInFocusEffect("")
+  }
+
 
 
   render() {
     return (
-      <div>
+      <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
         <Paper className='Effect-Paper'>
+          <div className="effect-close">
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleEffectClose}
+            >
+              <CloseIcon
+                style={{color: 'rgba(0, 0, 0, 0.54'}}/>
+            </IconButton>
+          </div>
           <div className='left-side-effect-card'>
           <div className='Effect-Details'>
             <Typography variant="headline">
@@ -95,7 +80,7 @@ class ReverbInFocus extends Component {
             />
           </div>
           <div className='ReverbChar'>
-            <img src={Theater} className="RevHall" width='150px' />
+            <img src={Reverb} className="RevHall" width='170px' />
           </div>
           <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
             Remove Effect
@@ -104,23 +89,29 @@ class ReverbInFocus extends Component {
         <span className='right-side-effect-card'>
               <Typography id="label">Mix</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Reverb.on}
                 max={1}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.mix}
+                aria-labelledby="label"
+                value={this.props.mainReducer.effects.Reverb.settings.mix}
                 onChange={(event, value, name) => this.handleChange(event, value, "mix")}
               />
               <Typography id="label">Time</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Reverb.on}
                 max={3}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.time}
+                aria-labelledby="label"
+                value={this.props.mainReducer.effects.Reverb.settings.time}
                 onChange={(event, value, name) => this.handleChange(event, value, "time")}
               />
               <Typography id="label">Decay</Typography>
               <Slider
+                disabled={!this.props.mainReducer.effects.Reverb.on}
                 max={3}
                 min={0}
-                aria-labelledby="label" value={this.props.mainReducer.effects.Reverb.settings.decay}
+                aria-labelledby="label"
+                value={this.props.mainReducer.effects.Reverb.settings.decay}
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
           </span>
@@ -161,11 +152,6 @@ const mapDispatchToProps = (dispatch) => {
         type: "REMOVE_EFFECT",
         payload: name
       })
-    },
-    effectAdded: (payload) => {
-      dispatch({
-        type: "EFFECT_ADDED",
-        payload})
     },
   }
 }

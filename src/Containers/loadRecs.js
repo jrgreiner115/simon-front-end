@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {DialogTitle, Dialog, List, ListItem, ListItemText} from '@material-ui/core/';
 import {connect} from 'react-redux';
 
 class LoadRecs extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   handleClose = () => {
     this.props.onClose(this.props.selectedValue);

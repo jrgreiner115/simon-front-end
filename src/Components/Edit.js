@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Button, Typography, Zoom} from '@material-ui/core/';
+import {Paper, Button, Zoom} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
-import {Stop, PlayArrow, Pause} from '@material-ui/icons/';
+import {Stop, PlayArrow, Pause, VolumeUp} from '@material-ui/icons/';
 import {withRouter} from 'react-router-dom';
 import InFocusEffect from '../Containers/InFocusEffect';
 import EffectsGrid from './EffectsGrid';
 import SpeedDialer from './AddEffectsMenu';
 import DancingGuy from './Character/dancing-guy.gif'
-import Adapter from '../services/adapter'
 
 var sound = undefined
 let reverb
@@ -36,9 +35,10 @@ class Edit extends Component {
 
   componentDidMount = () => {
     if (!!localStorage.getItem("rec_path")) {
+      let id = localStorage.getItem("rec_path")
       let newsound = new Pizzicato.Sound({
         source: 'file',
-        options: { path: process.env.REACT_APP_AWS_TEST_URL }
+        options: { path: `${process.env.REACT_APP_AWS_URL}${id}`}
       }, () => {
         this.props.satisfiedWithRecording(newsound);
         this.createVisualization();
@@ -79,42 +79,6 @@ class Edit extends Component {
     sound.addEffect(tremolo)
     sound.addEffect(flanger)
 
-
-
-    // if (!this.props.mainReducer.effects.Reverb.active) {
-    //   reverb.mix = 0
-    // }
-    //
-    // let effectSettings = this.props.mainReducer.effects.Reverb.settings
-    // var newEffect = new Pizzicato.Effects.Reverb(effectSettings);
-    // console.log(newEffect);
-    // if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active && !this.props.mainReducer.effects.Reverb.added){
-    //   console.log("IN THE IF STATEMENT");
-    // sounds.addEffect(newEffect)
-    // this.props.effectAdded("Reverb")}
-  // }else if (!this.props.mainReducer.effects.Reverb.on) {
-  //   newEffect.options(mix: 0)
-  // }
-  // else {
-  //   console.log("HIT IT");
-  //   newEffect.mix = this.props.mainReducer.effects.Reverb.settings.mix
-  //   newEffect.decay = this.props.mainReducer.effects.Reverb.settings.decay
-  //   newEffect.time = this.props.mainReducer.effects.Reverb.settings.time
-  // }
-
-    // for (let effect in this.props.mainReducer.effects) {
-    //
-    //   if (this.props.mainReducer.effects[effect].on) {
-    //     let effectProps = this.props.mainReducer.effects[effect]
-    //     let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](effectProps.settings);
-    //     sound.addEffect(newEffect)
-    //     this.props.effectAdded(effect)
-    //   }
-    // }
-  }
-
-  removeEffects = () => {
-    console.log("SOUNDS AFTER", sound);
   }
 
   play = () => {
@@ -122,34 +86,9 @@ class Edit extends Component {
       playing: true
     })
 
-    // console.log(this.props.mainReducer.effects.Delay.settings)
-    // var sounds = this.props.mainReducer.currentRecording
-    //
-    //
-    //   let newEffect = new Pizzicato.Effects.Delay()
-    //
-    // for (var effect in this.props.mainReducer.effects) {
-    //     console.log("EFFECT IS ONE", );
-    //   if (this.props.mainReducer.effects[effect].on) {
-    //     let effectProps = this.props.mainReducer.effects[effect]
-    //     let newEffect = new Pizzicato.Effects[effectProps.pizzicatoName](
-    //       effectProps.settings
-    //     );
-    //     sounds.addEffect(newEffect)
-    //     else if (!this.props.mainReducer.effects[effect].on) {
-    //     sounds.removeEffect(newEffect)
-    //   }
-    // }
-    sound = this.props.mainReducer.currentRecording
-    console.log("SOUNDS BEFORE", sound);
-    sound.volume = this.props.mainReducer.volume
 
-    // if (this.props.mainReducer.effects.Reverb.on && this.props.mainReducer.effects.Reverb.active) {
-    //   if (!this.props.mainReducer.effects.Reverb.added) {
-    //   sound.addEffect(reverb)
-    //   this.props.effectAdded("Reverb")}
-    //
-    // }
+    sound = this.props.mainReducer.currentRecording
+    sound.volume = this.props.mainReducer.volume
 
     // Reverb
     if (!this.props.mainReducer.effects.Reverb.on) {
@@ -229,9 +168,6 @@ class Edit extends Component {
 
 
     sound.play()
-    this.removeEffects()
-
-
 
     sound.on('end', () => {
       this.setState({
@@ -241,9 +177,6 @@ class Edit extends Component {
   }
   pause = () => {
     this.props.mainReducer.currentRecording.pause()
-    // recorder.stop()
-    // recorder.stop()
-    // console.log(recorder);
   }
 
   stop = () => {
@@ -254,22 +187,6 @@ class Edit extends Component {
 
   saveSource = () => {
 
-    // console.log(this.props.mainReducer.currentRecording);
-    // let toSave = this.props.mainReducer.currentRecording.masterGainNaode
-    // var file = new File([toSave], "helloWorld.opus", {type:'audio/webm;codecs=opus'});
-    //
-    // console.log("file", file);
-    // FileSaver.saveAs(file)
-    //
-
-    // console.log(recorder);
-    // recorder && recorder.record();
-    // recorder.exportWAV(() => console.log('it worked?'))
-  }
-
-  addEffects = () => {;
-
-    // this.props.mainReducer.currentRecording.addEffect(delay);
   }
 
   handleVolume = (event, value) => {
@@ -277,11 +194,6 @@ class Edit extends Component {
   }
 
   createVisualization(){
-
-    // var bufferLength = analyser.frequencyBinCount;
-    // let frequencyData = new Uint8Array(bufferLength);
-    // analyser.getByteFrequencyData(frequencyData);
-
         let context = Pizzicato.context
         let analyser = context.createAnalyser();
         let canvas = this.refs.analyzerCanvas;
@@ -319,16 +231,17 @@ class Edit extends Component {
         <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
           <Zoom in={this.state.playing}>
             <div className='dancing-edit-guy-div'>
-              <img src={DancingGuy} className='dancing-edit-guy' />
+              <img src={DancingGuy} alt='dancing-Simon-character' className='dancing-edit-guy' />
             </div>
           </Zoom>
           <div>
+          <div className='analyzer-canvas'>
             <canvas
               ref="analyzerCanvas"
               id="analyzer"
             />
           </div>
-          <div>
+          <div className='edit-buttons-div'>
             <Button className='Player' id='recordedAudioPlayer' onClick={this.play} variant="fab" color="primary" aria-label="add" mini>
               <PlayArrow id='recordedAudioPlayerIcon'/>
             </Button>
@@ -338,10 +251,8 @@ class Edit extends Component {
             <Button className='Player' id='recordedAudioPlayer' onClick={this.stop} variant="fab" color="primary" aria-label="add" mini>
               <Stop id='recordedAudioPlayerIcon'/>
             </Button>
-            <Button className='Player' id='recordedAudioPlayer' onClick={this.saveSource} variant="fab" color="primary" aria-label="add" mini>
-              <Stop id='recordedAudioPlayerIcon'/>
-            </Button>
           </div>
+        </div>
         </Paper>
       </div>
       {
@@ -351,7 +262,8 @@ class Edit extends Component {
       }
       </div>
         <div>
-        <div className="volume-slider-div">
+        <span className="volume-slider-div">
+          <span className='volumeIcon'><VolumeUp /></span>
           <Slider
             className="volume-slider"
             max={1}
@@ -359,7 +271,7 @@ class Edit extends Component {
             aria-labelledby="label"
             value={this.props.mainReducer.volume}
             onChange={(event, value) => this.handleVolume(event, value)}/>
-          </div>
+          </span>
           <SpeedDialer/>
       </div>
       </div>

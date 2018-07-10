@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {DialogTitle, Dialog, Typography, TextField, Button} from '@material-ui/core/';
+import {DialogTitle, Dialog, TextField, Button} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import Adapter from '../services/adapter'
 let rec_id = undefined
@@ -40,13 +39,17 @@ class SaveRec extends Component {
   render() {
     return (
       <div>
-      <Dialog onClose={this.handleClose}
-        open={this.props.open} aria-labelledby="simple-dialog-title">
+      <Dialog
+        onClose={this.handleClose}
+        open={this.props.open}
+        aria-labelledby="simple-dialog-title"
+
+        >
       <DialogTitle id="simple-dialog-title">
         Save Recording
       </DialogTitle>
       <div className="save-dialog">
-        <form>
+        <form className='save-dialog'>
           <TextField
           id="save-recording"
           label="recording name"
@@ -62,6 +65,7 @@ class SaveRec extends Component {
             onClick={this.handleSubmit}>
             Save
           </Button>
+          <br />
 
         </form>
       </div>

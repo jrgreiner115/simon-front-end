@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import {Paper, Typography, TextField, Button, Fade} from '@material-ui/core/';
 import Adapter from '../services/adapter';
 import {connect} from 'react-redux';
-import { routeActions } from 'react-router-redux'
 import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
