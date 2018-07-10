@@ -20,9 +20,10 @@ export default createMuiTheme({
   palette,
   typography: {
     fontFamily: [
-      'Quicksand',
-      'Amatic SC',
+      'Gaegu',
       'Indie Flower',
+      'Amatic SC',
+      'Quicksand',
       'Roboto',
       '"Helvetica Neue"',
       'Arial',
@@ -31,5 +32,9 @@ export default createMuiTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
+    "fontSize": 20,
+    "fontWeightLight": 300,
+    "fontWeightRegular": 400,
+    "fontWeightMedium": 500
   }
 });

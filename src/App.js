@@ -7,6 +7,7 @@ import {Route, Switch, withRouter} from 'react-router-dom';
 import { routeActions } from 'react-router-redux';
 import Edit from './Components/Edit'
 import TemporaryDrawer from './Containers/Menu'
+import StoryBook from './Components/Story'
 
 class App extends Component {
 
@@ -14,7 +15,9 @@ class App extends Component {
     const routes = [
       <Route path='/record' render={() => <Recorder />} />,
       <Route path='/edit'
-      render={() => <Edit />} />
+      render={() => <Edit />} />,
+      <Route path='/start'
+      render={() => <StoryBook />} />
     ]
 
     const preauth = [<Route path='/login' component={LoginAndRegisterContainer} />]
@@ -24,7 +27,8 @@ class App extends Component {
          { localStorage.getItem("token") ? <TemporaryDrawer /> : ""}
           <Switch props={this.props.history}>
             { localStorage.getItem("token") ? routes : preauth}
-            <Route path='/' component={LoginAndRegisterContainer} />
+            { localStorage.getItem("token") ? <Route path='/'
+            render={() => <StoryBook />} /> : <Route path='/' component={LoginAndRegisterContainer} />}
           </Switch>
       </div>
     );

@@ -14,7 +14,8 @@ constructor(props) {
   this.state = {
     record: false,
     fade: true,
-    command: "none"
+    command: "none",
+    loading: false
   }
 }
 
@@ -58,7 +59,8 @@ handleClear = () => {
 
 saveRecording = () => {
   this.setState({
-    fade: false
+    fade: false,
+    loading: true,
   })
   Adapter.postRecord(this.props.mainReducer.currentBlob).then(thing =>{
   let newsound = new Pizzicato.Sound({
@@ -67,67 +69,68 @@ saveRecording = () => {
   }, () => {
     this.props.satisfiedWithRecording(newsound)
   });}).then(() => setTimeout(() =>
-  this.props.history.push('/edit'), 200))
+  this.props.history.push('/edit'), 1200))
 }
 
   render() {
-    return(
-      <Fade in={this.state.fade}>
-      <div className='outer-div'>
-      <Typography align="center" gutterBottom variant="display1">Record below to get started</Typography>
-      <div>
-      <Paper className='Main-Paper'>
-        <br />
-        <ReactMic
-           record={this.state.record}
-          className="sound-wave"
-           onStop={this.onStop}
-          strokeColor="#a174ad"
-          nonstop='true'
-          duration={10}
-            />
-          {!this.props.mainReducer.isRecorded ? <Button
-            className='Recording'
-            onClick={this.handleRecording}
-            variant="fab"
-            color="primary"
-            aria-label="add"
-            mini>
-           {this.state.record ?
-             <Stop /> :
-             <FiberManualRecord
-           />}</Button> :
-             <div>
-               <Button
-                 className='Play'
-                 onClick={this.listenBeforeSave}
-                 variant="fab"
-                 color="primary"
-                 aria-label="add" mini>
-                  <PlayArrow />
-                </Button>
-               <Button
-                 className='Save'
-                 onClick={this.saveRecording}
-                 variant="fab"
-                 color="primary"
-                 aria-label="add" mini>
-                 <Save/>
+    return (
+      <React.Fragment>{!this.state.loading ? <Fade in={this.state.fade}>
+    <div className='outer-div'>
+    <Typography align="center" gutterBottom variant="display1">Record below to get started</Typography>
+    <div>
+    <Paper className='Main-Paper'>
+      <br />
+      <ReactMic
+         record={this.state.record}
+        className="sound-wave"
+         onStop={this.onStop}
+        strokeColor="#a174ad"
+        nonstop='true'
+        duration={10}
+          />
+        {!this.props.mainReducer.isRecorded ? <Button
+          className='Recording'
+          onClick={this.handleRecording}
+          variant="fab"
+          color="primary"
+          aria-label="add"
+          mini>
+         {this.state.record ?
+           <Stop /> :
+           <FiberManualRecord
+         />}</Button> :
+           <div>
+             <Button
+               className='Play'
+               onClick={this.listenBeforeSave}
+               variant="fab"
+               color="primary"
+               aria-label="add" mini>
+                <PlayArrow />
               </Button>
-              <Button
-                className='Save'
-                onClick={this.handleClear}
-                variant="fab"
-                color="primary"
-                aria-label="add" mini>
-                <Delete/>
-             </Button>
-            </div>}
-        <br /><br />
-      </Paper>
-      </div>
+             <Button
+               className='Save'
+               onClick={this.saveRecording}
+               variant="fab"
+               color="primary"
+               aria-label="add" mini>
+               <Save/>
+            </Button>
+            <Button
+              className='Save'
+              onClick={this.handleClear}
+              variant="fab"
+              color="primary"
+              aria-label="add" mini>
+              <Delete/>
+           </Button>
+          </div>}
+      <br /><br />
+    </Paper>
     </div>
-      </Fade>
+  </div>
+</Fade> : <div className='outer-div'><Fade in><Paper className='Loading-Paper'><Typography variant='display1' align="center">Loading...</Typography></Paper></Fade></div>}
+</React.Fragment>
     )
   }
 }

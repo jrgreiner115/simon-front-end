@@ -27,9 +27,17 @@
    margin: 0 auto;
    width: 1000px;
 }
+.Story-Paper{
+  text-align: center;
+   margin: 0 auto;
+   width: 1000px;
+   padding: 1%;
+}
 
-.Recording {
-  color: red;
+.Loading-Paper {
+  text-align: center;
+   margin: 0 auto;
+   width: 300px;
 }
 
 .Edit {

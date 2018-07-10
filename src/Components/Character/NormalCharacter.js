@@ -7,6 +7,8 @@ const NormalCharacter = props => (
     clipRule="evenodd"
     strokeLinejoin="round"
     strokeMiterlimit={1.414}
+    height='300px'
+    width='300px'
     {...props}
   >
     <path

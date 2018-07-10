@@ -26,7 +26,7 @@ class Login extends Component {
     this.setState({
       input: false
     })
-    setTimeout(() => this.props.history.push('/record'), 500);
+    setTimeout(() => this.props.history.push('/start'), 500);
 
   }
 
