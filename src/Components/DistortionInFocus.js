@@ -81,6 +81,8 @@ class DistortionInFocus extends Component {
           </Button>
         </div>
             <span className='right-side-effect-card'>
+              <Typography variant='body2'>If you like electric guitar in your music, then you probably like distortion! Distortion happens by taking an audio wave and 'clipping' (or distorting) it. It compensates cutting a bit off the top by making the effect louder at the same time. Turn down the master volume as your turn up your gain!</Typography>
+              <br />
               <Typography id="label">Gain</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.Distortion.on}

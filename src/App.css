@@ -69,15 +69,15 @@
 }
 
 .edit-div {
-  position: relative;
+  /* position: relative;
   height: 100%;
-  width: 100%;
+  width: 100%; */
 }
 
 .volume-slider-div {
   display: block;
   position: absolute;
-  right: 120px;
+  right: 160px;
   width: 100px;
   bottom: 18px;
   padding: 10px;
@@ -91,6 +91,12 @@
   bottom: 0px;
   padding: 10px;
   color: #a174ad;
+}
+.settingsButton {
+  position: absolute;
+  right: 100px;
+  bottom: 20px;
+  padding: 4px;
 }
 
 .left-side-effect-card  {

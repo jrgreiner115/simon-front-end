@@ -20,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const styles = theme => ({
   root: {
-    height: 380,
+    height: '100%',
   },
   speedDial: {
     position: 'absolute',

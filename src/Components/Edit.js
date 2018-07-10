@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Button, Zoom} from '@material-ui/core/';
+import {Paper, Button, Zoom, IconButton} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
-import {Stop, PlayArrow, Pause, VolumeUp} from '@material-ui/icons/';
+import {Stop, PlayArrow, Pause, VolumeUp, Settings, Menu} from '@material-ui/icons/';
 import {withRouter} from 'react-router-dom';
 import InFocusEffect from '../Containers/InFocusEffect';
 import EffectsGrid from './EffectsGrid';
@@ -43,7 +43,9 @@ class Edit extends Component {
         this.props.satisfiedWithRecording(newsound);
         this.createVisualization();
         this.loadEffects()
-    })}
+    })}else {
+      this.props.history.push("/record")
+    }
 
     let userId = localStorage.getItem("id")
     fetch(`http://localhost:3500/api/v1/users/${userId}`)
@@ -262,7 +264,8 @@ class Edit extends Component {
       }
       </div>
         <div>
-        <span className="volume-slider-div">
+        <span
+          className="volume-slider-div">
           <span className='volumeIcon'><VolumeUp /></span>
           <Slider
             className="volume-slider"
@@ -272,6 +275,7 @@ class Edit extends Component {
             value={this.props.mainReducer.volume}
             onChange={(event, value) => this.handleVolume(event, value)}/>
           </span>
+          
           <SpeedDialer/>
       </div>
       </div>

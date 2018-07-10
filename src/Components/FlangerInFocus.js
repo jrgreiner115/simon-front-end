@@ -89,6 +89,8 @@ componentDidMount() {
           </Button>
         </div>
             <span className='right-side-effect-card'>
+              <Typography variant='body2'>This effect is many under one name! A Flanger alters the sound by introducing a copy of the original. You can use this effect to chorus sounds familiar to 80's pop (Time at 60%, Speed & Depth at 30%, Feedback at 10%) or phaser sounds from the 60's psychodelic era (Time at 20%, Speed & Depth at 50%, Feedback at 40%). Or you can just get plain weird!</Typography>
+              <br />
               <Typography id="label">Mix</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.Flanger.on}

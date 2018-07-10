@@ -87,6 +87,8 @@ class ReverbInFocus extends Component {
           </Button>
         </div>
         <span className='right-side-effect-card'>
+              <Typography variant='body2'>Have you ever been to a cave? Or a big hall, or cathedral, and heard the sound of your voice stretch further and longer than it did before? That's what Reverb is! A simple Reverb algorithm creates many echoes that simulate the depth of a room. As you increase time and decay, the room will grow until it's a big cave!</Typography>
+              <br />
               <Typography id="label">Mix</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.Reverb.on}

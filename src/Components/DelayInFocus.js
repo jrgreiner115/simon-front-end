@@ -84,6 +84,8 @@ constructor(props) {
             </Button>
             </div>
             <span className='right-side-effect-card'>
+              <Typography variant='body2'>Delay is also called a repeat, or an echo! It's like a copy of the sound, kind of like making copies with a printer. A delay effect like this one will repeat the audio image over and over, at a rate that you set! Try setting the Mix to 100% – you'll hear only the repeats!</Typography>
+              <br />
               <Typography id="label">Mix</Typography>
               <Slider
                 disabled={!this.props.mainReducer.effects.Delay.on}

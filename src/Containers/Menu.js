@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import LoadRecs from './loadRecs';
 import SaveRecs from './saveRecName';
 import Adapter from '../services/adapter'
-import {Close} from '@material-ui/icons'
+import {Close, Settings} from '@material-ui/icons'
 
 
 const styles = {
@@ -133,12 +133,7 @@ class TemporaryDrawer extends React.Component {
 
 
     return (
-      <div className='Menu-button'>
-        <Button
-          className={classes.white}
-          onClick={this.toggleDrawer('right', true)}>
-            Options
-        </Button>
+      <div>
         <Drawer
           anchor="right"
           open={this.state.right}
@@ -184,6 +179,11 @@ class TemporaryDrawer extends React.Component {
             </IconButton>
           }
         />
+        <span className='settingsButton'>
+        <Button className='Player' id='recordedAudioPlayer' onClick={this.toggleDrawer('right', true)} variant="fab" color="primary" mini aria-label="add" mini>
+          <Settings/>
+        </Button>
+        </span>
       </div>
     );
   }
