@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Pizzicato from 'pizzicato'
 import { withStyles } from '@material-ui/core/styles';
 import {Drawer, Button, List, ListItem, Divider, ListItemText,IconButton, Snackbar} from '@material-ui/core/';
 import {connect} from 'react-redux';
@@ -8,6 +9,8 @@ import LoadRecs from './loadRecs';
 import SaveRecs from './saveRecName';
 import Adapter from '../services/adapter';
 import {Close, Settings} from '@material-ui/icons';
+import toWav from 'audiobuffer-to-wav'
+import FileSaver from 'file-saver'
 
 const styles = {
   list: {
@@ -18,7 +21,7 @@ const styles = {
   },
   white: {
     color: '#fff',
-    float: 'right',
+    float: 'left',
   },
   icons: {
     color: 'rgba(0, 0, 0, 0.54)',
@@ -28,7 +31,7 @@ const styles = {
 
 class TemporaryDrawer extends React.Component {
   state = {
-    right: false,
+    left: false,
     open: false,
     saveOpen: false,
     openSnack: false
@@ -95,6 +98,22 @@ class TemporaryDrawer extends React.Component {
     this.setState({ openSnack: false });
   };
 
+  handleExport = () => {
+    const ctx = Pizzicato.masterGainNode.context
+    // ctx.decodeAudioData(process.env.REACT_APP_AWS_TEST_URL, function(buffer) {
+    //   let myBuffer = buffer
+    //   console.log(myBuffer);
+    // })
+    let buffer = ctx.createBuffer(2, 22050, 44100)
+    let scriptNode = ctx.createScriptProcessor(4096, 1, 1)
+    console.log(buffer, scriptNode.bufferSize, Pizzicato.masterGainNode);
+    let wav = toWav(buffer)
+    console.log("wav", wav)
+
+    let file = new File([wav], 'export.wav', {type: 'audio/wav'})
+    FileSaver.saveAs(file);
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -107,21 +126,18 @@ class TemporaryDrawer extends React.Component {
         <ListItem button onClick={this.handleOpenRecording}>
           <ListItemText primary="Open..." />
         </ListItem>
-        <ListItem button onClick={this.handleOpenSaveRecording}>
+        <ListItem button disabled={!localStorage.getItem('rec_path')} onClick={this.handleOpenSaveRecording}>
           <ListItemText primary="Save As..." />
         </ListItem>
-        <ListItem button onClick={this.handleDeleteRecording}>
+        <ListItem button disabled={!localStorage.getItem('rec_path')} onClick={this.handleDeleteRecording}>
           <ListItemText primary="Delete" />
         </ListItem>
-        <ListItem button>
+        <ListItem button disabled={!localStorage.getItem('rec_path')} onClick={this.handleExport}>
           <ListItemText primary="Export" />
         </ListItem>
       </List>
       <Divider />
       <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Settings" />
-        </ListItem>
         <ListItem button component="a" href="#simple-list">
           <ListItemText onClick={this.handleLogout} primary="Log Out" />
         </ListItem>
@@ -134,14 +150,14 @@ class TemporaryDrawer extends React.Component {
     return (
       <div>
         <Drawer
-          anchor="right"
-          open={this.state.right}
-          onClose={this.toggleDrawer('right', false)}>
+          anchor="left"
+          open={this.state.left}
+          onClose={this.toggleDrawer('left', false)}>
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer('right', false)}
-            onKeyDown={this.toggleDrawer('right', false)}
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
           >
             {sideList}
           </div>
@@ -179,7 +195,7 @@ class TemporaryDrawer extends React.Component {
           }
         />
         <span className='settingsButton'>
-        <Button className='Menu-button' id='recordedAudioPlayer' onClick={this.toggleDrawer('right', true)} variant="fab" color="primary" mini aria-label="add">
+        <Button className='Menu-button' id='recordedAudioPlayer' onClick={this.toggleDrawer('left', true)} variant="fab" color="primary" aria-label="add">
           <Settings/>
         </Button>
         </span>

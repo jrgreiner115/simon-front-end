@@ -77,7 +77,9 @@ saveRecording = () => {
     <div className='outer-div'>
     <Typography align="center" gutterBottom variant="display1">Record below to get started</Typography>
     <div>
-    <Paper className='Main-Paper'>
+    <Paper style={{
+      borderRadius: '40px',
+    }} className='Main-Paper'>
       <br />
       <ReactMic
          record={this.state.record}

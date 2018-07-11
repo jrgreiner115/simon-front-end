@@ -51,7 +51,11 @@ class FuzzInFocus extends Component {
       <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+          <Paper
+            className='Effect-Paper'
+            style={{
+              borderRadius: '40px',
+            }} >
           <div className="effect-close">
             <IconButton
               key="close"
@@ -76,9 +80,6 @@ class FuzzInFocus extends Component {
           <div className='ReverbChar'>
             <img alt='Character with fuzzy sweater (get it>)' src={FuzzImage} className="RevHall" width='150px' />
           </div>
-          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
-            Remove Effect
-          </Button>
         </div>
         <span className='right-side-effect-card'>
               <Typography variant='body2'>Fuzz is a lot like distortion! Made Famous by Jimi Hendrix, it's basically the first attempt at creating a guitar effect! This fuzz effect let's you control which part of the audio is getting the distortion - the Low Gain affects the deepest part of the recording (Bass), and the High Gain affects the highest notes (Treble).</Typography>
@@ -123,6 +124,10 @@ class FuzzInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.highGain}
                 onChange={(event, value, name) => this.handleChange(event, value, "highGain")}
               />
+              <br />
+              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
+                Remove Effect
+              </Button>
           </span>
         </Paper>
         </Fade>

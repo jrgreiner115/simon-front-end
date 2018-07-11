@@ -53,7 +53,11 @@ class LowPassInFocus extends Component {
       <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+          <Paper
+            className='Effect-Paper'
+            style={{
+              borderRadius: '40px',
+            }} >
           <div className="effect-close">
             <IconButton
               key="close"
@@ -78,9 +82,6 @@ class LowPassInFocus extends Component {
           <div className='ReverbChar'>
             <img src={LowPass} alt='character listening to some sick beats' className="RevHall" width='150px' />
           </div>
-          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('LowPass')}>
-            Remove Effect
-          </Button>
         </div>
             <span className='right-side-effect-card'>
               <Typography variant='body2'>Low Pass Filters are used to make muffled sounds. These are often used in EDM music for the drop! Adjust the frequency to 0% to increase the muffling.</Typography>
@@ -101,6 +102,9 @@ class LowPassInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
+              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('LowPass')}>
+                Remove Effect
+              </Button>
           </span>
         </Paper>
         </Fade>

@@ -42,6 +42,9 @@ class SaveRec extends Component {
     return (
       <div>
       <Dialog
+        style={{
+          borderRadius: '40px',
+        }}
         onClose={this.handleClose}
         open={this.props.open}
         aria-labelledby="simple-dialog-title"

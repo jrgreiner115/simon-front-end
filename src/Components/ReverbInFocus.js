@@ -56,7 +56,11 @@ class ReverbInFocus extends Component {
       <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+          <Paper
+            className='Effect-Paper'
+            style={{
+              borderRadius: '40px',
+            }} >
           <div className="effect-close">
             <IconButton
               key="close"
@@ -82,9 +86,6 @@ class ReverbInFocus extends Component {
           <div className='ReverbChar'>
             <img src={Reverb} alt='character with mining hat, listening to the sounds of a cave' className="RevHall" width='170px' />
           </div>
-          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
-            Remove Effect
-          </Button>
         </div>
         <span className='right-side-effect-card'>
               <Typography variant='body2'>Have you ever been to a cave? Or a big hall, or cathedral, and heard the sound of your voice stretch further and longer than it did before? That's what Reverb is! A simple Reverb algorithm creates many echoes that simulate the depth of a room. As you increase time and decay, the room will grow until it's a big cave!</Typography>
@@ -116,6 +117,10 @@ class ReverbInFocus extends Component {
                 value={this.props.mainReducer.effects.Reverb.settings.decay}
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
+              <br />
+              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Reverb')}>
+                Remove Effect
+              </Button>
           </span>
         </Paper>
         </Fade>

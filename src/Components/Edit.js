@@ -36,7 +36,7 @@ class Edit extends Component {
 
   componentDidMount = () => {
     let userId = localStorage.getItem("id")
-    Adapter.getRecs(userId).then((json) =>{ this.props.getRecs(json.recordings)})
+    Adapter.getRecs(userId).then(json => this.props.getRecs(json.recordings))
 
     if (this.props.mainReducer.focusedEffect === "") {
       this.setState({displayGrid: false})
@@ -177,6 +177,7 @@ class Edit extends Component {
         playing:false
       })
     })
+    console.log(sound);
   }
   pause = () => {
     this.props.mainReducer.currentRecording.pause()
@@ -231,7 +232,9 @@ class Edit extends Component {
       <div>
       <div className="edit-div">
       <div className="Edit-Suite">
-        <Paper className='Main-Paper Edit' id='main-audio-object' elevation={1}>
+        <Paper style={{
+          borderRadius: '40px',
+        }} className='Main-Paper Edit' id='main-audio-object' elevation={1}>
           <Zoom in={this.state.playing}>
             <div className='dancing-edit-guy-div'>
               <img src={DancingGuy} alt='dancing-Simon-character' className='dancing-edit-guy' />

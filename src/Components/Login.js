@@ -39,7 +39,9 @@ class Login extends Component {
     console.log("PROPS", this.props);
     return (<div className='outer-div'>
       <Fade in={this.state.input}>
-      <Paper  className='Input-Paper'elevation={1}>
+      <Paper  style={{
+        borderRadius: '40px',
+      }} className='Input-Paper'elevation={1}>
         <form >
           <TextField
           id="name"

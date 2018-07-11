@@ -20,9 +20,7 @@ class Register extends Component {
     console.log("I submitted!");
     const pass = document.getElementById('password-input')
     let userObj = {name: this.state.name, username: this.state.username, password: pass.value}
-    Adapter.postUsers(userObj).then(() => this.props.authUser())
-
-    this.props.swapToRegister()
+    Adapter.postUsers(userObj).then(() => this.props.swapToRegister())
   }
 
   handleValidation = (event) => {
@@ -43,7 +41,9 @@ class Register extends Component {
   render() {
     return (<div className='outer-div'>
       <Fade in={this.state.input}>
-      <Paper  className='Input-Paper'elevation={2}>
+      <Paper  style={{
+        borderRadius: '40px',
+      }} className='Input-Paper'elevation={2}>
         <form>
           <TextField
           id="name"

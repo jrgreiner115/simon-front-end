@@ -56,7 +56,11 @@ class HighPassInFocus extends Component {
       <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+          <Paper
+            className='Effect-Paper'
+            style={{
+              borderRadius: '40px',
+            }} >
           <div className="effect-close">
             <IconButton
               key="close"
@@ -81,9 +85,6 @@ class HighPassInFocus extends Component {
           <div className='ReverbChar'>
             <img src={HiPass} className="RevHall" alt='character on safari' width='150px' />
           </div>
-          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('HighPass')}>
-            Remove Effect
-          </Button>
         </div>
         <span className='right-side-effect-card'>
               <Typography variant='body2'>The Oppposite of a Low Pass Filter. As you increase the frequency, it cuts the lows from your audio! Also used in EDM music. I like meerkats. I think they would like High Pass Filters.</Typography>
@@ -104,6 +105,10 @@ class HighPassInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.HighPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
+              <br />
+              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('HighPass')}>
+                Remove Effect
+              </Button>
           </span>
         </Paper>
         </Fade>

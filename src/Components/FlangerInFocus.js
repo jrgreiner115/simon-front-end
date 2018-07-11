@@ -59,7 +59,11 @@ componentDidMount() {
         id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+          <Paper
+            className='Effect-Paper'
+            style={{
+              borderRadius: '40px',
+            }} >
           <div className="effect-close">
             <IconButton
               key="close"
@@ -84,9 +88,6 @@ componentDidMount() {
           <div className='ReverbChar'>
             <img alt='Character with hippie sunglasses' src={FlangerImage} className="RevHall" width='150px' />
           </div>
-          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Flanger')}>
-            Remove Effect
-          </Button>
         </div>
             <span className='right-side-effect-card'>
               <Typography variant='body2'>This effect is many under one name! A Flanger alters the sound by introducing a copy of the original. You can use this effect to chorus sounds familiar to 80's pop (Time at 60%, Speed & Depth at 30%, Feedback at 10%) or phaser sounds from the 60's psychodelic era (Time at 20%, Speed & Depth at 50%, Feedback at 40%). Or you can just get plain weird!</Typography>
@@ -131,6 +132,10 @@ componentDidMount() {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.feedback}
                 onChange={(event, value, name) => this.handleChange(event, value, "feedback")}
               />
+              <br />
+              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Flanger')}>
+                Remove Effect
+              </Button>
           </span>
         </Paper>
         </Fade>

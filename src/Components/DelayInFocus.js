@@ -54,14 +54,17 @@ constructor(props) {
         id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+        <Paper
+          className='Effect-Paper'
+          style={{
+            borderRadius: '40px',
+          }} >
           <div className="effect-close">
             <IconButton
               key="close"
               aria-label="Close"
               color="inherit"
-              onClick={this.handleEffectClose}
-            >
+              onClick={this.handleEffectClose}>
               <CloseIcon
                 style={{color: 'rgba(0, 0, 0, 0.54'}}/>
             </IconButton>
@@ -79,9 +82,6 @@ constructor(props) {
             <div className='ReverbChar'>
               <img src={Delay} alt='character whistling' className="RevHall" width='150px' />
             </div>
-            <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Delay')}>
-              Remove Effect
-            </Button>
             </div>
             <span className='right-side-effect-card'>
               <Typography variant='body2'>Delay is also called a repeat, or an echo! It's like a copy of the sound, kind of like making copies with a printer. A delay effect like this one will repeat the audio image over and over, at a rate that you set! Try setting the Mix to 100% – you'll hear only the repeats!</Typography>
@@ -110,6 +110,11 @@ constructor(props) {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.time}
                 onChange={(event, value, name) => this.handleChange(event, value, "time")}
               />
+              <br />
+              <Button
+                variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Delay')}>
+                Remove Effect
+              </Button>
             </span>
         </Paper>
         </Fade>

@@ -51,7 +51,11 @@ class DistortionInFocus extends Component {
       <div id='effect-container'>
         <ClickAwayListener onClickAway={this.handleClickAway}>
         <Fade in>
-        <Paper className='Effect-Paper'>
+          <Paper
+            className='Effect-Paper'
+            style={{
+              borderRadius: '40px',
+            }} >
           <div className="effect-close">
             <IconButton
               key="close"
@@ -76,9 +80,6 @@ class DistortionInFocus extends Component {
           <div className='ReverbChar'>
             <img src={Distortion} alt='character playing electric guitar' className="RevHall" width='170px' />
           </div>
-          <Button size="small" color="primary" onClick={(name) => this.handleRemoveButton('Distortion')}>
-            Remove Effect
-          </Button>
         </div>
             <span className='right-side-effect-card'>
               <Typography variant='body2'>If you like electric guitar in your music, then you probably like distortion! Originally, Distortion occured when you pushed the audio's volume past the point that the speakers could acutally output, creating a clipped version of the audio wave - this effect mimics that sound. Turn down the master volume as your turn up your gain to compensate!</Typography>
@@ -91,6 +92,10 @@ class DistortionInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Distortion.settings.gain}
                 onChange={(event, value, name) => this.handleChange(event, value, "gain")}
               />
+              <br />
+              <Button  variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Distortion')}>
+                Remove Effect
+              </Button>
             </span>
         </Paper>
         </Fade>

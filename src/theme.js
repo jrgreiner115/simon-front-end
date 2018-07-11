@@ -11,7 +11,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
       light: '#ffe9ff',
       main: '#f7b6e6',
       dark: '#c386b4',
-      contrastText: '#000',
+      contrastText: '#fff',
     },
   }
 

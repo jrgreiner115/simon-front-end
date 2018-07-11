@@ -25,7 +25,7 @@
 .Main-Paper {
   text-align: center;
    margin: 0 auto;
-   width: 1000px;
+   width: 800px;
 }
 .Story-Paper{
   text-align: center;
@@ -55,17 +55,18 @@
 }
 
 .Effect-Paper {
+  border-radius: 40px;
    position: relative;
-   padding: 4%;
+   padding: 2%;
    margin: 0 auto;
    width: 1200px;
-   overflow: hidden;
+   overflow: auto;
 }
 
 .effect-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
 }
 
 .save-dialog {
@@ -102,9 +103,9 @@
 }
 .settingsButton {
   position: absolute;
-  right: 100px;
-  bottom: 20px;
-  padding: 4px;
+  right: 95px;
+  bottom: 15px;
+  padding: 0px;
 }
 
 .left-side-effect-card  {
@@ -164,7 +165,7 @@
   display:inline-block;
   position: relative;
   background-color: #e5e5e5;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 5px;
 }
 .edit-buttons-div {

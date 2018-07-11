@@ -24,7 +24,9 @@ handleEditButton = (name) => {
             effect.active ?
             <Fade in>
             <Grid key={effect.name} item xs={2}>
-            <Card>
+            <Card style={{
+              borderRadius: '40px',
+            }}>
               <CardContent>
                 <Typography gutterBottom variant="headline" component="h2">
                   {effect.name}

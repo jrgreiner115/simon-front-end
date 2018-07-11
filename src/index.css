@@ -5,7 +5,8 @@ body {
 }
 
 html, body {
-            height: 100%;
+  background: rgba(219,156,193,1) 51%;
+            height: 100vh;
             margin: 0;
         }
 

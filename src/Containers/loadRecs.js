@@ -15,7 +15,9 @@ class LoadRecs extends Component {
 
   render() {
     return (
-      <Dialog onClose={this.handleClose}
+      <Dialog style={{
+        borderRadius: '40px',
+      }} onClose={this.handleClose}
         open={this.props.open} aria-labelledby="simple-dialog-title">
       <DialogTitle id="simple-dialog-title">
         Open Recording
