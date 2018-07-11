@@ -27,7 +27,6 @@ class LowPassInFocus extends Component {
     };
 
   handleClickAway = (event) => {
-    console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
       return null
@@ -74,10 +73,6 @@ class LowPassInFocus extends Component {
             <Typography variant="headline">
               Low Pass Filter
             </Typography>
-            <Switch
-              checked={this.props.mainReducer.effects.LowPass.on}
-              onChange={this.handleSwitch("ON")}
-            />
           </div>
           <div className='ReverbChar'>
             <img src={LowPass} alt='character listening to some sick beats' className="RevHall" width='150px' />
@@ -102,9 +97,26 @@ class LowPassInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
-              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('LowPass')}>
-                Remove Effect
-              </Button>
+              <br />
+              <div class="effect-options">
+                <Switch
+                  style={{marginRight: '10px'}}
+                  color='primary'
+                  checked={this.props.mainReducer.effects.LowPass.on}
+                  onChange={this.handleSwitch("ON")}
+                />
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                  Save
+                </Button>
+
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('LowPass')}>
+                  Remove
+                </Button>
+              </div>
           </span>
         </Paper>
         </Fade>

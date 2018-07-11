@@ -29,7 +29,6 @@ constructor(props) {
     };
 
   handleClickAway = (event) => {
-    console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
       return null
@@ -74,10 +73,6 @@ constructor(props) {
               <Typography variant="headline">
                 Delay
               </Typography>
-              <Switch
-                checked={this.props.mainReducer.effects.Delay.on}
-                onChange={this.handleSwitch("ON")}
-              />
             </div>
             <div className='ReverbChar'>
               <img src={Delay} alt='character whistling' className="RevHall" width='150px' />
@@ -111,10 +106,25 @@ constructor(props) {
                 onChange={(event, value, name) => this.handleChange(event, value, "time")}
               />
               <br />
-              <Button
-                variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Delay')}>
-                Remove Effect
-              </Button>
+              <div class="effect-options">
+                <Switch
+                  style={{marginRight: '10px'}}
+                  color='primary'
+                  checked={this.props.mainReducer.effects.Delay.on}
+                  onChange={this.handleSwitch("ON")}
+                />
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                  Save
+                </Button>
+
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Delay')}>
+                  Remove
+                </Button>
+              </div>
             </span>
         </Paper>
         </Fade>

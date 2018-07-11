@@ -145,7 +145,6 @@ class AddEffectsMenu extends Component {
     if (typeof document !== 'undefined') {
       isTouch = 'ontouchstart' in document.documentElement;
     }
-    // console.log("PROPS", this.props)
     return (
       <div className={classes.root}>
         <SpeedDial

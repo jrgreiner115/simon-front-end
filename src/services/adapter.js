@@ -67,13 +67,11 @@ const postRecord = (audioBlob) => {
             console.log(err);
             return reject(err);
           } else {
-            console.log(data);
             return resolve(data);
           }
         });
       })
       .then(data => {
-            console.log("DID IT!", `${process.env.REACT_APP_AWS_URL}/${keyid}`, data);
         createRecording(keyid)
       })
 }

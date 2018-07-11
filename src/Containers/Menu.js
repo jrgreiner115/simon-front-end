@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Pizzicato from 'pizzicato'
 import { withStyles } from '@material-ui/core/styles';
-import {Drawer, Button, List, ListItem, Divider, ListItemText,IconButton, Snackbar} from '@material-ui/core/';
+import {Drawer, Button, List, ListItem, Divider, ListItemText,IconButton, Snackbar, ButtonBase} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import LoadRecs from './loadRecs';
@@ -11,6 +11,7 @@ import Adapter from '../services/adapter';
 import {Close, Settings} from '@material-ui/icons';
 import toWav from 'audiobuffer-to-wav'
 import FileSaver from 'file-saver'
+import MenuButton from '../Components/Character/menu-button.png'
 
 const styles = {
   list: {
@@ -109,10 +110,6 @@ class TemporaryDrawer extends React.Component {
 
   handleExport = () => {
     const ctx = Pizzicato.masterGainNode.context
-    // ctx.decodeAudioData(process.env.REACT_APP_AWS_TEST_URL, function(buffer) {
-    //   let myBuffer = buffer
-    //   console.log(myBuffer);
-    // })
     let buffer = ctx.createBuffer(2, 22050, 44100)
     let scriptNode = ctx.createScriptProcessor(4096, 1, 1)
     console.log(buffer, scriptNode.bufferSize, Pizzicato.masterGainNode);
@@ -207,6 +204,13 @@ class TemporaryDrawer extends React.Component {
         <Button className='Menu-button' id='recordedAudioPlayer' onClick={this.toggleDrawer('left', true)} variant="fab" color="primary" aria-label="add">
           <Settings/>
         </Button>
+        </span>
+        <span>
+          <ButtonBase
+            className='logo-menu-button'
+            onClick={this.toggleDrawer('left', true)}>
+            <img src={MenuButton} width='170px'/>
+          </ButtonBase>
         </span>
       </div>
     );

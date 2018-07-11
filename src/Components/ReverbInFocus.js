@@ -31,7 +31,6 @@ class ReverbInFocus extends Component {
     };
 
   handleClickAway = (event) => {
-    console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
       return null
@@ -77,11 +76,6 @@ class ReverbInFocus extends Component {
             <Typography variant="headline">
               Reverb
             </Typography>
-
-            <Switch
-              checked={this.props.mainReducer.effects.Reverb.on}
-              onChange={this.handleSwitch("ON")}
-            />
           </div>
           <div className='ReverbChar'>
             <img src={Reverb} alt='character with mining hat, listening to the sounds of a cave' className="RevHall" width='170px' />
@@ -118,9 +112,25 @@ class ReverbInFocus extends Component {
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
               <br />
-              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Reverb')}>
-                Remove Effect
-              </Button>
+              <div class="effect-options">
+                <Switch
+                  style={{marginRight: '10px'}}
+                  color='primary'
+                  checked={this.props.mainReducer.effects.Reverb.on}
+                  onChange={this.handleSwitch("ON")}
+                />
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                  Save
+                </Button>
+
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
+                  Remove
+                </Button>
+              </div>
           </span>
         </Paper>
         </Fade>

@@ -16,11 +16,9 @@ class Login extends Component {
     })
   }
   handleSubmit = (event) => {
-    console.log("I submitted!");
     const pass = document.getElementById('password-input-login')
     let userObj = {username: this.state.username, password: pass.value}
     Adapter.login(userObj).then(() => {
-      console.log('made it here');
       this.props.authUser()})
 
     this.setState({
@@ -36,7 +34,6 @@ class Login extends Component {
 
 
   render() {
-    console.log("PROPS", this.props);
     return (<div className='outer-div'>
       <Fade in={this.state.input}>
       <Paper  style={{
@@ -62,7 +59,7 @@ class Login extends Component {
           />
           <br /><br />
           <Button
-            variant='contained'
+            variant='extendedFab'
             color='primary'
             onClick={this.handleSubmit}>
             Log in

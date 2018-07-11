@@ -31,7 +31,6 @@ class HighPassInFocus extends Component {
       };
 
     handleClickAway = (event) => {
-      console.log(event);
       if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
       event.path[2].id === 'recordedAudioPlayerIcon') {
         return null
@@ -77,10 +76,6 @@ class HighPassInFocus extends Component {
             <Typography variant="headline">
               High Pass Filter
             </Typography>
-            <Switch
-              checked={this.props.mainReducer.effects.HighPass.on}
-              onChange={this.handleSwitch("ON")}
-            />
           </div>
           <div className='ReverbChar'>
             <img src={HiPass} className="RevHall" alt='character on safari' width='150px' />
@@ -106,9 +101,25 @@ class HighPassInFocus extends Component {
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
               <br />
-              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('HighPass')}>
-                Remove Effect
-              </Button>
+              <div class="effect-options">
+                <Switch
+                  style={{marginRight: '10px'}}
+                  color='primary'
+                  checked={this.props.mainReducer.effects.HighPass.on}
+                  onChange={this.handleSwitch("ON")}
+                />
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                  Save
+                </Button>
+
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('HighPass')}>
+                  Remove
+                </Button>
+              </div>
           </span>
         </Paper>
         </Fade>
@@ -131,7 +142,6 @@ const mapDispatchToProps = (dispatch) => {
       })
     },
     switchHighPass: (payload) => {
-      console.log(payload);
       dispatch({
         type: "SWITCH_HIGHPASS",
         payload

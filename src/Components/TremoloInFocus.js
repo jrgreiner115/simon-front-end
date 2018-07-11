@@ -29,7 +29,6 @@ class TremoloInFocus extends Component {
   };
 
   handleClickAway = (event) => {
-    console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
       return null
@@ -71,7 +70,6 @@ class TremoloInFocus extends Component {
                 <Typography variant="headline">
                   Tremolo
                 </Typography>
-                <Switch checked={this.props.mainReducer.effects.Tremolo.on} onChange={this.handleSwitch("ON")}/>
               </div>
               <div className='ReverbChar'>
                 <img alt='Character iwth scuba gear' src={TremoloImage} className="RevHall" width='150px'/>
@@ -105,9 +103,25 @@ class TremoloInFocus extends Component {
                 value={this.props.mainReducer.effects.Tremolo.settings.depth}
                 onChange={(event, value, name) => this.handleChange(event, value, "depth")}/>
                 <br />
-                <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Tremolo')}>
-                  Remove Effect
-                </Button>
+                <div class="effect-options">
+                  <Switch
+                    style={{marginRight: '10px'}}
+                    color='primary'
+                    checked={this.props.mainReducer.effects.Tremolo.on}
+                    onChange={this.handleSwitch("ON")}
+                  />
+                  <Button
+                    style={{marginRight: '10px'}}
+                    variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                    Save
+                  </Button>
+
+                  <Button
+                    style={{marginRight: '10px'}}
+                    variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Tremolo')}>
+                    Remove
+                  </Button>
+                </div>
             </span>
           </Paper>
         </Fade>

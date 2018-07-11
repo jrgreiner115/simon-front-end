@@ -33,7 +33,7 @@ class StoryBook extends Component {
           <NormalCharacter />
           <Typography variant="subheading">Simon Love to Dance. Let's record some music to to give him something to dance to!</Typography>
           <br />
-          <Button onClick={this.handleClick} color='primary' variant='contained'>Let's do it!</Button>
+          <Button onClick={this.handleClick} color='primary' variant='extendedFab'>Let's do it!</Button>
         </Paper>
         </Fade>
       </div>

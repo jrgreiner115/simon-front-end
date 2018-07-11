@@ -42,11 +42,10 @@ stopRecording = () => {
  handleToolTip = (event) => {
    this.setState({
      toolTip:false
-   }, () => console.log("did it!", this.state.toolTip))
+   })
  }
 
 onStop = (recordedBlob) =>  {
-  console.log(recordedBlob);
   var sound = new Pizzicato.Sound({
     source: 'file',
     options: { path: [recordedBlob.blobURL] }
@@ -156,16 +155,17 @@ saveRecording = () => {
             alt='tooltip'/>
           <div className='tooltip-text'>
           <Typography variant='body1'>
-            Record by clicking that Record Button. Once you record, you can listen to it, save it to start dancing, or trash it.
+              Record by clicking that Record Button. Once you record, you can listen to it, save it to start dancing, or trash it.
           </Typography>
+          </div>
           <Button
-            variant='contained'
-            color='primary'
+            variant='extendedFab'
+            size='small'
+            color="secondary"
             className='tooltip-button'
             onClick={this.handleToolTip}>
             Got it!
           </Button>
-          </div>
         </div>
       </Fade>
     </div>

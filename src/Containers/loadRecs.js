@@ -9,12 +9,10 @@ class LoadRecs extends Component {
   };
 
   handleListItemClick = value => {
-    console.log(value);
     this.props.onClose(value);
   };
 
   render() {
-    console.log("RENDER", this.props.mainReducer.recordings);
     return (
       <Dialog style={{
         borderRadius: '40px',

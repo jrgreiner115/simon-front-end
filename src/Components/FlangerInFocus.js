@@ -34,7 +34,6 @@ componentDidMount() {
     };
 
   handleClickAway = (event) => {
-    console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
       return null
@@ -80,10 +79,6 @@ componentDidMount() {
             <Typography variant="headline">
               Flanger
             </Typography>
-            <Switch
-              checked={this.props.mainReducer.effects.Flanger.on}
-              onChange={this.handleSwitch("ON")}
-            />
           </div>
           <div className='ReverbChar'>
             <img alt='Character with hippie sunglasses' src={FlangerImage} className="RevHall" width='150px' />
@@ -133,9 +128,25 @@ componentDidMount() {
                 onChange={(event, value, name) => this.handleChange(event, value, "feedback")}
               />
               <br />
-              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Flanger')}>
-                Remove Effect
-              </Button>
+              <div class="effect-options">
+                <Switch
+                  style={{marginRight: '10px'}}
+                  color='primary'
+                  checked={this.props.mainReducer.effects.Flanger.on}
+                  onChange={this.handleSwitch("ON")}
+                />
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                  Save
+                </Button>
+
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Flanger')}>
+                  Remove
+                </Button>
+              </div>
           </span>
         </Paper>
         </Fade>

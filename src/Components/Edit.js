@@ -63,7 +63,7 @@ class Edit extends Component {
   handleToolTip = (event) => {
     this.setState({
       toolTip:false
-    }, () => console.log("did it!", this.state.toolTip))
+    })
   }
 
   loadEffects = () => {
@@ -184,7 +184,6 @@ class Edit extends Component {
         playing:false
       })
     })
-    console.log(this.props.mainReducer.currentRecording);
   }
   pause = () => {
     this.props.mainReducer.currentRecording.pause()
@@ -305,13 +304,15 @@ class Edit extends Component {
             <Typography variant='body1'>
               Use the 'Add' button in the bottom-right corner to add effects!
             </Typography>
+            </div>
             <Button
-              variant="contained" color="secondary"
+              size='small'
+              variant='extendedFab'
+              color="secondary"
               className='tooltip-button'
               onClick={this.handleToolTip}>
               Got it!
             </Button>
-            </div>
           </div>
         </Fade>
       </div>

@@ -28,7 +28,6 @@ class FuzzInFocus extends Component {
       this.props.switchFuzz(event.target.checked)
     };
   handleClickAway = (event) => {
-    console.log(event);
     if (event.target.id === 'recordedAudioPlayer'|| event.target.id === 'main-audio-object' || event.target.id === 'recordedAudioPlayerIcon' || event.target.id === 'effect-container' || event.target.id === 'Menu-actions' || event.target=== 'svg'||
     event.path[2].id === 'recordedAudioPlayerIcon') {
       return null
@@ -72,10 +71,6 @@ class FuzzInFocus extends Component {
             <Typography variant="headline">
               Fuzz
             </Typography>
-            <Switch
-              checked={this.props.mainReducer.effects.Fuzz.on}
-              onChange={this.handleSwitch("ON")}
-            />
           </div>
           <div className='ReverbChar'>
             <img alt='Character with fuzzy sweater (get it>)' src={FuzzImage} className="RevHall" width='150px' />
@@ -125,9 +120,25 @@ class FuzzInFocus extends Component {
                 onChange={(event, value, name) => this.handleChange(event, value, "highGain")}
               />
               <br />
-              <Button variant="contained" color="secondary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
-                Remove Effect
-              </Button>
+              <div class="effect-options">
+                <Switch
+                  style={{marginRight: '10px'}}
+                  color='primary'
+                  checked={this.props.mainReducer.effects.Fuzz.on}
+                  onChange={this.handleSwitch("ON")}
+                />
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                  Save
+                </Button>
+
+                <Button
+                  style={{marginRight: '10px'}}
+                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
+                  Remove
+                </Button>
+              </div>
           </span>
         </Paper>
         </Fade>

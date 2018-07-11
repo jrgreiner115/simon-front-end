@@ -17,7 +17,6 @@ class Register extends Component {
     })
   }
   handleSubmit = (event) => {
-    console.log("I submitted!");
     const pass = document.getElementById('password-input')
     let userObj = {name: this.state.name, username: this.state.username, password: pass.value}
     Adapter.postUsers(userObj).then(() => this.props.swapToRegister())
@@ -83,7 +82,7 @@ class Register extends Component {
           <br /><br />
           <Button
             disabled= {this.state.invalidPassword}
-            variant='contained'
+            variant='extendedFab'
             color='primary'
             onClick={this.handleSubmit}>
             Sign Up
