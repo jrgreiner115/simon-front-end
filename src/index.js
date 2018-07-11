@@ -22,6 +22,7 @@ export const initialState = {
   currentRecording: undefined,
   isRecorded: false,
   hasEffects: false,
+  path: undefined,
   isSaved: false,
   volume: 0.8,
   isDownloaded: false,

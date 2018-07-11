@@ -6,6 +6,7 @@ import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import {FiberManualRecord, Stop, PlayArrow, Save, Delete} from '@material-ui/icons/';
 import { withRouter } from 'react-router-dom';
+import ToolTip from './Character/simon-tooltip.png'
 
 class Recorder extends Component {
 constructor(props) {
@@ -15,7 +16,8 @@ constructor(props) {
     record: false,
     fade: true,
     command: "none",
-    loading: false
+    loading: false,
+    toolTip: true
   }
 }
 
@@ -36,6 +38,12 @@ stopRecording = () => {
        record: false
      });
    }
+
+ handleToolTip = (event) => {
+   this.setState({
+     toolTip:false
+   }, () => console.log("did it!", this.state.toolTip))
+ }
 
 onStop = (recordedBlob) =>  {
   console.log(recordedBlob);
@@ -61,6 +69,7 @@ saveRecording = () => {
     fade: false,
     loading: true,
   })
+
   Adapter.postRecord(this.props.mainReducer.currentBlob).then(thing =>{
   let newsound = new Pizzicato.Sound({
     source: 'file',
@@ -130,7 +139,36 @@ saveRecording = () => {
     </Paper>
     </div>
   </div>
-</Fade> : <div className='outer-div'><Fade in><Paper className='Loading-Paper'><Typography variant='display1' align="center">Loading...</Typography></Paper></Fade></div>}
+</Fade> : <div className='outer-div'><Fade in><Paper style={{
+  borderRadius: '40px',
+}} className='Loading-Paper'><Typography variant='display1' align="center">Loading...</Typography></Paper></Fade></div>}
+    <div className='tooltip-div'>
+      <Fade
+        mountOnEnter
+        unmountOnExit
+        direction="up"
+        in={this.state.toolTip}
+        >
+        <div>
+          <img
+            className='toolTip'
+            src={ToolTip}
+            alt='tooltip'/>
+          <div className='tooltip-text'>
+          <Typography variant='body1'>
+            Record by clicking that Record Button. Once you record, you can listen to it, save it to start dancing, or trash it.
+          </Typography>
+          <Button
+            variant='contained'
+            color='primary'
+            className='tooltip-button'
+            onClick={this.handleToolTip}>
+            Got it!
+          </Button>
+          </div>
+        </div>
+      </Fade>
+    </div>
 </React.Fragment>
     )
   }

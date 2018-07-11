@@ -14,6 +14,7 @@ class LoadRecs extends Component {
   };
 
   render() {
+    console.log("RENDER", this.props.mainReducer.recordings);
     return (
       <Dialog style={{
         borderRadius: '40px',

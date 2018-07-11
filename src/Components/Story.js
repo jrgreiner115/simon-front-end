@@ -29,7 +29,7 @@ class StoryBook extends Component {
           style={{
           borderRadius: '40px',}}
           className='Story-Paper'>
-          <Typography variant="display1">This is Simon!</Typography>
+          <Typography size='13' variant="display1">This is Simon!</Typography>
           <NormalCharacter />
           <Typography variant="subheading">Simon Love to Dance. Let's record some music to to give him something to dance to!</Typography>
           <br />

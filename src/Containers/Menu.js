@@ -68,8 +68,17 @@ class TemporaryDrawer extends React.Component {
     this.setState({open: false });
     if (value) {
     localStorage.setItem("rec_path", value.path)
-    this.props.history.push('/edit')}
-  };
+    localStorage.setItem("rec_id", value.id)
+    this.props.setPath(value.path)
+
+    let newsound = new Pizzicato.Sound({
+      source: 'file',
+      options: { path: `${process.env.REACT_APP_AWS_URL}${value.path}`}
+    }, () => {
+      this.props.satisfiedWithRecording(newsound)})
+    this.props.history.push('/edit')
+  }
+}
 
   handleSaveClose = value => {
     this.setState({saveOpen: false });
@@ -218,6 +227,18 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({
         type: "NEW_RECORDING_FROM_MENU",
         payload: false
+      })
+    },
+    setPath: (path) => {
+      dispatch({
+        type: "SET_PATH",
+        payload: path
+      })
+    },
+    satisfiedWithRecording: (recording) => {
+      dispatch({
+        type: "SATISFIED_WITH_RECORDING",
+        payload: recording
       })
     },
   }

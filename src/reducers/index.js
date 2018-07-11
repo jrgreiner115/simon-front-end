@@ -32,6 +32,9 @@ function reducer(state = initialState, action) {
       isRecorded: true,
       isSaved: true, };
 
+    case "SET_PATH":
+      return {...state, path: action.payload}
+
     case "CLEAR_INFOCUS_EFFECT":
       return {
         ...state,

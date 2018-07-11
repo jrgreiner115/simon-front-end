@@ -14,7 +14,7 @@ class SaveRec extends Component {
   }
 
   componentDidMount = () => {
-    rec_id = localStorage.getItem("rec_id")
+
   }
 
   handleClose = () => {
@@ -32,6 +32,7 @@ class SaveRec extends Component {
   }
 
   handleSubmit = () => {
+    rec_id = localStorage.getItem("rec_id")
     Adapter.patchRecordingName(this.state.recName, rec_id).then(json => this.props.getRecs(json))
 
     this.props.onSaveClose(this.props.selectedValue);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Pizzicato from 'pizzicato';
-import {Paper, Button, Zoom} from '@material-ui/core/';
+import {Paper, Button, Zoom, Fade, Typography} from '@material-ui/core/';
 import Slider from '@material-ui/lab/Slider';
 import {connect} from 'react-redux';
 import {Stop, PlayArrow, Pause, VolumeUp} from '@material-ui/icons/';
@@ -10,8 +10,8 @@ import EffectsGrid from './EffectsGrid';
 import SpeedDialer from './AddEffectsMenu';
 import DancingGuy from './Character/dancing-guy.gif'
 import Adapter from '../services/adapter'
+import ToolTip from './Character/simon-tooltip.png'
 
-var sound = undefined
 let reverb
 let delay
 let fuzz
@@ -29,7 +29,9 @@ class Edit extends Component {
     this.state = {
       displayGrid: true,
       displayEffect: false,
-      playing: false
+      playing: false,
+      toolTip: true,
+      path: localStorage.getItem("rec")
     }
     this.createVisualization = this.createVisualization.bind(this)
   }
@@ -58,8 +60,13 @@ class Edit extends Component {
     }
   }
 
+  handleToolTip = (event) => {
+    this.setState({
+      toolTip:false
+    }, () => console.log("did it!", this.state.toolTip))
+  }
+
   loadEffects = () => {
-    sound = this.props.mainReducer.currentRecording
 
     reverb = new Pizzicato.Effects.Reverb(this.props.mainReducer.effects.Reverb.settings);
     delay = new Pizzicato.Effects.Delay(this.props.mainReducer.effects.Delay.settings);
@@ -71,14 +78,14 @@ class Edit extends Component {
     tremolo = new Pizzicato.Effects.Tremolo(this.props.mainReducer.effects.Tremolo.settings);
 
 
-    sound.addEffect(reverb)
-    sound.addEffect(delay)
-    sound.addEffect(fuzz)
-    sound.addEffect(distortion)
-    sound.addEffect(lowPass)
-    sound.addEffect(highPass)
-    sound.addEffect(tremolo)
-    sound.addEffect(flanger)
+    this.props.mainReducer.currentRecording.addEffect(reverb)
+    this.props.mainReducer.currentRecording.addEffect(delay)
+    this.props.mainReducer.currentRecording.addEffect(fuzz)
+    this.props.mainReducer.currentRecording.addEffect(distortion)
+    this.props.mainReducer.currentRecording.addEffect(lowPass)
+    this.props.mainReducer.currentRecording.addEffect(highPass)
+    this.props.mainReducer.currentRecording.addEffect(tremolo)
+    this.props.mainReducer.currentRecording.addEffect(flanger)
 
   }
 
@@ -87,11 +94,11 @@ class Edit extends Component {
       playing: true
     })
 
-    sound.play()
+    this.props.mainReducer.currentRecording.play()
 
 
-    sound = this.props.mainReducer.currentRecording
-    sound.volume = this.props.mainReducer.volume
+    this.props.mainReducer.currentRecording = this.props.mainReducer.currentRecording
+    this.props.mainReducer.currentRecording.volume = this.props.mainReducer.volume
 
     // Reverb
     if (!this.props.mainReducer.effects.Reverb.on) {
@@ -172,12 +179,12 @@ class Edit extends Component {
 
 
 
-    sound.on('end', () => {
+    this.props.mainReducer.currentRecording.on('end', () => {
       this.setState({
         playing:false
       })
     })
-    console.log(sound);
+    console.log(this.props.mainReducer.currentRecording);
   }
   pause = () => {
     this.props.mainReducer.currentRecording.pause()
@@ -232,7 +239,7 @@ class Edit extends Component {
       <div>
       <div className="edit-div">
       <div className="Edit-Suite">
-        <Paper style={{
+        <Paper id={this.state.path} style={{
           borderRadius: '40px',
         }} className='Main-Paper Edit' id='main-audio-object' elevation={1}>
           <Zoom in={this.state.playing}>
@@ -281,6 +288,32 @@ class Edit extends Component {
           </span>
 
           <SpeedDialer/>
+      </div>
+      <div className='tooltip-div'>
+        <Fade
+          mountOnEnter
+          unmountOnExit
+          direction="up"
+          in={this.state.toolTip}
+          >
+          <div>
+            <img
+              className='toolTip'
+              src={ToolTip}
+              alt='tooltip'/>
+            <div className='tooltip-text'>
+            <Typography variant='body1'>
+              Use the 'Add' button in the bottom-right corner to add effects!
+            </Typography>
+            <Button
+              variant="contained" color="secondary"
+              className='tooltip-button'
+              onClick={this.handleToolTip}>
+              Got it!
+            </Button>
+            </div>
+          </div>
+        </Fade>
       </div>
       </div>
         )
