@@ -4,7 +4,11 @@ Simon is an audio manipulator, based on the idea that anyone should be able to m
 ## How it Works
 I used React and Redux to manage the User Interface and client actions. Using a JWT token, I pass user information from a Rails REST API to the browser. Audio is stored in an S3 bucket.
 
-The core functionality of this application is a combination of Pizzicato.js, a Javascript library that sits upon the Web Audio API, React-Mic, a React Component that handles recording and creating a blob with the audio data, and an Amazon S3 bucket that persists the audio data. 
+The core functionality of this application is a combination of Pizzicato.js, a Javascript library that sits upon the Web Audio API, React-Mic, a React Component that handles recording and creating a blob with the audio data, and an Amazon S3 bucket that persists the audio data.
+
+![Recording Audio](https://media.giphy.com/media/6G8lDLEvjbRHM1OgZo/giphy.gif)
+
+
 
 ### Further Plans
 
