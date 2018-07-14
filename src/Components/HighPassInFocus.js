@@ -77,7 +77,27 @@ class HighPassInFocus extends Component {
               High Pass Filter
             </Typography>
           </div>
-          <div className='ReverbChar'>
+          <br />
+          <div class="effect-options">
+            <Switch
+              style={{marginRight: '10px'}}
+              color='primary'
+              checked={this.props.mainReducer.effects.HighPass.on}
+              onChange={this.handleSwitch("ON")}
+            />
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+              Save
+            </Button>
+
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('HighPass')}>
+              Remove
+            </Button>
+          </div>
+          <div className='effects-character'>
             <img src={HiPass} className="RevHall" alt='character on safari' width='150px' />
           </div>
         </div>
@@ -100,26 +120,6 @@ class HighPassInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.HighPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.HighPass.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
-
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('HighPass')}>
-                  Remove
-                </Button>
-              </div>
           </span>
         </Paper>
         </Fade>

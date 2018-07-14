@@ -8,6 +8,7 @@ class Login extends Component {
   state= {
     username: "",
     input: true,
+    errors: false
   }
 
   handleChange = (event) => {
@@ -19,13 +20,19 @@ class Login extends Component {
     const pass = document.getElementById('password-input-login')
     let userObj = {username: this.state.username, password: pass.value}
     Adapter.login(userObj).then(() => {
-      this.props.authUser()})
-
-    this.setState({
-      input: false
-    })
-    setTimeout(() => this.props.history.push('/start'), 500);
-
+      if (localStorage.getItem("token") === "undefined") {
+        this.setState({
+          errors: true
+        })
+        }
+        else {
+          this.props.authUser()
+          this.setState({
+            input: false
+          })
+          setTimeout(() => this.props.history.push('/start'), 500);
+        }}
+      )
   }
 
   handleClick = (event) => {
@@ -41,6 +48,7 @@ class Login extends Component {
       }} className='Input-Paper'elevation={1}>
         <form >
           <TextField
+            error={this.state.errors}
           id="name"
           label="username"
           name="username"
@@ -49,6 +57,7 @@ class Login extends Component {
           margin="normal"
           /><br />
           <TextField
+            error={this.state.errors}
           id="password-input-login"
           label="password"
           type="password"

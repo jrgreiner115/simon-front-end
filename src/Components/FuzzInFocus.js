@@ -71,8 +71,26 @@ class FuzzInFocus extends Component {
             <Typography variant="headline">
               Fuzz
             </Typography>
+            <div class="effect-options">
+              <Switch
+                style={{marginRight: '10px'}}
+                color='primary'
+                checked={this.props.mainReducer.effects.Fuzz.on}
+                onChange={this.handleSwitch("ON")}
+              />
+              <Button
+                style={{marginRight: '10px'}}
+                variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                Save
+              </Button>
+              <Button
+                style={{marginRight: '10px'}}
+                variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
+                Remove
+              </Button>
+            </div>
           </div>
-          <div className='ReverbChar'>
+          <div className='effects-character'>
             <img alt='Character with fuzzy sweater (get it>)' src={FuzzImage} className="RevHall" width='150px' />
           </div>
         </div>
@@ -119,26 +137,6 @@ class FuzzInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Fuzz.settings.highGain}
                 onChange={(event, value, name) => this.handleChange(event, value, "highGain")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.Fuzz.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
-
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Fuzz')}>
-                  Remove
-                </Button>
-              </div>
           </span>
         </Paper>
         </Fade>

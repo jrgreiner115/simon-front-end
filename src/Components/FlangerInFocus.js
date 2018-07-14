@@ -80,8 +80,27 @@ componentDidMount() {
               Flanger
             </Typography>
           </div>
-          <div className='ReverbChar'>
-            <img alt='Character with hippie sunglasses' src={FlangerImage} className="RevHall" width='150px' />
+          <div class="effect-options">
+            <Switch
+              style={{marginRight: '10px'}}
+              color='primary'
+              checked={this.props.mainReducer.effects.Flanger.on}
+              onChange={this.handleSwitch("ON")}
+            />
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+              Save
+            </Button>
+
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Flanger')}>
+              Remove
+            </Button>
+          </div>
+          <div className='effects-character'>
+            <img alt='Character with hippie sunglasses' src={FlangerImage} className="RevHall" width='130px' />
           </div>
         </div>
             <span className='right-side-effect-card'>
@@ -127,26 +146,7 @@ componentDidMount() {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Flanger.settings.feedback}
                 onChange={(event, value, name) => this.handleChange(event, value, "feedback")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.Flanger.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
 
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Flanger')}>
-                  Remove
-                </Button>
-              </div>
           </span>
         </Paper>
         </Fade>

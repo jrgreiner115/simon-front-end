@@ -45,6 +45,7 @@ class TemporaryDrawer extends React.Component {
   };
 
   handleLogout = () => {
+    this.props.handleLogout()
     localStorage.removeItem('id');
     localStorage.removeItem('username');
     localStorage.removeItem('token');
@@ -109,8 +110,14 @@ class TemporaryDrawer extends React.Component {
   };
 
   handleExport = () => {
-    const ctx = Pizzicato.masterGainNode.context
+    const ctx = Pizzicato.context
+    console.log(ctx);
+    const source = Pizzicato.masterGainNode
+    source.disconnect(ctx.destination)
     let buffer = ctx.createBuffer(2, 22050, 44100)
+    let dest = ctx.createMediaStreamDestination()
+    source.connect(dest)
+      console.log("dest", dest);
     let scriptNode = ctx.createScriptProcessor(4096, 1, 1)
     console.log(buffer, scriptNode.bufferSize, Pizzicato.masterGainNode);
     let wav = toWav(buffer)
@@ -245,6 +252,12 @@ const mapDispatchToProps = (dispatch) => {
         payload: recording
       })
     },
+    handleLogout: () => {
+      dispatch({
+        type: "LOG_OUT",
+        payload: ""
+      })
+    }
   }
 }
 

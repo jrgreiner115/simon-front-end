@@ -74,7 +74,27 @@ class LowPassInFocus extends Component {
               Low Pass Filter
             </Typography>
           </div>
-          <div className='ReverbChar'>
+          <br />
+          <div class="effect-options">
+            <Switch
+              style={{marginRight: '10px'}}
+              color='primary'
+              checked={this.props.mainReducer.effects.LowPass.on}
+              onChange={this.handleSwitch("ON")}
+            />
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+              Save
+            </Button>
+
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('LowPass')}>
+              Remove
+            </Button>
+          </div>
+          <div className='effects-character'>
             <img src={LowPass} alt='character listening to some sick beats' className="RevHall" width='150px' />
           </div>
         </div>
@@ -97,26 +117,6 @@ class LowPassInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.LowPass.settings.peak}
                 onChange={(event, value, name) => this.handleChange(event, value, "peak")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.LowPass.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
-
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('LowPass')}>
-                  Remove
-                </Button>
-              </div>
           </span>
         </Paper>
         </Fade>

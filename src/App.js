@@ -26,7 +26,7 @@ class App extends Component {
       <div className="App">
          { localStorage.getItem("token") ? <TemporaryDrawer /> : ""}
           <Switch props={this.props.history}>
-            { localStorage.getItem("token") ? routes : preauth}
+            { localStorage.getItem("token") && localStorage.getItem("token") !== "undefined"  ? routes : preauth}
             { localStorage.getItem("token") ? <Route path='/'
             render={() => <StoryBook />} /> : <Route path='/' component={LoginAndRegisterContainer} />}
           </Switch>

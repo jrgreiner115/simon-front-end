@@ -31,7 +31,7 @@ class StoryBook extends Component {
           className='Story-Paper'>
           <Typography size='13' variant="display1">This is Simon!</Typography>
           <NormalCharacter />
-          <Typography variant="subheading">Simon Love to Dance. Let's record some music to to give him something to dance to!</Typography>
+          <Typography variant="subheading">Simon loves to Dance. Let's record some music to to give him something to dance to!</Typography>
           <br />
           <Button onClick={this.handleClick} color='primary' variant='extendedFab'>Let's do it!</Button>
         </Paper>

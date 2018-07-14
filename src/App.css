@@ -13,7 +13,7 @@
 .logo {
   margin: 0 auto;
   text-align: center;
-  transform: perspective(1px) translateY(100%);
+  transform: perspective(1px) translateY(70%);
 }
 
 .outer-div {
@@ -46,7 +46,7 @@
 }
 
 .Edit-Suite {
-  padding-top: 7%;
+  padding-top: 5%;
   padding-bottom: 2%;
 }
 
@@ -57,10 +57,10 @@
 .Effect-Paper {
   border-radius: 40px;
    position: relative;
-   padding: 2%;
+   padding: 3%;
    margin: 0 auto;
    width: 1200px;
-   overflow: auto;
+   overflow: hidden;
    z-index: 10;
 }
 
@@ -79,9 +79,7 @@
 }
 
 .edit-div {
-  /* position: relative;
-  height: 100%;
-  width: 100%; */
+  padding-bottom: 50px;
 }
 
 .volume-slider-div {
@@ -108,11 +106,24 @@
   /* margin-top:37rem; */
 }
 
+.effects-character {
+  position: absolute;
+  z-index: 1;
+  bottom: 0px;
+  left: 40px;
+}
+
+.charImage {
+
+}
+
 .tooltip-button {
   position: absolute;
   bottom: 200px;
   left: 620%;
 }
+
+
 
 .tooltip-text{
   position:absolute;
@@ -172,19 +183,6 @@
   opacity: 80%;
 }
 
-.char-effect-div {
-  padding-top: 2%;
-  width: 300px;
-  height: 100px;
-}
-
-.Effect-Details {
-}
-
-.char-effect {
-  object-position: 50% 50%;
-}
-
 .save-dialog {
   text-align: center;
    width: 200px;
@@ -206,8 +204,11 @@
 
 .effect-options {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  z-index: 900;
 }
+
 
 .Menu-button:hover {
   transition: all 1s ease;

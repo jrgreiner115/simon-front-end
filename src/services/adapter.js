@@ -23,7 +23,6 @@ const postUsers = (userObj) => fetch(`${URI}/users`, {
 }).then(resp => resp.json()).then(json => {
   localStorage.setItem("token", json.token)
   localStorage.setItem("id", json.id)
-  localStorage.setItem("recordings", json.recordings)
   localStorage.setItem("username", json.username)
 })
 

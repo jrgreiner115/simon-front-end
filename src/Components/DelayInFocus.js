@@ -74,7 +74,26 @@ constructor(props) {
                 Delay
               </Typography>
             </div>
-            <div className='ReverbChar'>
+            <div class="effect-options">
+              <Switch
+                style={{marginRight: '10px'}}
+                color='primary'
+                checked={this.props.mainReducer.effects.Delay.on}
+                onChange={this.handleSwitch("ON")}
+              />
+              <Button
+                style={{marginRight: '10px'}}
+                variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+                Save
+              </Button>
+
+              <Button
+                style={{marginRight: '10px'}}
+                variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Delay')}>
+                Remove
+              </Button>
+            </div>
+            <div className='effects-character'>
               <img src={Delay} alt='character whistling' className="RevHall" width='150px' />
             </div>
             </div>
@@ -105,26 +124,6 @@ constructor(props) {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Delay.settings.time}
                 onChange={(event, value, name) => this.handleChange(event, value, "time")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.Delay.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
-
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Delay')}>
-                  Remove
-                </Button>
-              </div>
             </span>
         </Paper>
         </Fade>

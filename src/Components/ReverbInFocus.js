@@ -77,7 +77,26 @@ class ReverbInFocus extends Component {
               Reverb
             </Typography>
           </div>
-          <div className='ReverbChar'>
+          <div class="effect-options">
+            <Switch
+              style={{marginRight: '10px'}}
+              color='primary'
+              checked={this.props.mainReducer.effects.Reverb.on}
+              onChange={this.handleSwitch("ON")}
+            />
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+              Save
+            </Button>
+
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
+              Remove
+            </Button>
+          </div>
+          <div className='effects-character'>
             <img src={Reverb} alt='character with mining hat, listening to the sounds of a cave' className="RevHall" width='170px' />
           </div>
         </div>
@@ -111,26 +130,6 @@ class ReverbInFocus extends Component {
                 value={this.props.mainReducer.effects.Reverb.settings.decay}
                 onChange={(event, value, name) => this.handleChange(event, value, "decay")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.Reverb.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
-
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Reverb')}>
-                  Remove
-                </Button>
-              </div>
           </span>
         </Paper>
         </Fade>

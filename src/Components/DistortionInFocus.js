@@ -72,8 +72,27 @@ class DistortionInFocus extends Component {
               Distortion
             </Typography>
           </div>
-          <div className='ReverbChar'>
-            <img src={Distortion} alt='character playing electric guitar' className="RevHall" width='170px' />
+          <div class="effect-options">
+            <Switch
+              style={{marginRight: '10px'}}
+              color='primary'
+              checked={this.props.mainReducer.effects.Distortion.on}
+              onChange={this.handleSwitch("ON")}
+            />
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
+              Save
+            </Button>
+
+            <Button
+              style={{marginRight: '10px'}}
+              variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Distortion')}>
+              Remove
+            </Button>
+          </div>
+          <div className='effects-character'>
+            <img src={Distortion} alt='character playing electric guitar' className="charImage" width='170px' />
           </div>
         </div>
             <span className='right-side-effect-card'>
@@ -87,26 +106,6 @@ class DistortionInFocus extends Component {
                 aria-labelledby="label" value={this.props.mainReducer.effects.Distortion.settings.gain}
                 onChange={(event, value, name) => this.handleChange(event, value, "gain")}
               />
-              <br />
-              <div class="effect-options">
-                <Switch
-                  style={{marginRight: '10px'}}
-                  color='primary'
-                  checked={this.props.mainReducer.effects.Distortion.on}
-                  onChange={this.handleSwitch("ON")}
-                />
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={this.handleEffectClose}>
-                  Save
-                </Button>
-
-                <Button
-                  style={{marginRight: '10px'}}
-                  variant="extendedFab" color="primary" onClick={(name) => this.handleRemoveButton('Distortion')}>
-                  Remove
-                </Button>
-              </div>
             </span>
         </Paper>
         </Fade>

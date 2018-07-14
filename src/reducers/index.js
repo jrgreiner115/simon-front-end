@@ -16,9 +16,11 @@ function reducer(state = initialState, action) {
     case "GET_RECORDINGS":
       return {...state, recordings: [...action.payload]};
     case "NEW_RECORDING_FROM_MENU":
-      return {...state, isRecorded: action.payload }
+      return {...state, isRecorded: action.payload, effects: {...initialState.effects} }
     case "AUTH_USER":
       return {...state, authorizedUser: true};
+    case "LOG_OUT":
+      return {...initialState}
     case "CLEAR_RECORDING":
       return {...state,
       currentBlob: undefined,
@@ -30,7 +32,8 @@ function reducer(state = initialState, action) {
       currentBlob: undefined,
       currentRecording: action.payload,
       isRecorded: true,
-      isSaved: true, };
+      isSaved: true,
+      effects: {...initialState.effects}};
 
     case "SET_PATH":
       return {...state, path: action.payload}

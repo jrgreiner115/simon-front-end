@@ -45,6 +45,7 @@ class Register extends Component {
       }} className='Input-Paper'elevation={2}>
         <form>
           <TextField
+          required
           id="name"
           label="name"
           name="name"
@@ -53,6 +54,7 @@ class Register extends Component {
           margin="normal"
           /><br />
           <TextField
+          required
           id="username"
           label="username"
           name="username"
@@ -61,6 +63,7 @@ class Register extends Component {
           margin="normal"
           /><br />
           <TextField
+          required
           id="password-input"
           label="password"
           type="password"
@@ -70,6 +73,7 @@ class Register extends Component {
           margin="normal"
           /><br />
           <TextField
+          required
           id="password-input-confirmation"
           label="confirm password"
           type="password"
