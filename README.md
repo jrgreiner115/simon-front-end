@@ -6,11 +6,14 @@ I used React and Redux to manage the User Interface and client actions. Using a 
 
 The core functionality of this application is a combination of Pizzicato.js, a Javascript library that sits upon the Web Audio API, React-Mic, a React Component that handles recording and creating a blob with the audio data, and an Amazon S3 bucket that persists the audio data.
 
-![Recording Audio](https://media.giphy.com/media/6G8lDLEvjbRHM1OgZo/giphy.gif)*audio being recording*
+![Recording Audio](https://media.giphy.com/media/6G8lDLEvjbRHM1OgZo/giphy.gif)
+*audio being recording*
 
-![Listing To Audio](https://media.giphy.com/media/NTSP4lVW3nttY41E1K/giphy.gif)*playback of audio with character interactions*
+![Listing To Audio](https://media.giphy.com/media/NTSP4lVW3nttY41E1K/giphy.gif)
+*playback of audio with character interactions*
 
-![Adding a Reverb Effect to Audio](https://media.giphy.com/media/1isc6JtLDvhKKSO9CA/giphy.gif)*adding an effect to the audio clip*
+![Adding a Reverb Effect to Audio](https://media.giphy.com/media/1isc6JtLDvhKKSO9CA/giphy.gif)
+*adding an effect to the audio clip*
 
 
 
