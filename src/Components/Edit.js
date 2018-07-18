@@ -237,8 +237,8 @@ class Edit extends Component {
     return (
       <div>
       <div className="edit-div">
-      <div className="Edit-Suite">
-        <Paper id={this.state.path} style={{
+      <div id={this.state.path} className="Edit-Suite">
+        <Paper  style={{
           borderRadius: '40px',
         }} className='Main-Paper Edit' id='main-audio-object' elevation={1}>
           <Zoom in={this.state.playing}>

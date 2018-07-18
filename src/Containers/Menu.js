@@ -216,7 +216,7 @@ class TemporaryDrawer extends React.Component {
           <ButtonBase
             className='logo-menu-button'
             onClick={this.toggleDrawer('left', true)}>
-            <img src={MenuButton} width='170px'/>
+            <img alt='menu button' src={MenuButton} width='170px'/>
           </ButtonBase>
         </span>
       </div>

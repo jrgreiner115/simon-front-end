@@ -3,6 +3,7 @@ import {Paper, Typography, Button, Fade} from '@material-ui/core/';
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NormalCharacter from './Character/NormalCharacter'
+import Adapter from '../services/adapter.js'
 
 class StoryBook extends Component {
 
@@ -17,6 +18,11 @@ class StoryBook extends Component {
       setTimeout(() =>
       this.props.history.push('/record'), 800)
     })
+  }
+
+  componentDidMount = () => {
+    let userId = localStorage.getItem("id")
+    Adapter.getRecs(userId).then((json) =>{ this.props.getRecs(json.recordings)})
   }
 
 
@@ -45,7 +51,18 @@ const mapStateToProps = (state) => {
   return state
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRecs: (array) => {
+      dispatch({
+        type: "GET_RECORDINGS",
+        payload: array
+      })
+    },
+  }
+}
 
 
 
-export default withRouter(connect(mapStateToProps, null)(StoryBook));
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(StoryBook));
