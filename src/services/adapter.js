@@ -1,7 +1,7 @@
 import uuid from 'uuid'
 import AWS from 'aws-sdk'
 
-const URI = 'http://localhost:3500/api/v1'
+const URI = 'https://simon-daw-api.herokuapp.com/api/v1/'
 var creds = new AWS.Credentials(process.env.REACT_APP_AWS_ACCESS_KEY_ID, process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
 
 AWS.config.update({
