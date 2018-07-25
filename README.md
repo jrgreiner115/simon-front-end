@@ -47,7 +47,7 @@ Back-End:
 3. Start the local server with `rails s -p 3500`
 
 AWS Config:
-* After you've created your S3 server, you'll need to give it a Public Bucket Policy. The only actions you'll need are: `s3:GetObject` and `s3:GetObjectAcl`. You may also need to give the bucket a CORS configuration.
+* After you've created your S3 server, you'll need to give it a Public Bucket Policy. The only actions you'll need are `s3:GetObject` and `s3:GetObjectAcl`. You may also need to give the bucket a CORS configuration.
 * Once you have your credentials, create an `env` file with variables appropriately named as they are referenced in [this file](https://github.com/jrgreiner115/simon-front-end/blob/master/src/services/adapter.js).
 
 **Please remember to gitignore any AWS keys if you decide to commit your local version of this application.**
