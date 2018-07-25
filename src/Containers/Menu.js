@@ -30,7 +30,7 @@ const styles = {
   zIndex: 900,
 };
 
-class TemporaryDrawer extends React.Component {
+class Menu extends React.Component {
   state = {
     left: false,
     open: false,
@@ -130,7 +130,7 @@ class TemporaryDrawer extends React.Component {
   render() {
     const { classes } = this.props;
 
-    const sideList = (
+    const navigation = (
       <div className={classes.list}>
         <List component="nav">
         <ListItem button onClick={this.handleNewRecording}>
@@ -172,7 +172,7 @@ class TemporaryDrawer extends React.Component {
             onClick={this.toggleDrawer('left', false)}
             onKeyDown={this.toggleDrawer('left', false)}
           >
-            {sideList}
+            {navigation}
           </div>
         </Drawer>
         <LoadRecs
@@ -224,7 +224,7 @@ class TemporaryDrawer extends React.Component {
   }
 }
 
-TemporaryDrawer.propTypes = {
+Menu.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -261,4 +261,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TemporaryDrawer)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Menu)));
