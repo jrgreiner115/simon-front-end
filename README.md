@@ -19,12 +19,15 @@ The core functionality of this application is a combination of Pizzicato.js, a J
 ------------
 
 ![Recording Audio](https://media.giphy.com/media/6G8lDLEvjbRHM1OgZo/giphy.gif)
+
 *audio being recording*
 
 ![Listing To Audio](https://media.giphy.com/media/NTSP4lVW3nttY41E1K/giphy.gif)
+
 *playback of audio with character interactions*
 
 ![Adding a Reverb Effect to Audio](https://media.giphy.com/media/1isc6JtLDvhKKSO9CA/giphy.gif)
+
 *adding an effect to the audio clip*
 
 ------------
