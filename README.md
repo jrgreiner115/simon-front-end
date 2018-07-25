@@ -41,9 +41,10 @@ Front-End:
 3. Start the local server with `npm start`
 
 Back-End:
-4. Clone down the [API repo](https://github.com/jrgreiner115/simon-back-end).
-5. Install any depencies with  `bundle install`
-6. Start the local server with `rails s -p 3500`
+
+1. Clone down the [API repo](https://github.com/jrgreiner115/simon-back-end).
+2. Install any depencies with  `bundle install`
+3. Start the local server with `rails s -p 3500`
 
 AWS Config:
 * After you've created your S3 server, you'll need to give it a Public Bucket Policy. The only actions you'll need are: `s3:GetObject` and `s3:GetObjectAcl`. You may also need to give the bucket a CORS configuration.
